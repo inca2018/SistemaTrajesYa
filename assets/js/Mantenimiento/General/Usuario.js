@@ -79,7 +79,7 @@ function Listar_Usuario() {
         "aProcessing": true,
         "aServerSide": true,
         "processing": true,
-        "paging": false, // Paginacion en tabla
+        "paging": true, // Paginacion en tabla
         "ordering": true, // Ordenamiento en columna de tabla
         "info": true, // Informacion de cabecera tabla
         "responsive": true, // Accion de responsive
@@ -156,7 +156,9 @@ function RecuperarUsuario(idUsuario) {
             $("#imagePreview").attr("style","background-image: url('/assets/images/"+data.imagen+"'); width: 100; height: 100;");
         }
 
-        $("#idUsuario").val(data.idUsuario);
+        debugger;
+
+        $("#UsuarioidUsuario").val(data.idUsuario);
         $("#UsuarioNombre").val(data.NombreUsuario);
         $("#UsuarioApellido").val(data.ApellidosUsuario);
         $("#UsuarioDni").val(data.Dni);

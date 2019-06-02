@@ -55,7 +55,7 @@ function Cargar(selector, Estado) {
     }
 }
 
-/*$.fn.datepicker.dates['es'] = {
+$.fn.datepicker.dates['es'] = {
     days: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
     daysShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
     daysMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
@@ -66,42 +66,17 @@ function Cargar(selector, Estado) {
     format: "mm/dd/yyyy",
     titleFormat: "MM yyyy",
     weekStart: 0
-};*/
+};
 
-function MenuActivo() {
-
-    var path = location.pathname;
+function MenuNuevo() {
     var Arrpath = location.pathname.split('/');
-    var menu = Arrpath[1];
-    console.log(path);
-
-    $(".pcoded-hasmenu").each(function () {
-
-        if ($(this).attr("id") == menu) {
-            $(this).addClass("active");
-            $(this).addClass("pcoded-trigger");
-
-        } else {
-            $(this).removeClass("active");
-            $(this).removeClass("pcoded-trigger");
-        }
-
-    });
-
-    $(".opcionMenu").each(function () {
-
-        var hijo = $(this).children('a');
-        var valor = hijo.attr("href");
-        if (valor == path) {
-            $(this).addClass("active");
-        } else {
-            $(this).removeClass("active");
-        }
-    });
-
-
-
-
+    if (Arrpath.length == 4) {
+        $("#"+Arrpath[1]).parent().addClass("pcoded-trigger");
+        $("#"+Arrpath[1]).parent().addClass("active");
+        $("#"+Arrpath[2]).parent().addClass("pcoded-trigger");
+        $("#"+Arrpath[2]).parent().addClass("active");
+        $("#"+Arrpath[3]).parent().addClass("active");
+    }
 }
 
 function CerrarSession() {
@@ -215,30 +190,31 @@ function RecuperarFechaAyerLimit() {
         } else {
             return Fecha = (`${year}/${month}/${day}`);
         }
-    } 
+    }
 }
-function mostrarFecha(days){
-    var Fecha="";
-    milisegundos=parseInt(35*24*60*60*1000);
- 
-    fecha=new Date();
-    day=fecha.getDate();
-    // el mes es devuelto entre 0 y 11
-    month=fecha.getMonth()+1;
-    year=fecha.getFullYear();
- 
-    
-    //Obtenemos los milisegundos desde media noche del 1/1/1970
-    tiempo=fecha.getTime();
-    //Calculamos los milisegundos sobre la fecha que hay que sumar o restar...
-    milisegundos=parseInt(days*24*60*60*1000);
-    //Modificamos la fecha actual
-    total=fecha.setTime(tiempo+milisegundos);
-    day=fecha.getDate();
-    month=fecha.getMonth()+1;
-    year=fecha.getFullYear();
 
-     if (month < 10) {
+function mostrarFecha(days) {
+    var Fecha = "";
+    milisegundos = parseInt(35 * 24 * 60 * 60 * 1000);
+
+    fecha = new Date();
+    day = fecha.getDate();
+    // el mes es devuelto entre 0 y 11
+    month = fecha.getMonth() + 1;
+    year = fecha.getFullYear();
+
+
+    //Obtenemos los milisegundos desde media noche del 1/1/1970
+    tiempo = fecha.getTime();
+    //Calculamos los milisegundos sobre la fecha que hay que sumar o restar...
+    milisegundos = parseInt(days * 24 * 60 * 60 * 1000);
+    //Modificamos la fecha actual
+    total = fecha.setTime(tiempo + milisegundos);
+    day = fecha.getDate();
+    month = fecha.getMonth() + 1;
+    year = fecha.getFullYear();
+
+    if (month < 10) {
         if (day < 10) {
             return Fecha = (`${year}/0${month}/0${day}`);
         } else {
@@ -251,15 +227,10 @@ function mostrarFecha(days){
         } else {
             return Fecha = (`${year}/${month}/${day}`);
         }
-    } 
-          
+    }
+
 }
 
 window.onload = function () {
-    MenuActivo();
-
-
-
-
-
+    MenuNuevo();
 };

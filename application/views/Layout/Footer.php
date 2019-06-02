@@ -29,6 +29,8 @@
 <script type="text/javascript" src="<?php echo base_url(); ?>\files\bower_components\modernizr\js\modernizr.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>\files\bower_components\modernizr\js\css-scrollbars.js"></script>
 
+<!-- lightbox js -->
+ <script type="text/javascript" src="<?php echo base_url(); ?>\files\bower_components\lightbox2\js\lightbox.min.js"></script>
 
 <!-- Bootstrap date-time-picker js -->
 <script type="text/javascript" src="<?php echo base_url(); ?>\files\assets\pages\advance-elements\moment-with-locales.min.js"></script>

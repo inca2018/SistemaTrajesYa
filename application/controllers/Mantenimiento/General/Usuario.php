@@ -38,8 +38,12 @@ class Usuario extends CI_Controller
         if($reg->imagen==null){
             return 'Sin Imagen';
         }else{
-           return '<img src="../../assets/images/'.$reg->imagen.'" class="img-fluid rounded img-50">';
+           return  ' <a href="../../assets/images/'.$reg->imagen.'" data-lightbox="1" data-title="'.$reg->NombreUsuario.'">
+                                                                            <img src="../../assets/images/'.$reg->imagen.'" class="img-fluid rounded img-30">
+                                                                        </a>';
         }
+
+
 
     }     
       
@@ -52,8 +56,8 @@ class Usuario extends CI_Controller
             <button type="button"  title="Eliminar" class="btn btn-grd-danger btn-mini btn-round" onclick="EliminarUsuario(' . $reg->idUsuario . ",'" . $reg->usuario . "'" . ')"><i class="fa fa-trash"></i></button>    
                '; 
         } elseif ($reg->estado_idEstado == 2) {
-            return '<button type="button"  title="Habilitar" class="btn btn-grd-info btn-mini btn-round" onclick="HabilitarUsuario(' . $reg->idUsuario . ",'" . $reg->usuario . "'" . ')"><i class="fa fa-arrow-circle-up"></i></button> <button type="button"  title="Eliminar" class="btn btn-grd-danger btn-mini btn-round" onclick="EliminarUsuario(' . $reg->idUsuario . ')"><i class="fa fa-trash"></i></button> ';
-        } 
+            return '<button type="button"  title="Habilitar" class="btn btn-grd-info btn-mini btn-round" onclick="HabilitarUsuario(' . $reg->idUsuario . ",'" . $reg->usuario . "'" . ')"><i class="fa fa-arrow-circle-up"></i></button> <button type="button"  title="Eliminar" class="btn btn-grd-danger btn-mini btn-round" onclick="EliminarUsuario(' . $reg->idUsuario . ",'" . $reg->usuario . "'" . ')"><i class="fa fa-trash"></i></button> ';
+        }
     }
     public function ListarUsuario()
     { 
@@ -119,7 +123,7 @@ class Usuario extends CI_Controller
     
         if ($this->form_validation->run() == true) {
             /* Registras usuario */
-            if (empty($_POST['idUsuario'])) {
+            if (empty($_POST['UsuarioidUsuario'])) {
                 /* valida usuario */
                 $usuarioConsulta = $this->Recurso->Validaciones('usuario', 'usuario', $_POST['UsuarioUsuario']);
                 if ($usuarioConsulta > 0) {
@@ -164,11 +168,11 @@ class Usuario extends CI_Controller
                             'Mensaje' => 'Error al Registrar en base de datos Error:' . $registro["errDB"]["code"] . ':' . $registro["errDB"]["message"] . ', Comuniquese con el area de sistemas'
                         );
                     }
-                } 
+                }
             } else {
                 /* modificar usuario */
                 /* valida usuario */
-                $usuarioConsulta = $this->Recurso->Validaciones('usuario', 'usuario', $_POST['UsuarioUsuario'], 'idUsuario', $_POST['idUsuario']);
+                $usuarioConsulta = $this->Recurso->Validaciones('usuario', 'usuario', $_POST['UsuarioUsuario'], 'idUsuario', $_POST['UsuarioidUsuario']);
                 if ($usuarioConsulta > 0) {
                     $data['Error'] = true;
                     $data['Mensaje'] .= 'Usuario:' . $_POST['UsuarioUsuario'] . ' ya se encuentra registrado <br>';    

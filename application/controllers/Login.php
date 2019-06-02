@@ -47,7 +47,8 @@ class Login extends CI_Controller {
                     'Area' => $obtenerUsuario->areaUsuario,
                     'idEstado' => $obtenerUsuario->idEstado,    
                     'Estado' => $obtenerUsuario->estadoUsuario,
-                    'FechaRegistro' => $obtenerUsuario->fechaRegistro,          
+                    'FechaRegistro' => $obtenerUsuario->fechaRegistro,
+                    'Imagen' => $obtenerUsuario->imagen,
                     'logged_in' => true  
                     );            
                     $this->session->set_userdata($user_data);

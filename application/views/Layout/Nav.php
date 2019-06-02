@@ -33,7 +33,14 @@
                                     <?php
                                      if(isset($_SESSION['NombreUsuario'])){
                                     ?>
+
+                                    <?php if($_SESSION['Imagen']!=null){ ?>
+                                    <a href="../../assets/images/<?php echo $_SESSION['Imagen']?>" data-lightbox="1" data-title="<?php echo $_SESSION['NombreUsuario']?>">
+                                        <img src="../../assets/images/<?php echo $_SESSION['Imagen']?>" class="img-fluid rounded img-20">
+                                    </a>
                                     <span>
+                                        <?php } ?>
+
                                         <?php echo  $_SESSION['NombreUsuario']; ?></span>
                                     <?php
                                      }else{
@@ -63,18 +70,18 @@
                     <div class="pcoded-inner-navbar main-menu">
                         <div class="pcoded-navigatio-lavel">Menú Principal</div>
                         <ul class="pcoded-item pcoded-left-item">
-                            <li class="pcoded-hasmenu active pcoded-trigger">
+                            <li class="Menu1 pcoded-hasmenu">
                                 <a href="javascript:void(0)">
                                     <span class="pcoded-micon"><i class="feather icon-sidebar"></i></span>
                                     <span class="pcoded-mtext">Gestión</span>
                                 </a>
                                 <ul class="pcoded-submenu">
-                                    <li class=" pcoded-hasmenu active pcoded-trigger">
+                                    <li class="Menu2 pcoded-hasmenu">
                                         <a href="javascript:void(0)">
                                             <span class="pcoded-mtext">General</span>
                                         </a>
                                         <ul class="pcoded-submenu">
-                                            <li class="">
+                                            <li class="Option">
                                                 <a href="/Gestion/Ubigeo">
                                                     <span class="pcoded-mtext">Ubigeo Usuarios</span>
                                                 </a>
@@ -83,86 +90,85 @@
                                     </li>
                                 </ul>
                                 <ul class="pcoded-submenu">
-                                    <li class=" pcoded-hasmenu active pcoded-trigger">
+                                    <li class="Menu2 pcoded-hasmenu">
                                         <a href="javascript:void(0)">
                                             <span class="pcoded-mtext">Captación</span>
                                         </a>
                                         <ul class="pcoded-submenu">
-                                            <li class=" ">
+                                            <li class="Option">
                                                 <a href="/Gestion/DiagnosticoIndividual">
                                                     <span class="pcoded-mtext">Diagnosticos Invidual</span>
                                                 </a>
                                             </li>
-                                            <li class=" ">
+                                            <li class="Option">
                                                 <a href="/Gestion/DiagnosticoGrupal">
                                                     <span class="pcoded-mtext">Diagnostico Grupal</span>
                                                 </a>
                                             </li>
-                                             <li class=" ">
+                                            <li class="Option">
                                                 <a href="/Gestion/DiagnosticoResultados">
                                                     <span class="pcoded-mtext">Resultados</span>
                                                 </a>
                                             </li>
-                                        </ul> 
+                                        </ul>
                                     </li>
-                                </ul> 
+                                </ul>
                             </li>
-                            <li class="pcoded-hasmenu  pcoded-trigger">
-                                <a href="javascript:void(0)">
+                            <li class="Menu1 pcoded-hasmenu">
+                                <a href="javascript:void(0)" id="Mantenimiento">
                                     <span class="pcoded-micon"><i class="feather icon-sidebar"></i></span>
                                     <span class="pcoded-mtext">Mantenimientos</span>
                                 </a>
                                 <ul class="pcoded-submenu">
-                                    <li class=" pcoded-hasmenu active pcoded-trigger">
-                                        <a href="javascript:void(0)">
+                                    <li class="Menu2 pcoded-hasmenu">
+                                        <a href="javascript:void(0)" id="General">
                                             <span class="pcoded-mtext">General</span>
                                         </a>
                                         <ul class="pcoded-submenu">
-                                            <li class="">
-                                                <a href="/Mantenimiento/General/Usuario">
+                                            <li class="Option">
+                                                <a href="/Mantenimiento/General/Usuario" id="Usuario">
                                                     <span class="pcoded-mtext">Usuarios</span>
                                                 </a>
                                             </li>
-                                            <li class=" ">
-                                                <a href="/Mantenimiento/General/Perfil">
+                                            <li class="Option">
+                                                <a href="/Mantenimiento/General/Perfil" id="Perfil">
                                                     <span class="pcoded-mtext">Perfiles</span>
                                                 </a>
                                             </li>
-                                            <li class=" ">
-                                                <a href="/Mantenimiento/General/Area">
+                                            <li class="Option" >
+                                                <a href="/Mantenimiento/General/Area" id="Area">
                                                     <span class="pcoded-mtext">Áreas de Gestión</span>
                                                 </a>
                                             </li>
-                                            <li class=" ">
-                                                <a href="/Mantenimiento/General/Postulante">
+                                            <li class="Option">
+                                                <a href="/Mantenimiento/General/Postulante" id="Postulante">
                                                     <span class="pcoded-mtext">Postulantes</span>
                                                 </a>
-                                            </li>  
+                                            </li>
                                         </ul>
                                     </li>
-                                </ul>  
+                                </ul>
                                 <ul class="pcoded-submenu">
-                                    <li class=" pcoded-hasmenu active pcoded-trigger">
-                                        <a href="javascript:void(0)">
+                                    <li class="Menu2 pcoded-hasmenu">
+                                        <a href="javascript:void(0)" id="Captacion">
                                             <span class="pcoded-mtext">Captación</span>
                                         </a>
                                         <ul class="pcoded-submenu">
-                                            <li class=" ">
-                                                <a href="/Mantenimiento/Captacion/CopaOro">
+                                            <li class="Option">
+                                                <a href="/Mantenimiento/Captacion/CopaOro" id="CopaOro">
                                                     <span class="pcoded-mtext">Copa Oro</span>
                                                 </a>
                                             </li>
-                                            <li class=" ">
-                                                <a href="/Mantenimiento/Captacion/CopaPlata">
+                                            <li class="Option">
+                                                <a href="/Mantenimiento/Captacion/CopaPlata" id="CopaPlata">
                                                     <span class="pcoded-mtext">Copa Plata</span>
                                                 </a>
                                             </li>
-                                            <li class=" ">
-                                                <a href="/Mantenimiento/Captacion/Posicion">
+                                            <li class="Option">
+                                                <a href="/Mantenimiento/Captacion/Posicion" id="Posicion">
                                                     <span class="pcoded-mtext">Posiciones</span>
                                                 </a>
                                             </li>
-
                                         </ul>
                                     </li>
                                 </ul>

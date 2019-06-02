@@ -8,21 +8,22 @@
 <html lang="es">
 
 <head>
-    <title>Sistema de Registro de Horas</title>
+    <title>FuturoBlanquiazul Web</title>
   
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="#">
-    <meta name="keywords" content="Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
-    <meta name="author" content="#">  
+    <meta name="keywords" content="Alianza Lima , Responsive, Futuro,Blanquiazul,2019,Administrador">
+    <meta name="author" content="#">
     <!-- Favicon icon -->
     <link rel="icon" href="<?php echo base_url(); ?>\files\assets\images\favicon.ico" type="image/x-icon">
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
     <!-- Required Fremwork -->
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>\files\bower_components\bootstrap\css\bootstrap.min.css">
-    
+     <!-- lightbox Fremwork -->
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>\files\bower_components\lightbox2\css\lightbox.min.css">
       <!-- themify-icons line icon -->
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>\files\assets\icon\themify-icons\themify-icons.css">
     <!-- ico font -->

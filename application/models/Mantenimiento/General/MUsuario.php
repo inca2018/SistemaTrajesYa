@@ -5,7 +5,8 @@ date_default_timezone_set("America/Lima");
 $FechaAhora = date("Y-m-d H:i:s");
 $GLOBALS    = array(
     'FechaAhora' => $FechaAhora,
-    'idUsuario' => $_SESSION['idLogin']
+    'idUsuario' => $_SESSION['idLogin'],
+    'tabla' => "Usuario"
 );
 
 class MUsuario extends CI_Model
@@ -23,8 +24,8 @@ class MUsuario extends CI_Model
         $data                    = array(
             'usuario' => $this->input->post('UsuarioUsuario'),
             'password' => $password,
-            'NombreUsuario' => ucwords($this->input->post('UsuarioNombre')),
-            'ApellidosUsuario' => ucwords($this->input->post('UsuarioApellido')),
+            'NombreUsuario' => ucwords(strtolower($this->input->post('UsuarioNombre'))),
+            'ApellidosUsuario' => ucwords(strtolower($this->input->post('UsuarioApellido'))),
             'Dni' => $this->input->post('UsuarioDni'),
             'Cargo' => $this->input->post('UsuarioCargo'),
             'Correo' => $this->input->post('UsuarioCorreo'), 
@@ -37,6 +38,13 @@ class MUsuario extends CI_Model
         ); 
         $insert_data["Registro"] = $this->db->insert('usuario', $data);
         $insert_data["errDB"]    = $this->db->error();
+
+
+        /** Registro de Historial **/
+        $Mensaje=" Se Registró nuevo Usuario: ".$this->input->post('UsuarioUsuario')." - Nombres: ".ucwords(strtolower($this->input->post('UsuarioNombre')))." ".ucwords(strtolower($this->input->post('UsuarioApellido'))).".";
+        $this->db->select("FU_REGISTRO_HISTORIAL(1,".$this->glob['idUsuario'].",'".$Mensaje."','".$this->glob['FechaAhora']."') AS Respuesta");
+        $func["Historial"] = $this->db->get();
+
         return $insert_data; 
          
     }
@@ -47,8 +55,8 @@ class MUsuario extends CI_Model
             if($ruta_image== ''){
                 $data                    = array(
                 'usuario' => $this->input->post('UsuarioUsuario'),
-                'NombreUsuario' => ucwords($this->input->post('UsuarioNombre')),
-                'ApellidosUsuario' => ucwords($this->input->post('UsuarioApellido')),
+                'NombreUsuario' => ucwords(strtolower($this->input->post('UsuarioNombre'))),
+                'ApellidosUsuario' => ucwords(strtolower($this->input->post('UsuarioApellido'))),
                 'Dni' => $this->input->post('UsuarioDni'),
                 'Cargo' => $this->input->post('UsuarioCargo'),
                 'Correo' => $this->input->post('UsuarioCorreo'),
@@ -59,8 +67,8 @@ class MUsuario extends CI_Model
             }else{
                  $data                    = array(
                 'usuario' => $this->input->post('UsuarioUsuario'),
-                'NombreUsuario' => ucwords($this->input->post('UsuarioNombre')),
-                'ApellidosUsuario' => ucwords($this->input->post('UsuarioApellido')),
+                'NombreUsuario' => ucwords(strtolower($this->input->post('UsuarioNombre'))),
+                'ApellidosUsuario' => ucwords(strtolower($this->input->post('UsuarioApellido'))),
                 'Dni' => $this->input->post('UsuarioDni'),
                 'Cargo' => $this->input->post('UsuarioCargo'),
                 'Correo' => $this->input->post('UsuarioCorreo'),
@@ -76,8 +84,8 @@ class MUsuario extends CI_Model
                  $data                    = array(
                 'usuario' => $this->input->post('UsuarioUsuario'),
                 'password' => $password,
-                'NombreUsuario' => ucwords($this->input->post('UsuarioNombre')),
-                'ApellidosUsuario' => ucwords($this->input->post('UsuarioApellido')),
+                'NombreUsuario' => ucwords(strtolower($this->input->post('UsuarioNombre'))),
+                'ApellidosUsuario' => ucwords(strtolower($this->input->post('UsuarioApellido'))),
                 'Dni' => $this->input->post('UsuarioDni'),
                 'Cargo' => $this->input->post('UsuarioCargo'),
                 'Correo' => $this->input->post('UsuarioCorreo'),
@@ -89,8 +97,8 @@ class MUsuario extends CI_Model
                  $data                    = array(
                 'usuario' => $this->input->post('UsuarioUsuario'),
                 'password' => $password,
-                'NombreUsuario' => ucwords($this->input->post('UsuarioNombre')),
-                'ApellidosUsuario' => ucwords($this->input->post('UsuarioApellido')),
+                'NombreUsuario' => ucwords(strtolower($this->input->post('UsuarioNombre'))),
+                'ApellidosUsuario' => ucwords(strtolower($this->input->post('UsuarioApellido'))),
                 'Dni' => $this->input->post('UsuarioDni'),
                 'Cargo' => $this->input->post('UsuarioCargo'),
                 'Correo' => $this->input->post('UsuarioCorreo'),
@@ -102,9 +110,17 @@ class MUsuario extends CI_Model
             }
 
         }
-        $this->db->where('idUsuario', $_POST['idUsuario']);
+        $this->db->where('idUsuario', $_POST['UsuarioidUsuario']);
         $insert_data["Registro"] = $this->db->update('usuario', $data);
         $insert_data["errDB"]    = $this->db->error();
+
+
+        /** Registro de Historial **/
+        $Mensaje=" Se Actualizó  Usuario: ".$this->input->post('UsuarioUsuario')." - Nombres: ".ucwords(strtolower($this->input->post('UsuarioNombre')))." ".ucwords(strtolower($this->input->post('UsuarioApellido'))).".";
+        $this->db->select("FU_REGISTRO_HISTORIAL(2,".$this->glob['idUsuario'].",'".$Mensaje."','".$this->glob['FechaAhora']."') AS Respuesta");
+        $func["Historial"] = $this->db->get();
+
+
         return $insert_data;
     }  
     public function ListarUsuario()
@@ -125,10 +141,24 @@ class MUsuario extends CI_Model
     }
     public function EliminarUsuario()
     {
+        /** Recuperar Datos para Historial **/
+        $this->db->select("usuario,NombreUsuario,ApellidosUsuario ");
         $this->db->where('idUsuario', $_POST['idUsuario']);
+        $row = $this->db->get('usuario');
+        $query=$row->row();
+
         
+        /** Registro de Historial **/
+        $Mensaje=" Se Eliminó  Usuario: ".$query->usuario." - Nombres: ".$query->NombreUsuario." ".$query->ApellidosUsuario.".";
+        $this->db->select("FU_REGISTRO_HISTORIAL(5,".$this->glob['idUsuario'].",'".$Mensaje."','".$this->glob['FechaAhora']."') AS Respuesta");
+        $func["Historial"] = $this->db->get();
+
+
+        /** Eliminar Usuario **/
+        $this->db->where('idUsuario', $_POST['idUsuario']);
         $delete_data["Delete"] = $this->db->delete('usuario');
         $delete_data["errDB"]  = $this->db->error();
+
         return $delete_data;
         
     }   
@@ -141,6 +171,25 @@ class MUsuario extends CI_Model
         $this->db->where('idUsuario', $_POST['idUsuario']);
         $insert_data["accion"] = $this->db->update('usuario', $data);
         $insert_data["errDB"]  = $this->db->error();
+
+
+         /** Recuperar Datos para Historial **/
+        $this->db->select("usuario,NombreUsuario,ApellidosUsuario ");
+        $this->db->where('idUsuario', $_POST['idUsuario']);
+        $row = $this->db->get('usuario');
+        $query=$row->row();
+        /** Registro de Historial **/
+        $Mensaje="";
+        if($codigo==1){
+             $Mensaje=" Se Habilitó  Usuario: ".$query->usuario." - Nombres: ".$query->NombreUsuario." ".$query->ApellidosUsuario.".";
+             $this->db->select("FU_REGISTRO_HISTORIAL(3,".$this->glob['idUsuario'].",'".$Mensaje."','".$this->glob['FechaAhora']."') AS Respuesta");
+             $func["Historial"] = $this->db->get();
+        }else{
+             $Mensaje=" Se Inhabilitó  Usuario: ".$query->usuario." - Nombres: ".$query->NombreUsuario." ".$query->ApellidosUsuario.".";
+             $this->db->select("FU_REGISTRO_HISTORIAL(4,".$this->glob['idUsuario'].",'".$Mensaje."','".$this->glob['FechaAhora']."') AS Respuesta");
+             $func["Historial"] = $this->db->get();
+        }
+
         return $insert_data;
     }
     

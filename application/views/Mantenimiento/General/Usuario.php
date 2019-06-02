@@ -17,7 +17,7 @@ $this->load->view('Layout/Nav');
                                         <a href="/Menu"> <i class="feather icon-home"></i> </a>
                                     </li>
                                     <li class="breadcrumb-item"><a href="#">Gestión</a> </li>
-                                    <li class="breadcrumb-item"><a href="/Mantenimiento/Usuario">Usuarios</a> </li>
+                                    <li class="breadcrumb-item"><a href="/Mantenimiento/General/Usuario">Usuarios</a> </li>
                                 </ul>
                             </div>
                         </div>
@@ -64,12 +64,12 @@ $this->load->view('Layout/Nav');
 <?php
    $this->load->view('Layout/Footer'); 
 ?>
-<div class="modal fade" id="ModalUsuario" role="dialog" aria-labelledby="myModalLabelLarge" aria-hidden="true">
+<div class="modal fade" id="ModalUsuario" role="dialog" aria-labelledby="myModalLabelLarge" aria-hidden="true" style="z-index:10001 !important;">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-body">
                 <form id="FormularioUsuario" method="POST" autocomplete="off">
-                    <input type="hidden" id="idUsuario" name="idUsuario" value="">
+                    <input type="hidden" id="UsuarioidUsuario" name="UsuarioidUsuario" value="">
                     <div class="form-group row">
                         <div class="col-sm-12 center_element">
                             <h4 id="tituloModalUsuario"></h4>
