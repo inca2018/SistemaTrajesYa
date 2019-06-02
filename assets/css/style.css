@@ -1,0 +1,170 @@
+
+
+
+body {
+    background: #f1f1f1 !important;
+    margin: 0px;
+    font-family: 'Roboto', sans-serif;
+}
+
+@media screen and (max-width: 1680px) {
+
+    .componente {
+        width: 100%;
+        height: 120px;
+    }
+
+    .cabecera {
+        height: auto;
+        background-color: #5c5c5c;
+        justify-content: center;
+        line-height: 100px;
+    }
+
+    .logo {
+        width: 100%;
+
+        vertical-align: middle;
+    }
+
+    .Titulopregunta {
+        font-size: 14px !important;
+        margin-top: 10px !important;
+    }
+
+    .texto-12px {
+        font-size: 14px !important;
+        margin: 5px !important;
+    }
+
+    .texto-10px {
+        font-size: 12px !important;
+        margin: 5px !important;
+    }
+    .texto-8px {
+        font-size: 10px !important;
+        margin: 5px !important;
+    }
+
+}
+
+@media screen and (max-width: 1280px) {
+
+    .componente {
+        width: 100%;
+        height: 80px;
+    }
+
+    .cabecera {
+        height: auto;
+        background-color: #504d4a;
+        justify-content: center;
+        line-height: 60px;
+    }
+
+    .logo {
+        width: 100%;
+        height: 50px;
+        vertical-align: middle;
+    }
+
+    .Titulopregunta {
+        font-size: 12px !important;
+        margin-top: 10px !important;
+    }
+
+    .texto-12px {
+        font-size: 12px !important;
+        margin: 5px !important;
+    }
+
+    .texto-10px {
+        font-size: 10px !important;
+        margin: 5px !important;
+    }
+    .texto-8px {
+        font-size: 8px !important;
+        margin: 5px !important;
+    }
+
+}
+
+@media screen and (max-width: 360px) {
+
+    .componente {
+        width: 100%;
+        height: 60px;
+    }
+
+    .cabecera {
+        height: auto;
+        background-color: #504d4a;
+        justify-content: center;
+        line-height: 60px;
+    }
+
+    .logo {
+        width: 100%;
+        height: 50px;
+        vertical-align: middle;
+    }
+
+    .Titulopregunta {
+        font-size: 10px !important;
+        margin-top: 5px !important;
+    }
+
+    .texto-12px {
+        font-size: 12px !important;
+        margin: 5px !important;
+    }
+
+    .texto-10px {
+        font-size: 8px !important;
+        margin: 5px !important;
+    }
+    .texto-8px {
+        font-size: 8px !important;
+        margin: 5px !important;
+    }
+
+}
+
+
+
+#contenedor {
+    background: white !important;
+    margin: 0px;
+}
+
+#tituloEncuesta {
+    text-align: center;
+    justify-content: center;
+    color: white;
+    font-weight: 100;
+    font-size: 18px;
+    margin: 10px;
+}
+
+
+
+
+.pie_pagina {
+
+    height: 100px;
+    background-color: #504d4a;
+    position: relative;
+    text-align: center;
+    align-self: center;
+    justify-content: center;
+}
+
+.boton {
+    widows: 100%;
+    height: 50%;
+    position: absolute;
+    top: -20px;
+}
+.boton_envio{
+    background-color: #f99200 !important;
+}
