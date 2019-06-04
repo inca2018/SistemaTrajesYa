@@ -1,7 +1,7 @@
-<?php 
+<?php
 
-$this->load->view('Layout/Header'); 
-$this->load->view('Layout/Nav'); 
+$this->load->view('Layout/Header');
+$this->load->view('Layout/Nav');
 
 ?>
 <div class="pcoded-content">
@@ -16,8 +16,8 @@ $this->load->view('Layout/Nav');
                                     <li class="breadcrumb-item">
                                         <a href="/Menu"> <i class="feather icon-home"></i> </a>
                                     </li>
-                                    <li class="breadcrumb-item"><a href="#">Gestión</a> </li>
-                                    <li class="breadcrumb-item"><a href="/Mantenimiento/General/Usuario">Usuarios</a> </li>
+                                    <li class="breadcrumb-item"><a href="#">Mantenimiento</a> </li>
+                                    <li class="breadcrumb-item"><a href="/Mantenimiento/Usuario">Usuarios</a> </li>
                                 </ul>
                             </div>
                         </div>
@@ -42,7 +42,6 @@ $this->load->view('Layout/Nav');
                                                     <th>Perfil</th>
                                                     <th>Acciones</th>
                                                     <th>Dni</th>
-                                                    <th>Cargo</th>
                                                     <th>Correo</th>
                                                     <th>Fecha de Reg.</th>
                                                     <th>Ultima Act.</th>
@@ -62,7 +61,7 @@ $this->load->view('Layout/Nav');
     </div>
 </div>
 <?php
-   $this->load->view('Layout/Footer'); 
+   $this->load->view('Layout/Footer');
 ?>
 <div class="modal fade" id="ModalUsuario" role="dialog" aria-labelledby="myModalLabelLarge" aria-hidden="true" style="z-index:10001 !important;">
     <div class="modal-dialog modal-lg">
@@ -85,34 +84,31 @@ $this->load->view('Layout/Nav');
                                 </div>
                                 <div class="avatar-preview">
                                     <div id="imagePreview" style="background-image: url('/assets/images/usuario_default.svg'); width: 100; height: 100;">
-                                    </div> 
+                                    </div>
                                 </div>
-                            </div> 
-                        </div> 
+                            </div>
+                        </div>
                         <div class="col-sm-6 col-md-6">
                             <label class="col-form-label">Nombres:</label>
                             <input type="text" class="form-control" name="UsuarioNombre" id="UsuarioNombre"  maxlength="50" >
                         </div>
                         <div class="col-sm-6 col-md-6">
                             <label class="col-form-label">Apellidos:</label>
-                            <input type="text" class="form-control" name="UsuarioApellido" id="UsuarioApellido"  maxlength="100"> 
+                            <input type="text" class="form-control" name="UsuarioApellido" id="UsuarioApellido"  maxlength="100">
                         </div>
                         <div class="col-sm-3 col-md-3">
                             <label class="col-form-label">Dni:</label>
                             <input type="text" class="form-control" name="UsuarioDni" id="UsuarioDni" onkeypress="return SoloNumerosModificado(event,8,this.id);">
                         </div>
-                        <div class="col-sm-3 col-md-3">
-                            <label class="col-form-label">Cargo:</label>
-                            <input type="text" class="form-control" name="UsuarioCargo" id="UsuarioCargo" maxlength="150" >
-                        </div>
+
                         <div class="col-sm-3 col-md-3">
                             <label class="col-form-label">Perfil:</label>
                             <select class="form-control" id="UsuarioPerfil" name="UsuarioPerfil"> </select>
-                        </div>  
-                        <div class="col-sm-3 col-md-3">
-                            <label class="col-form-label">Area:</label>
-                            <select class="form-control" id="UsuarioArea" name="UsuarioArea"> </select>   
-                        </div>     
+                        </div>
+                         <div class="col-sm-6 col-md-6">
+                            <label class="col-form-label">Correo:</label>
+                            <input type="email" class="form-control" name="UsuarioCorreo" id="UsuarioCorreo" maxlength="150" >
+                        </div>
 
                         <div class="col-sm-6 col-md-6">
                             <label class="col-form-label">Usuario:</label>
@@ -121,12 +117,9 @@ $this->load->view('Layout/Nav');
                         <div class="col-sm-6 col-md-6">
                             <label class="col-form-label">Contraseña:</label>
                             <input type="text" class="form-control" name="UsuarioPass" id="UsuarioPass" maxlength="20" >
-                        </div> 
-                        <div class="col-sm-6 col-md-6">
-                            <label class="col-form-label">Correo:</label>
-                            <input type="email" class="form-control" name="UsuarioCorreo" id="UsuarioCorreo" maxlength="150" >
-                        </div> 
-                    </div> 
+                        </div>
+
+                    </div>
                     <div class="row">
                         <div class="col col-md-6   text-left">
                             <input type="button" class="btn btn-grd-danger btn-sm btn-round" value="CANCELAR" onclick="Cancelar();"> </div>
@@ -139,4 +132,4 @@ $this->load->view('Layout/Nav');
         </div>
     </div>
 </div>
-<script type="text/javascript" src="<?php echo base_url();?>assets/js/Mantenimiento/General/Usuario.js"></script>
+<script type="text/javascript" src="<?php echo base_url();?>assets/js/Mantenimiento/Usuario.js"></script>

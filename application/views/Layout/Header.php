@@ -8,7 +8,7 @@
 <html lang="es">
 
 <head>
-    <title>FuturoBlanquiazul Web</title>
+    <title>Sistema TrajesYa!</title>
   
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -66,6 +66,12 @@
       <!-- Base.css -->
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>\assets\css\base.css">
     
+
+    <!-- jquery file upload Frame work -->
+    <link href="<?php echo base_url(); ?>\files\assets\pages\jquery.filer\css\jquery.filer.css" type="text/css" rel="stylesheet">
+    <link href="<?php echo base_url(); ?>\files\assets\pages\jquery.filer\css\themes\jquery.filer-dragdropbox-theme.css" type="text/css" rel="stylesheet">
+
+
 </head>   
 
 <body>

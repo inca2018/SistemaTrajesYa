@@ -8,14 +8,14 @@ function init() {
 }
 
 function ListarTipoPerfil() {
-    $.post("/Mantenimiento/General/Usuario/ListarTipoPerfil", function (ts) {
+    $.post("/Mantenimiento/Usuario/ListarTipoPerfil", function (ts) {
         $("#UsuarioPerfil").empty();
         $("#UsuarioPerfil").append(ts);
     });
 }
 
 function ListarTipoArea() {
-    $.post("/Mantenimiento/General/Usuario/ListarTipoArea", function (ts) {
+    $.post("/Mantenimiento/Usuario/ListarTipoArea", function (ts) {
         $("#UsuarioArea").empty();
         $("#UsuarioArea").append(ts);
     });
@@ -48,7 +48,7 @@ function RegistroUsuario(event) {
     var formData = new FormData($("#FormularioUsuario")[0]);
     console.log(formData);
     $.ajax({
-        url: "/Mantenimiento/General/Usuario/InsertUpdateUsuario",
+        url: "/Mantenimiento/Usuario/InsertUpdateUsuario",
         type: "POST",
         data: formData,
         contentType: false,
@@ -103,7 +103,7 @@ function Listar_Usuario() {
             }
          , ],
         "ajax": { //Solicitud Ajax Servidor
-            url: '/Mantenimiento/General/Usuario/ListarUsuario',
+            url: '/Mantenimiento/Usuario/ListarUsuario',
             type: "POST",
             dataType: "JSON",
             error: function (e) {
@@ -142,7 +142,7 @@ function EditarUsuario(idUsuario) {
 
 function RecuperarUsuario(idUsuario) {
     //solicitud de recuperar Proveedor
-    $.post("/Mantenimiento/General/Usuario/ObtenerUsuario", {
+    $.post("/Mantenimiento/Usuario/ObtenerUsuario", {
         "idUsuario": idUsuario
     }, function (data, status) {
         data = JSON.parse(data);
@@ -183,7 +183,7 @@ function EliminarUsuario(idUsuario, Usuario) {
         confirmButtonText: "Eliminar!",
         closeOnConfirm: false
     }, function () {
-        $.post("/Mantenimiento/General/Usuario/EliminarUsuario", {
+        $.post("/Mantenimiento/Usuario/EliminarUsuario", {
             'idUsuario': idUsuario
         }, function (data, e) {
             data = JSON.parse(data);
@@ -207,7 +207,7 @@ function HabilitarUsuario(idUsuario, Usuario) {
         confirmButtonText: "Habilitar!",
         closeOnConfirm: false
     }, function () {
-        $.post("/Mantenimiento/General/Usuario/HabilitarUsuario", {
+        $.post("/Mantenimiento/Usuario/HabilitarUsuario", {
             'idUsuario': idUsuario
         }, function (data, e) {
             data = JSON.parse(data);
@@ -231,7 +231,7 @@ function InabilitarUsuario(idUsuario, Usuario) {
         confirmButtonText: "Inhabilitar!",
         closeOnConfirm: false
     }, function () {
-        $.post("/Mantenimiento/General/Usuario/InhabilitarUsuario", {
+        $.post("/Mantenimiento/Usuario/InhabilitarUsuario", {
             'idUsuario': idUsuario
         }, function (data, e) {
             data = JSON.parse(data);

@@ -19,8 +19,8 @@ $this->load->view('Layout/Nav');
                                     <li class="breadcrumb-item">
                                         <a href="/Menu"> <i class="feather icon-home"></i> </a>
                                     </li>
-                                    <li class="breadcrumb-item"><a href="#">Gestión</a> </li>
-                                    <li class="breadcrumb-item"><a href="/Mantenimiento/General/Perfil">Perfiles</a> </li>
+                                    <li class="breadcrumb-item"><a href="#">Mantenimiento</a> </li>
+                                    <li class="breadcrumb-item"><a href="/Mantenimiento/Perfil">Perfiles</a> </li>
                                 </ul>
                             </div>
 
@@ -95,4 +95,4 @@ $this->load->view('Layout/Nav');
         </div>
     </div>
 </div>
-<script type="text/javascript" src="<?php echo base_url();?>assets/js/Mantenimiento/General/Perfil.js"></script>
+<script type="text/javascript" src="<?php echo base_url();?>assets/js/Mantenimiento/Perfil.js"></script>

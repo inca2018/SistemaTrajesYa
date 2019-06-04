@@ -23,11 +23,10 @@ class MLogin extends CI_Model {
       $where = array(
         'u.usuario' => $this->input->post('L_User')
       ); 
-      $this->db->select('u.idUsuario,u.usuario,u.password,CONCAT(u.NombreUsuario," ",u.ApellidosUsuario) as usuarioNombres,u.Dni,u.imagen,u.Cargo,u.Correo,DATE_FORMAT(u.fechaRegistro,"%d/%m/%Y") as fechaRegistro,u.imagen,p.idPerfil,p.DescripcionPerfil as perfilUsuario,a.idArea,a.DescripcionArea as areaUsuario,e.idEstado,e.DescripcionEstado as estadoUsuario');
+      $this->db->select('u.idUsuario,u.usuario,u.password,CONCAT(u.NombreUsuario," ",u.ApellidosUsuario) as usuarioNombres,u.Dni,u.imagen,u.Correo,DATE_FORMAT(u.fechaRegistro,"%d/%m/%Y") as fechaRegistro,u.imagen,p.idPerfil,p.DescripcionPerfil as perfilUsuario,e.idEstado,e.DescripcionEstado as estadoUsuario');
       $this->db->from('usuario u'); 
       $this->db->join('perfil p','p.idPerfil=u.perfil_idPerfil');
-      $this->db->join('area a','a.idArea=u.area_idArea'); 
-      $this->db->join('estado e','e.idEstado=u.estado_idEstado'); 
+      $this->db->join('estado e','e.idEstado=u.estado_idEstado');
       $this->db->where($where);
       $query=$this->db->get();    
       return $query->row();   

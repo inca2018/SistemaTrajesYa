@@ -2,10 +2,10 @@ var tablaArea;
 
 function init() {
     Iniciar_Componentes();
-    Listar_Area();  
-   
+    Listar_Area();
+
 }
- 
+
 function Iniciar_Componentes() {
     $("#FormularioArea").on("submit", function (e) {
         RegistroArea(e);
@@ -24,14 +24,14 @@ function RegistroArea(event) {
         success: function (data, status) {
             data = JSON.parse(data);
             console.log(data);
-            var Mensaje = data.Mensaje;  
+            var Mensaje = data.Mensaje;
             var Error = data.Error;
             if (Error) {
-                mensaje_warning(Mensaje);       
+                mensaje_warning(Mensaje);
             } else {
                 $('#ModalArea').modal('hide');
                 mensaje_success(Mensaje)
-                LimpiarArea(); 
+                LimpiarArea();
                 tablaArea.ajax.reload();
             }
         },
@@ -57,7 +57,7 @@ function Listar_Area() {
             {
                 "className": "text-center",
                 "targets": [2]
-            } 
+            }
             , {
                 "className": "text-left",
                 "targets": [0]
@@ -66,8 +66,8 @@ function Listar_Area() {
                 "targets": []
             }, {
                 "className": "text-wrap",
-                "targets": [1]  
-            } 
+                "targets": [1]
+            }
          , ],
         "ajax": { //Solicitud Ajax Servidor
             url: '/Mantenimiento/Area/ListarArea',
@@ -79,8 +79,8 @@ function Listar_Area() {
         }, // cambiar el lenguaje de datatable
         oLanguage: español,
     }).DataTable();
-     
-    
+
+
 }
 function NuevoArea() {
     $("#ModalArea").modal({
@@ -90,7 +90,7 @@ function NuevoArea() {
     $("#ModalArea").modal("show");
     $("#tituloModalArea").empty();
     $("#tituloModalArea").append("Registro de Area");
-   
+
 }
 function EditarArea(idArea) {
     $("#ModalArea").modal({
@@ -100,7 +100,7 @@ function EditarArea(idArea) {
     $("#ModalArea").modal("show");
     $("#tituloModalArea").empty();
     $("#tituloModalArea").append("Edición de Area");
-  
+
     RecuperarArea(idArea);
 }
 function RecuperarArea(idArea) {
@@ -112,7 +112,7 @@ function RecuperarArea(idArea) {
         console.log(data);
         $("#idArea").val(data.idArea);
         $("#AreaTitulo").val(data.Descripcion);
-  
+
     });
 }
 function EliminarArea(idArea, Area) {
@@ -191,10 +191,10 @@ function LimpiarArea() {
 function Cancelar() {
     LimpiarArea();
     $("#ModalArea").modal("hide");
-} 
+}
 function SubAreas(idArea){
      $.redirect('/Mantenimiento/SubArea/', {
         'idArea': idArea
-    });  
-} 
-init(); 
+    });
+}
+init();

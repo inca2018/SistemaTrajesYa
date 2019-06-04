@@ -70,12 +70,11 @@ $.fn.datepicker.dates['es'] = {
 
 function MenuNuevo() {
     var Arrpath = location.pathname.split('/');
-    if (Arrpath.length == 4) {
+    if (Arrpath.length == 3) {
         $("#"+Arrpath[1]).parent().addClass("pcoded-trigger");
         $("#"+Arrpath[1]).parent().addClass("active");
         $("#"+Arrpath[2]).parent().addClass("pcoded-trigger");
         $("#"+Arrpath[2]).parent().addClass("active");
-        $("#"+Arrpath[3]).parent().addClass("active");
     }
 }
 

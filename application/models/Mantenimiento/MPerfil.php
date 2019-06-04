@@ -26,6 +26,12 @@ class MPerfil extends CI_Model
         );
         $insert_data["Registro"] = $this->db->insert('perfil', $data);
         $insert_data["errDB"]    = $this->db->error();
+
+         /** Registro de Historial **/
+        $Mensaje=" Se Registró nuevo Perfil: ".$this->input->post('PerfilTitulo')."";
+        $this->db->select("FU_REGISTRO_HISTORIAL(1,".$this->glob['idUsuario'].",'".$Mensaje."','".$this->glob['FechaAhora']."') AS Respuesta");
+        $func["Historial"] = $this->db->get();
+
         return $insert_data;
     }
     public function UpdatePerfil()
@@ -37,6 +43,13 @@ class MPerfil extends CI_Model
         $this->db->where('idPerfil', $_POST['PerfilidPerfil']);
         $insert_data["Registro"] = $this->db->update('perfil', $data);
         $insert_data["errDB"]    = $this->db->error();
+
+
+         /** Registro de Historial **/
+        $Mensaje=" Se Actualizó  Perfil: ".$this->input->post('PerfilTitulo')."";
+        $this->db->select("FU_REGISTRO_HISTORIAL(2,".$this->glob['idUsuario'].",'".$Mensaje."','".$this->glob['FechaAhora']."') AS Respuesta");
+        $func["Historial"] = $this->db->get();
+
         return $insert_data;
     }
     public function ListarPerfil()
@@ -56,10 +69,23 @@ class MPerfil extends CI_Model
     }
     public function EliminarPerfil()
     {
-        $this->db->where('idPerfil', $_POST['idPerfil']);
 
-        $delete_data["Delete"] = $this->db->delete('Perfil');
+         /** Recuperar Datos para Historial **/
+        $this->db->where('idPerfil', $_POST['idPerfil']);
+        $row = $this->db->get('perfil');
+        $query=$row->row();
+
+         /** Registro de Historial **/
+        $Mensaje=" Se Eliminó  Perfil: ".$query->DescripcionPerfil."";
+        $this->db->select("FU_REGISTRO_HISTORIAL(5,".$this->glob['idUsuario'].",'".$Mensaje."','".$this->glob['FechaAhora']."') AS Respuesta");
+        $func["Historial"] = $this->db->get();
+
+
+
+        $this->db->where('idPerfil', $_POST['idPerfil']);
+        $delete_data["Delete"] = $this->db->delete('perfil');
         $delete_data["errDB"]  = $this->db->error();
+
         return $delete_data;
 
     }
@@ -68,6 +94,23 @@ class MPerfil extends CI_Model
         $data = array(
             'Estado_idEstado' => $codigo
         );
+
+         /** Recuperar Datos para Historial **/
+        $this->db->where('idPerfil', $_POST['idPerfil']);
+        $row = $this->db->get('perfil');
+        $query=$row->row();
+
+        /** Registro de Historial **/
+        $Mensaje="";
+        if($codigo==1){
+             $Mensaje=" Se Habilitó  Perfil: ".$query->DescripcionPerfil."";
+             $this->db->select("FU_REGISTRO_HISTORIAL(3,".$this->glob['idUsuario'].",'".$Mensaje."','".$this->glob['FechaAhora']."') AS Respuesta");
+             $func["Historial"] = $this->db->get();
+        }else{
+             $Mensaje=" Se Inhabilitó  Perfil: ".$query->DescripcionPerfil."";
+             $this->db->select("FU_REGISTRO_HISTORIAL(4,".$this->glob['idUsuario'].",'".$Mensaje."','".$this->glob['FechaAhora']."') AS Respuesta");
+             $func["Historial"] = $this->db->get();
+        }
 
         $this->db->where('idPerfil', $_POST['idPerfil']);
         $insert_data["accion"] = $this->db->update('perfil', $data);

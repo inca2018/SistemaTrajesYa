@@ -76,41 +76,10 @@
                                     <span class="pcoded-mtext">Gestión</span>
                                 </a>
                                 <ul class="pcoded-submenu">
-                                    <li class="Menu2 pcoded-hasmenu">
-                                        <a href="javascript:void(0)">
-                                            <span class="pcoded-mtext">General</span>
+                                    <li class="Option">
+                                        <a href="/Gestion/Ubigeo">
+                                            <span class="pcoded-mtext">Pedidos</span>
                                         </a>
-                                        <ul class="pcoded-submenu">
-                                            <li class="Option">
-                                                <a href="/Gestion/Ubigeo">
-                                                    <span class="pcoded-mtext">Ubigeo Usuarios</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                                <ul class="pcoded-submenu">
-                                    <li class="Menu2 pcoded-hasmenu">
-                                        <a href="javascript:void(0)">
-                                            <span class="pcoded-mtext">Captación</span>
-                                        </a>
-                                        <ul class="pcoded-submenu">
-                                            <li class="Option">
-                                                <a href="/Gestion/DiagnosticoIndividual">
-                                                    <span class="pcoded-mtext">Diagnosticos Invidual</span>
-                                                </a>
-                                            </li>
-                                            <li class="Option">
-                                                <a href="/Gestion/DiagnosticoGrupal">
-                                                    <span class="pcoded-mtext">Diagnostico Grupal</span>
-                                                </a>
-                                            </li>
-                                            <li class="Option">
-                                                <a href="/Gestion/DiagnosticoResultados">
-                                                    <span class="pcoded-mtext">Resultados</span>
-                                                </a>
-                                            </li>
-                                        </ul>
                                     </li>
                                 </ul>
                             </li>
@@ -120,56 +89,35 @@
                                     <span class="pcoded-mtext">Mantenimientos</span>
                                 </a>
                                 <ul class="pcoded-submenu">
-                                    <li class="Menu2 pcoded-hasmenu">
-                                        <a href="javascript:void(0)" id="General">
-                                            <span class="pcoded-mtext">General</span>
+                                    <li class="Option">
+                                        <a href="/Mantenimiento/Usuario" id="Usuario">
+                                            <span class="pcoded-mtext">Usuarios</span>
                                         </a>
-                                        <ul class="pcoded-submenu">
-                                            <li class="Option">
-                                                <a href="/Mantenimiento/General/Usuario" id="Usuario">
-                                                    <span class="pcoded-mtext">Usuarios</span>
-                                                </a>
-                                            </li>
-                                            <li class="Option">
-                                                <a href="/Mantenimiento/General/Perfil" id="Perfil">
-                                                    <span class="pcoded-mtext">Perfiles</span>
-                                                </a>
-                                            </li>
-                                            <li class="Option" >
-                                                <a href="/Mantenimiento/General/Area" id="Area">
-                                                    <span class="pcoded-mtext">Áreas de Gestión</span>
-                                                </a>
-                                            </li>
-                                            <li class="Option">
-                                                <a href="/Mantenimiento/General/Postulante" id="Postulante">
-                                                    <span class="pcoded-mtext">Postulantes</span>
-                                                </a>
-                                            </li>
-                                        </ul>
                                     </li>
-                                </ul>
-                                <ul class="pcoded-submenu">
-                                    <li class="Menu2 pcoded-hasmenu">
-                                        <a href="javascript:void(0)" id="Captacion">
-                                            <span class="pcoded-mtext">Captación</span>
+                                    <li class="Option">
+                                        <a href="/Mantenimiento/Perfil" id="Perfil">
+                                            <span class="pcoded-mtext">Perfiles</span>
                                         </a>
-                                        <ul class="pcoded-submenu">
-                                            <li class="Option">
-                                                <a href="/Mantenimiento/Captacion/CopaOro" id="CopaOro">
-                                                    <span class="pcoded-mtext">Copa Oro</span>
-                                                </a>
-                                            </li>
-                                            <li class="Option">
-                                                <a href="/Mantenimiento/Captacion/CopaPlata" id="CopaPlata">
-                                                    <span class="pcoded-mtext">Copa Plata</span>
-                                                </a>
-                                            </li>
-                                            <li class="Option">
-                                                <a href="/Mantenimiento/Captacion/Posicion" id="Posicion">
-                                                    <span class="pcoded-mtext">Posiciones</span>
-                                                </a>
-                                            </li>
-                                        </ul>
+                                    </li>
+                                    <li class="Option">
+                                        <a href="/Mantenimiento/Medida" id="Medida">
+                                            <span class="pcoded-mtext">Medidas</span>
+                                        </a>
+                                    </li>
+                                    <li class="Option">
+                                        <a href="/Mantenimiento/Grupo" id="Grupo">
+                                            <span class="pcoded-mtext">Grupo de Categoria</span>
+                                        </a>
+                                    </li>
+                                    <li class="Option">
+                                        <a href="/Mantenimiento/Categoria" id="Categoria">
+                                            <span class="pcoded-mtext">Categoria</span>
+                                        </a>
+                                    </li>
+                                    <li class="Option">
+                                        <a href="/Mantenimiento/Producto" id="Producto">
+                                            <span class="pcoded-mtext">Productos</span>
+                                        </a>
                                     </li>
                                 </ul>
                             </li>

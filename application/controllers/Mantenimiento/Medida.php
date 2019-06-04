@@ -1,17 +1,17 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Perfil extends CI_Controller
+class Medida extends CI_Controller
 {
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('Mantenimiento/General/MPerfil');
+        $this->load->model('Mantenimiento/MMedida');
         $this->load->model('Recurso');
     }
     public function index()
     {
-        $this->load->view('Mantenimiento/General/Perfil');
+        $this->load->view('Mantenimiento/Medida');
     }
     public function BuscarEstado($reg)
     {
@@ -28,21 +28,21 @@ class Perfil extends CI_Controller
     {
         if ($reg->estado_idEstado == 1) {
             return '
-            <button type="button" title="Asignar Empleados" class="btn btn-grd-info btn-mini btn-round" onclick="AsignarEmpleados(' . $reg->idPerfil . ')"><i class="fa fa-user-plus"></i></button>
-            <button type="button" title="Editar" class="btn btn-grd-warning btn-mini btn-round" onclick="EditarPerfil(' . $reg->idPerfil . ')"><i class="fa fa-edit"></i></button>
-            <button type="button"  title="Inabilitar" class="btn btn-grd-primary btn-mini btn-round" onclick="InabilitarPerfil(' . $reg->idPerfil . ",'" . $reg->Titulo . "'" . ')"><i class="fa fa-arrow-circle-down"></i></button>
-            <button type="button"  title="Eliminar" class="btn btn-grd-danger btn-mini btn-round" onclick="EliminarPerfil(' . $reg->idPerfil . ",'" . $reg->Titulo . "'" . ')"><i class="fa fa-trash"></i></button>
+
+            <button type="button" title="Editar" class="btn btn-grd-warning btn-mini btn-round" onclick="EditarMedida(' . $reg->idMedida . ')"><i class="fa fa-edit"></i></button>
+            <button type="button"  title="Inabilitar" class="btn btn-grd-primary btn-mini btn-round" onclick="InabilitarMedida(' . $reg->idMedida . ",'" . $reg->Titulo . "'" . ')"><i class="fa fa-arrow-circle-down"></i></button>
+            <button type="button"  title="Eliminar" class="btn btn-grd-danger btn-mini btn-round" onclick="EliminarMedida(' . $reg->idMedida . ",'" . $reg->Titulo . "'" . ')"><i class="fa fa-trash"></i></button>
                ';
         } elseif ($reg->estado_idEstado == 2) {
-            return '<button type="button"  title="Habilitar" class="btn btn-grd-info btn-mini btn-round" onclick="HabilitarPerfil(' . $reg->idPerfil . ",'" . $reg->Titulo . "'" . ')"><i class="fa fa-arrow-circle-up"></i></button> <button type="button"  title="Eliminar" class="btn btn-grd-danger btn-mini btn-round" onclick="EliminarPerfil(' . $reg->idPerfil . ')"><i class="fa fa-trash"></i></button> ';
+            return '<button type="button"  title="Habilitar" class="btn btn-grd-info btn-mini btn-round" onclick="HabilitarMedida(' . $reg->idMedida . ",'" . $reg->Titulo . "'" . ')"><i class="fa fa-arrow-circle-up"></i></button> <button type="button"  title="Eliminar" class="btn btn-grd-danger btn-mini btn-round" onclick="EliminarMedida(' . $reg->idMedida . ')"><i class="fa fa-trash"></i></button> ';
         }
     }
 
 
 
-    public function ListarPerfil()
+    public function ListarMedida()
     {
-        $rspta = $this->MPerfil->ListarPerfil();
+        $rspta = $this->MMedida->ListarMedida();
         $data  = array();
 
         foreach ($rspta->result() as $reg) {
@@ -65,7 +65,7 @@ class Perfil extends CI_Controller
         echo json_encode($results);
     }
 
-    public function InsertUpdatePerfil()
+    public function InsertUpdateMedida()
     {
 
         $data = array(
@@ -73,16 +73,16 @@ class Perfil extends CI_Controller
             'Mensaje' => '',
             'Tipo' => 'success'
         );
-        $this->form_validation->set_rules('PerfilTitulo', 'Titulo del Perfil', 'trim|required|min_length[3]|max_length[120]');
+        $this->form_validation->set_rules('MedidaTitulo', 'Titulo del Medida', 'trim|required|min_length[3]|max_length[120]');
 
         if ($this->form_validation->run() == true) {
-            /* Registras Perfil */
-            if (empty($_POST['PerfilidPerfil'])) {
-                /* valida Perfil */
-                $VRuc = $this->Recurso->Validaciones('perfil', 'DescripcionPerfil', $_POST['PerfilTitulo']);
+            /* Registras Medida */
+            if (empty($_POST['MedidaidMedida'])) {
+                /* valida Medida */
+                $VRuc = $this->Recurso->Validaciones('medida', 'NombreMedida', $_POST['MedidaTitulo']);
                 if ($VRuc > 0) {
                     $data['Error'] = true;
-                    $data['Mensaje'] .= 'Perfil:  "' . $_POST['PerfilTitulo'] . '" , ya se encuentra registrado ';
+                    $data['Mensaje'] .= 'Medida:  "' . $_POST['MedidaTitulo'] . '" , ya se encuentra registrado ';
                 }
 
                 if ($data['Error']) {
@@ -90,9 +90,9 @@ class Perfil extends CI_Controller
                     $data['Mensaje'] .= 'Corregir los datos ingresados';
                 } else {
 
-                    $registro = $this->MPerfil->RegistroPerfil();
+                    $registro = $this->MMedida->RegistroMedida();
                     if ($registro['Registro']) {
-                        $data['Mensaje'] .= 'Perfil Registrado con exito.';
+                        $data['Mensaje'] .= 'Medida Registrado con exito.';
                     } else {
                         $data = array(
                             'Error' => true,
@@ -102,20 +102,20 @@ class Perfil extends CI_Controller
                     }
                 }
             } else {
-                /* modificar Perfil */
-                /* valida Perfil */
-                $VRuc = $this->Recurso->Validaciones('perfil', 'DescripcionPerfil', $_POST['PerfilTitulo'], 'idPerfil', $_POST['PerfilidPerfil']);
+                /* modificar Medida */
+                /* valida Medida */
+                $VRuc = $this->Recurso->Validaciones('medida', 'NombreMedida', $_POST['MedidaTitulo'], 'idMedida', $_POST['MedidaidMedida']);
                 if ($VRuc > 0) {
                     $data['Error'] = true;
-                    $data['Mensaje'] .= 'Perfil:' . $_POST['PerfilTitulo'] . ' ya se encuentra registrado <br>';
+                    $data['Mensaje'] .= 'Medida:' . $_POST['MedidaTitulo'] . ' ya se encuentra registrado <br>';
                 }
                 if ($data['Error']) {
                     $data['Tipo'] = 'warning';
                     $data['Mensaje'] .= 'Corregir los datos ingresados';
                 } else {
-                    $registro = $this->MPerfil->UpdatePerfil();
+                    $registro = $this->MMedida->UpdateMedida();
                     if ($registro['Registro']) {
-                        $data['Mensaje'] .= 'Perfil Modificado con exito.';
+                        $data['Mensaje'] .= 'Medida Modificado con exito.';
                     } else {
                         $data = array(
                             'Error' => true,
@@ -135,12 +135,12 @@ class Perfil extends CI_Controller
         echo json_encode($data);
     }
 
-    public function ObtenerPerfil()
+    public function ObtenerMedida()
     {
-        $data = $this->MPerfil->ObtenerPerfil();
+        $data = $this->MMedida->ObtenerMedida();
         echo json_encode($data);
     }
-    public function EliminarPerfil()
+    public function EliminarMedida()
     {
         $data = array(
             'Error' => false,
@@ -148,9 +148,9 @@ class Perfil extends CI_Controller
             'Tipo' => 'success'
         );
 
-        $delete = $this->MPerfil->EliminarPerfil();
+        $delete = $this->MMedida->EliminarMedida();
         if ($delete['Delete']) {
-            $data['Mensaje'] .= 'Perfil Eliminado con exito';
+            $data['Mensaje'] .= 'Medida Eliminado con exito';
         } else {
             $data = array(
                 'Error' => true,
@@ -161,7 +161,7 @@ class Perfil extends CI_Controller
 
         echo json_encode($data);
     }
-    public function HabilitarPerfil()
+    public function HabilitarMedida()
     {
         $data = array(
             'Error' => false,
@@ -169,9 +169,9 @@ class Perfil extends CI_Controller
             'Tipo' => 'success'
         );
 
-        $enable = $this->MPerfil->EstadoPerfil(1);
+        $enable = $this->MMedida->EstadoMedida(1);
         if ($enable['accion']) {
-            $data['Mensaje'] .= 'Perfil Habilitado con exito';
+            $data['Mensaje'] .= 'Medida Habilitado con exito';
         } else {
             $data = array(
                 'Error' => true,
@@ -182,7 +182,7 @@ class Perfil extends CI_Controller
 
         echo json_encode($data);
     }
-    public function InhabilitarPerfil()
+    public function InhabilitarMedida()
     {
         $data = array(
             'Error' => false,
@@ -190,9 +190,9 @@ class Perfil extends CI_Controller
             'Tipo' => 'success'
         );
 
-        $disable = $this->MPerfil->EstadoPerfil(2);
+        $disable = $this->MMedida->EstadoMedida(2);
         if ($disable['accion']) {
-            $data['Mensaje'] .= 'Perfil Inhabilitado con exito';
+            $data['Mensaje'] .= 'Medida Inhabilitado con exito';
         } else {
             $data = array(
                 'Error' => true,
@@ -205,7 +205,7 @@ class Perfil extends CI_Controller
     }
     public function ListarPrioridad(){
          echo '<option value="0"> --- SELECCIONE --- </option>';
-      		 $rspta = $this->MPerfil->ListarPrioridad();
+      		 $rspta = $this->MMedida->ListarPrioridad();
             foreach ($rspta->result() as $reg) {
              	echo '<option   value=' . $reg->idPrioridad . '>' . $reg->Descripcion . '</option>';
             }

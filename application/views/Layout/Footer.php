@@ -99,6 +99,10 @@
 <!-- sweetalert -->
 <script src="<?php echo base_url(); ?>assets\vendor\sweetalert\dist\sweetalert.min.js"></script>
 
+<!-- jquery file upload js -->
+    <script src="<?php echo base_url(); ?>\files\assets\pages\jquery.filer\js\jquery.filer.min.js"></script>
+    <script src="<?php echo base_url(); ?>\files\assets\pages\filer\custom-filer.js" type="text/javascript"></script>
+    <script src="<?php echo base_url(); ?>\files\assets\pages\filer\jquery.fileuploads.init.js" type="text/javascript"></script>
 
 
 <script type="text/javascript" src="<?php echo base_url(); ?>\assets\js\codigo.js"></script>

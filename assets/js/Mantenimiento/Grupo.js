@@ -1,22 +1,22 @@
-var tablaPerfil;
+var tablaGrupo;
 
 function init() {
     Iniciar_Componentes();
-    Listar_Perfil();
+    Listar_Grupo();
 
 }
 
 function Iniciar_Componentes() {
-    $("#FormularioPerfil").on("submit", function (e) {
-        RegistroPerfil(e);
+    $("#FormularioGrupo").on("submit", function (e) {
+        RegistroGrupo(e);
     });
 }
-function RegistroPerfil(event) {
+function RegistroGrupo(event) {
     event.preventDefault();
-    var formData = new FormData($("#FormularioPerfil")[0]);
+    var formData = new FormData($("#FormularioGrupo")[0]);
     console.log(formData);
     $.ajax({
-        url: "/Mantenimiento/General/Perfil/InsertUpdatePerfil",
+        url: "/Mantenimiento/Grupo/InsertUpdateGrupo",
         type: "POST",
         data: formData,
         contentType: false,
@@ -29,10 +29,10 @@ function RegistroPerfil(event) {
             if (Error) {
                 mensaje_warning(Mensaje);
             } else {
-                $('#ModalPerfil').modal('hide');
+                $('#ModalGrupo').modal('hide');
                 mensaje_success(Mensaje)
-                LimpiarPerfil();
-                tablaPerfil.ajax.reload();
+                LimpiarGrupo();
+                tablaGrupo.ajax.reload();
             }
         },
         error: function (e) {
@@ -41,8 +41,8 @@ function RegistroPerfil(event) {
         complete: function () {}
     });
 }
-function Listar_Perfil() {
-    tablaPerfil = $('#tablaPerfil').dataTable({
+function Listar_Grupo() {
+    tablaGrupo = $('#tablaGrupo').dataTable({
         "aProcessing": true,
         "aServerSide": true,
         "processing": true,
@@ -70,7 +70,7 @@ function Listar_Perfil() {
             }
          , ],
         "ajax": { //Solicitud Ajax Servidor
-            url: '/Mantenimiento/General/Perfil/ListarPerfil',
+            url: '/Mantenimiento/Grupo/ListarGrupo',
             type: "POST",
             dataType: "JSON",
             error: function (e) {
@@ -80,8 +80,8 @@ function Listar_Perfil() {
         oLanguage: español,
     }).DataTable();
     //Aplicar ordenamiento y autonumeracion , index
-    /*tablaPerfil.on('order.dt search.dt', function () {
-        tablaPerfil.column(0, {
+    /*tablaGrupo.on('order.dt search.dt', function () {
+        tablaGrupo.column(0, {
             search: 'applied',
             order: 'applied'
         }).nodes().each(function (cell, i) {
@@ -89,115 +89,115 @@ function Listar_Perfil() {
         });
     }).draw();*/
 }
-function NuevoPerfil() {
-    $("#ModalPerfil").modal({
+function NuevoGrupo() {
+    $("#ModalGrupo").modal({
         backdrop: 'static',
         keyboard: false
     });
-    $("#ModalPerfil").modal("show");
-    $("#tituloModalPerfil").empty();
-    $("#tituloModalPerfil").append("Registro de Perfil");
+    $("#ModalGrupo").modal("show");
+    $("#tituloModalGrupo").empty();
+    $("#tituloModalGrupo").append("Registro de Grupo");
 
 }
-function EditarPerfil(idPerfil) {
-    $("#ModalPerfil").modal({
+function EditarGrupo(idGrupo) {
+    $("#ModalGrupo").modal({
         backdrop: 'static',
         keyboard: false
     });
-    $("#ModalPerfil").modal("show");
-    $("#tituloModalPerfil").empty();
-    $("#tituloModalPerfil").append("Edición de Perfil");
+    $("#ModalGrupo").modal("show");
+    $("#tituloModalGrupo").empty();
+    $("#tituloModalGrupo").append("Edición de Grupo");
 
-    RecuperarPerfil(idPerfil);
+    RecuperarGrupo(idGrupo);
 }
-function RecuperarPerfil(idPerfil) {
+function RecuperarGrupo(idGrupo) {
     //solicitud de recuperar Proveedor
-    $.post("/Mantenimiento/General/Perfil/ObtenerPerfil", {
-        "idPerfil": idPerfil
+    $.post("/Mantenimiento/Grupo/ObtenerGrupo", {
+        "idGrupo": idGrupo
     }, function (data, status) {
         data = JSON.parse(data);
         console.log(data);
-        $("#PerfilidPerfil").val(data.idPerfil);
-        $("#PerfilTitulo").val(data.DescripcionPerfil);
+        $("#GrupoidGrupo").val(data.idGrupo);
+        $("#GrupoTitulo").val(data.Descripcion);
 
     });
 }
-function EliminarPerfil(idPerfil, Perfil) {
+function EliminarGrupo(idGrupo, Grupo) {
     swal({
-        title: "Eliminar Perfil?",
-        text: "Esta seguro de eliminar al Perfil: " + Perfil,
+        title: "Eliminar Grupo?",
+        text: "Esta seguro de eliminar al Grupo: " + Grupo,
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#DD6B55",
         confirmButtonText: "Eliminar!",
         closeOnConfirm: false
     }, function () {
-        $.post("/Mantenimiento/General/Perfil/EliminarPerfil", {
-            'idPerfil': idPerfil
+        $.post("/Mantenimiento/Grupo/EliminarGrupo", {
+            'idGrupo': idGrupo
         }, function (data, e) {
             data = JSON.parse(data);
             if (data.Error) {
                 swal("Error", data.Mensaje, "error");
             } else {
                 swal("Eliminado!", data.Mensaje, "success");
-                tablaPerfil.ajax.reload();
+                tablaGrupo.ajax.reload();
             }
         });
     });
 }
-function HabilitarPerfil(idPerfil, Perfil) {
+function HabilitarGrupo(idGrupo, Grupo) {
     swal({
-        title: "Habilitar Perfil?",
-        text: "Esta seguro de habilitar al Perfil: " + Perfil,
+        title: "Habilitar Grupo?",
+        text: "Esta seguro de habilitar al Grupo: " + Grupo,
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#DD6B55",
         confirmButtonText: "Habilitar!",
         closeOnConfirm: false
     }, function () {
-        $.post("/Mantenimiento/General/Perfil/HabilitarPerfil", {
-            'idPerfil': idPerfil
+        $.post("/Mantenimiento/Grupo/HabilitarGrupo", {
+            'idGrupo': idGrupo
         }, function (data, e) {
             data = JSON.parse(data);
             if (data.Error) {
                 swal("Error", data.Mensaje, "error");
             } else {
                 swal("Habilitado!", data.Mensaje, "success");
-                tablaPerfil.ajax.reload();
+                tablaGrupo.ajax.reload();
             }
         });
     });
 }
-function InabilitarPerfil(idPerfil, Perfil) {
+function InabilitarGrupo(idGrupo, Grupo) {
     swal({
-        title: "Inhabilitar Perfil?",
-        text: "Esta seguro de inhabilitar al Perfil: " + Perfil,
+        title: "Inhabilitar Grupo?",
+        text: "Esta seguro de inhabilitar al Grupo: " + Grupo,
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#DD6B55",
         confirmButtonText: "Inhabilitar!",
         closeOnConfirm: false
     }, function () {
-        $.post("/Mantenimiento/General/Perfil/InhabilitarPerfil", {
-            'idPerfil': idPerfil
+        $.post("/Mantenimiento/Grupo/InhabilitarGrupo", {
+            'idGrupo': idGrupo
         }, function (data, e) {
             data = JSON.parse(data);
             if (data.Error) {
                 swal("Error", data.Mensaje, "error");
             } else {
                 swal("Inhabilitado!", data.Mensaje, "success");
-                tablaPerfil.ajax.reload();
+                tablaGrupo.ajax.reload();
             }
         });
     });
 }
-function LimpiarPerfil() {
-    $('#FormularioPerfil')[0].reset();
-    $("#idPerfil").val("");
+function LimpiarGrupo() {
+    $('#FormularioGrupo')[0].reset();
+    $("#idGrupo").val("");
 }
 function Cancelar() {
-    LimpiarPerfil();
-    $("#ModalPerfil").modal("hide");
+    LimpiarGrupo();
+    $("#ModalGrupo").modal("hide");
 }
 
 init();
