@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.4
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 04-06-2019 a las 17:00:56
--- Versión del servidor: 5.7.24
--- Versión de PHP: 5.6.40
+-- Tiempo de generación: 05-06-2019 a las 23:32:40
+-- Versión del servidor: 5.7.19
+-- Versión de PHP: 5.6.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -65,15 +65,27 @@ CREATE TABLE IF NOT EXISTS `categoria` (
   `idCategoria` int(11) NOT NULL AUTO_INCREMENT,
   `NombreCategoria` varchar(200) NOT NULL,
   `Descripcion` text NOT NULL,
-  `imagenPortada` varchar(200) NOT NULL,
+  `imagenPortada` varchar(200) DEFAULT NULL,
   `fechaRegistro` datetime NOT NULL,
-  `fechaUpdate` datetime NOT NULL,
+  `fechaUpdate` datetime DEFAULT NULL,
   `Grupo_idGrupo` int(11) NOT NULL,
   `Estado_idEstado` int(11) NOT NULL,
   PRIMARY KEY (`idCategoria`),
   KEY `FK_GrupoCategoria` (`Grupo_idGrupo`),
   KEY `FK_EstadoCategoria` (`Estado_idEstado`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `categoria`
+--
+
+INSERT INTO `categoria` (`idCategoria`, `NombreCategoria`, `Descripcion`, `imagenPortada`, `fechaRegistro`, `fechaUpdate`, `Grupo_idGrupo`, `Estado_idEstado`) VALUES
+(1, 'Trajes de Luces', 'Trajes de Luces', NULL, '2019-06-04 00:00:00', NULL, 1, 1),
+(2, 'Trajes Tipicos y Costumbristas', 'Trajes Tipicos y Costumbristas', NULL, '2019-06-04 00:00:00', NULL, 1, 1),
+(3, 'Trajes de Lujo', 'Trajes de Lujo', NULL, '2019-06-04 00:00:00', NULL, 2, 1),
+(4, 'Trajes Eroticos', 'Trajes Eroticos', NULL, '2019-06-04 00:00:00', NULL, 2, 1),
+(5, 'Muñecos y Disfraces', 'Muñecos y Disfraces', NULL, '2019-06-04 00:00:00', NULL, 2, 1),
+(15, 'Prueba Jesus Inca', 'wegfwe', 'Categoria/prueba_jesus_inca.jpg', '2019-06-05 15:55:09', NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -2049,11 +2061,19 @@ CREATE TABLE IF NOT EXISTS `grupo` (
   `idGrupo` int(11) NOT NULL AUTO_INCREMENT,
   `Descripcion` varchar(150) NOT NULL,
   `fechaRegistro` datetime NOT NULL,
-  `fechaUpdate` datetime NOT NULL,
+  `fechaUpdate` datetime DEFAULT NULL,
   `Estado_idEstado` int(11) NOT NULL,
   PRIMARY KEY (`idGrupo`),
   KEY `FK_grupoEstado` (`Estado_idEstado`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `grupo`
+--
+
+INSERT INTO `grupo` (`idGrupo`, `Descripcion`, `fechaRegistro`, `fechaUpdate`, `Estado_idEstado`) VALUES
+(1, 'Tradicionales', '2019-06-04 00:00:00', '2019-06-04 00:00:00', 1),
+(2, 'Otros', '2019-06-04 00:00:00', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -2069,7 +2089,7 @@ CREATE TABLE IF NOT EXISTS `historial` (
   `fechaRegistro` datetime NOT NULL,
   PRIMARY KEY (`idHistorial`),
   KEY `FK_Historial_u` (`usuario_idUsuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `historial`
@@ -2080,7 +2100,34 @@ INSERT INTO `historial` (`idHistorial`, `usuario_idUsuario`, `Mensaje`, `fechaRe
 (4, 17, 'Inhabilitación:  Se Inhabilitó  Usuario: jincac - Nombres: Jesus Vicente Inca Cardenas.', '2019-05-30 12:47:46'),
 (5, 17, 'Habilitación:  Se Habilitó  Usuario: jincac - Nombres: Jesus Vicente Inca Cardenas.', '2019-05-30 12:47:48'),
 (6, 17, 'Actualización:  Se Actualizó  Usuario: jincac - Nombres: Jesus Vicente Inca Cardenas.', '2019-05-30 12:47:59'),
-(7, 17, 'Eliminar:  Se Eliminó  Usuario: jincac - Nombres: Jesus Vicente Inca Cardenas.', '2019-05-30 12:48:13');
+(7, 17, 'Eliminar:  Se Eliminó  Usuario: jincac - Nombres: Jesus Vicente Inca Cardenas.', '2019-05-30 12:48:13'),
+(8, 17, 'Registro:  Se Registró nuevo Usuario: jincac - Nombres: Jesus Vicente Inca Cardenas.', '2019-06-04 15:22:23'),
+(9, 17, 'Actualización:  Se Actualizó  Usuario: jincac - Nombres: Jesus Vicente Inca Cardenas.', '2019-06-04 15:22:32'),
+(10, 17, 'Actualización:  Se Actualizó  Usuario: administrador - Nombres: Admin Admin.', '2019-06-04 15:30:43'),
+(11, 17, 'Registro:  Se Registró nuevo Perfil: prueba.', '2019-06-04 17:06:37'),
+(12, 17, 'Actualización:  Se Actualizó  Perfil: prueba123.', '2019-06-04 17:06:45'),
+(13, 17, 'Inhabilitación:  Se Inhabilitó  Perfil: prueba123.', '2019-06-04 17:06:47'),
+(14, 17, 'Habilitación:  Se Habilitó  Perfil: prueba123.', '2019-06-04 17:06:49'),
+(15, 17, 'Eliminar:  Se Eliminó  Perfil: prueba123.', '2019-06-04 17:06:51'),
+(16, 17, 'Registro:  Se Registró nuevo Medida: prueba', '2019-06-04 17:11:17'),
+(17, 17, 'Actualización:  Se Actualizó  Medida: prueba123', '2019-06-04 17:11:20'),
+(18, 17, 'Inhabilitación:  Se Inhabilitó  Medida: prueba123', '2019-06-04 17:11:22'),
+(19, 17, 'Habilitación:  Se Habilitó  Medida: prueba123', '2019-06-04 17:11:24'),
+(20, 17, 'Eliminar:  Se Eliminó  Medida: prueba123', '2019-06-04 17:11:29'),
+(21, 17, 'Registro:  Se Registró nuevo Grupo: 76k7k', '2019-06-04 17:47:19'),
+(22, 17, 'Actualización:  Se Actualizó  Grupo: 76k7kfefewfe', '2019-06-04 17:48:20'),
+(23, 17, 'Inhabilitación:  Se Inhabilitó  Grupo: 76k7kfefewfe', '2019-06-04 17:48:23'),
+(24, 17, 'Habilitación:  Se Habilitó  Grupo: 76k7kfefewfe', '2019-06-04 17:48:25'),
+(25, 17, 'Eliminar:  Se Eliminó  Grupo: 76k7kfefewfe', '2019-06-04 17:48:27'),
+(26, 17, 'Registro:  Se Registró nuevo Categoria: gergerg', '2019-06-05 15:39:23'),
+(27, 17, 'Registro:  Se Registró nuevo Categoria: prueba', '2019-06-05 15:45:29'),
+(28, 17, 'Registro:  Se Registró nuevo Categoria: prueba jesus inca', '2019-06-05 15:48:01'),
+(29, 17, 'Registro:  Se Registró nuevo Categoria: prueba jesus inca', '2019-06-05 15:50:16'),
+(30, 17, 'Registro:  Se Registró nuevo Categoria: erherh', '2019-06-05 15:50:51'),
+(31, 17, 'Registro:  Se Registró nuevo Categoria: werfwef wef wefwe wef', '2019-06-05 15:51:08'),
+(32, 17, 'Registro:  Se Registró nuevo Categoria: prueba jesus inca', '2019-06-05 15:53:30'),
+(33, 17, 'Registro:  Se Registró nuevo Categoria: prueba jesus inca 2', '2019-06-05 15:53:52'),
+(34, 17, 'Registro:  Se Registró nuevo Categoria: prueba jesus inca', '2019-06-05 15:55:09');
 
 -- --------------------------------------------------------
 
@@ -2093,11 +2140,24 @@ CREATE TABLE IF NOT EXISTS `medida` (
   `idMedida` int(11) NOT NULL AUTO_INCREMENT,
   `NombreMedida` varchar(150) NOT NULL,
   `fechaRegistro` datetime NOT NULL,
-  `fechaUpdate` datetime NOT NULL,
+  `fechaUpdate` datetime DEFAULT NULL,
   `Estado_idEstado` int(11) NOT NULL,
   PRIMARY KEY (`idMedida`),
   KEY `FK_medidaEstado` (`Estado_idEstado`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `medida`
+--
+
+INSERT INTO `medida` (`idMedida`, `NombreMedida`, `fechaRegistro`, `fechaUpdate`, `Estado_idEstado`) VALUES
+(1, 'Slim Fit', '2019-06-04 00:00:00', NULL, 1),
+(2, 'Tailoret Fit', '2019-06-04 00:00:00', NULL, 1),
+(3, 'Classic Fit', '2019-06-04 00:00:00', NULL, 1),
+(4, 'Small (S)', '2019-06-04 00:00:00', NULL, 1),
+(5, 'Mediano (M)', '2019-06-04 00:00:00', NULL, 1),
+(6, 'Large (L)', '2019-06-04 00:00:00', NULL, 1),
+(7, 'Extra Large (XL)', '2019-06-04 00:00:00', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -2457,7 +2517,6 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `NombreUsuario` varchar(50) DEFAULT NULL,
   `ApellidosUsuario` varchar(100) DEFAULT NULL,
   `Dni` char(11) DEFAULT NULL,
-  `Cargo` varchar(150) DEFAULT NULL,
   `Correo` varchar(150) DEFAULT NULL,
   `keyFacebook` text,
   `keyGoogle` text,
@@ -2465,20 +2524,19 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `fechaUpdate` datetime DEFAULT NULL,
   `imagen` text,
   `perfil_idPerfil` int(11) NOT NULL,
-  `area_idArea` int(11) NOT NULL,
   `estado_idEstado` int(11) NOT NULL,
   PRIMARY KEY (`idUsuario`),
   KEY `fk_usuario_perfil1_idx` (`perfil_idPerfil`),
-  KEY `fk_usuario_area1_idx` (`area_idArea`),
   KEY `fk_usuario_estado1_idx` (`estado_idEstado`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`idUsuario`, `usuario`, `password`, `NombreUsuario`, `ApellidosUsuario`, `Dni`, `Cargo`, `Correo`, `keyFacebook`, `keyGoogle`, `fechaRegistro`, `fechaUpdate`, `imagen`, `perfil_idPerfil`, `area_idArea`, `estado_idEstado`) VALUES
-(17, 'administrador', '4e472baf48aab08cec24ca2f3626912d', 'Admin', 'Admin', '44444444', 'Administrador', '', NULL, NULL, '2019-05-29 17:20:53', '2019-05-30 12:36:20', '', 1, 5, 1);
+INSERT INTO `usuario` (`idUsuario`, `usuario`, `password`, `NombreUsuario`, `ApellidosUsuario`, `Dni`, `Correo`, `keyFacebook`, `keyGoogle`, `fechaRegistro`, `fechaUpdate`, `imagen`, `perfil_idPerfil`, `estado_idEstado`) VALUES
+(17, 'administrador', '4e472baf48aab08cec24ca2f3626912d', 'Admin', 'Admin', '44444444', '', NULL, NULL, '2019-05-29 17:20:53', '2019-06-04 15:30:43', 'Usuarios/44444444.jpg', 1, 1),
+(18, 'jincac', '4e472baf48aab08cec24ca2f3626912d', 'Jesus Vicente', 'Inca Cardenas', '47040087', '', NULL, NULL, '2019-06-04 15:22:23', '2019-06-04 15:22:32', 'Usuarios/47040087.jpg', 1, 1);
 
 --
 -- Restricciones para tablas volcadas
@@ -2578,14 +2636,6 @@ ALTER TABLE `subcategoria`
 --
 ALTER TABLE `tarifa`
   ADD CONSTRAINT `FK_TarifaProducto` FOREIGN KEY (`Producto_idProducto`) REFERENCES `producto` (`idProducto`);
-
---
--- Filtros para la tabla `usuario`
---
-ALTER TABLE `usuario`
-  ADD CONSTRAINT `fk_usuario_area1` FOREIGN KEY (`area_idArea`) REFERENCES `area` (`idArea`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_usuario_estado1` FOREIGN KEY (`estado_idEstado`) REFERENCES `estado` (`idEstado`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_usuario_perfil1` FOREIGN KEY (`perfil_idPerfil`) REFERENCES `perfil` (`idPerfil`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
