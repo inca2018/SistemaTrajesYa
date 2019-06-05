@@ -13,11 +13,21 @@ class Categoria extends CI_Controller
     {
         $this->load->view('Mantenimiento/Categoria');
     }
+     public function BuscarImagen($reg){
+        if($reg->imagen==null){
+            return 'Sin Portada';
+        }else{
+           return  ' <a href="../../assets/images/'.$reg->imagen.'" data-lightbox="1" data-title="'.$reg->Titulo.'">
+                                                                            <img src="../../assets/images/'.$reg->imagen.'" class="img-fluid rounded img-30">
+                                                                        </a>';
+        }
+
+    }
     public function BuscarEstado($reg)
     {
-        if ($reg->estado_idEstado == '1' || $reg->estado_idEstado == 1) {
+        if ($reg->Estado_idEstado == '1' || $reg->Estado_idEstado == 1) {
             return '<div class="badge badge-success">' . $reg->nombreEstado . '</div>';
-        } elseif ($reg->estado_idEstado == '2' || $reg->estado_idEstado == 2) {
+        } elseif ($reg->Estado_idEstado == '2' || $reg->Estado_idEstado == 2) {
             return '<div class="badge badge-danger">' . $reg->nombreEstado . '</div>';
         } else {
             return '<div class="badge badge-primary">' . $reg->nombreEstado . '</div>';
@@ -26,19 +36,17 @@ class Categoria extends CI_Controller
 
     public function BuscarAccion($reg)
     {
-        if ($reg->estado_idEstado == 1) {
+        if ($reg->Estado_idEstado == 1) {
             return '
-            <button type="button" title="Asignar Empleados" class="btn btn-grd-info btn-mini btn-round" onclick="AsignarEmpleados(' . $reg->idCategoria . ')"><i class="fa fa-user-plus"></i></button>
+            <button type="button" title="SubCategorias" class="btn btn-grd-info btn-mini btn-round" onclick="SubCategorias(' . $reg->idCategoria . ')"><i class="fa fa-tasks"></i></button>
             <button type="button" title="Editar" class="btn btn-grd-warning btn-mini btn-round" onclick="EditarCategoria(' . $reg->idCategoria . ')"><i class="fa fa-edit"></i></button>
             <button type="button"  title="Inabilitar" class="btn btn-grd-primary btn-mini btn-round" onclick="InabilitarCategoria(' . $reg->idCategoria . ",'" . $reg->Titulo . "'" . ')"><i class="fa fa-arrow-circle-down"></i></button>
             <button type="button"  title="Eliminar" class="btn btn-grd-danger btn-mini btn-round" onclick="EliminarCategoria(' . $reg->idCategoria . ",'" . $reg->Titulo . "'" . ')"><i class="fa fa-trash"></i></button>
                ';
-        } elseif ($reg->estado_idEstado == 2) {
+        } elseif ($reg->Estado_idEstado == 2) {
             return '<button type="button"  title="Habilitar" class="btn btn-grd-info btn-mini btn-round" onclick="HabilitarCategoria(' . $reg->idCategoria . ",'" . $reg->Titulo . "'" . ')"><i class="fa fa-arrow-circle-up"></i></button> <button type="button"  title="Eliminar" class="btn btn-grd-danger btn-mini btn-round" onclick="EliminarCategoria(' . $reg->idCategoria . ')"><i class="fa fa-trash"></i></button> ';
         }
     }
-
-
 
     public function ListarCategoria()
     {
@@ -49,10 +57,13 @@ class Categoria extends CI_Controller
             $data[] = array(
 
                 "0" => $reg->Titulo,
-                "1" => $this->BuscarAccion($reg),
-                "2" => $reg->fechaRegistro,
-                "3" => $reg->fechaUpdate,
-                "4" => $this->BuscarEstado($reg)
+                "1" => $reg->grupoCategoria,
+                "2" => $this->BuscarImagen($reg),
+                "3" => $reg->Descripcion,
+                "4" => $this->BuscarAccion($reg),
+                "5" => $reg->fechaRegistro,
+                "6" => $reg->fechaUpdate,
+                "7" => $this->BuscarEstado($reg)
             );
         }
 
@@ -65,6 +76,11 @@ class Categoria extends CI_Controller
         echo json_encode($results);
     }
 
+      function check_default($post_string)
+    {
+      return $post_string == '0' ? FALSE : TRUE;
+    }
+
     public function InsertUpdateCategoria()
     {
 
@@ -73,24 +89,43 @@ class Categoria extends CI_Controller
             'Mensaje' => '',
             'Tipo' => 'success'
         );
+
         $this->form_validation->set_rules('CategoriaTitulo', 'Titulo del Categoria', 'trim|required|min_length[3]|max_length[120]');
+
+        $this->form_validation->set_rules('CategoriaGrupo', 'Grupo de Categoria', 'required|callback_check_default');
+        $this->form_validation->set_message('check_default', 'El campo Grupo es Obligatorio');
 
         if ($this->form_validation->run() == true) {
             /* Registras Categoria */
             if (empty($_POST['CategoriaidCategoria'])) {
                 /* valida Categoria */
-                $VRuc = $this->Recurso->Validaciones('Categoria', 'DescripcionCategoria', $_POST['CategoriaTitulo']);
-                if ($VRuc > 0) {
+                $validacion = $this->Recurso->Validaciones('categoria', 'NombreCategoria', $_POST['CategoriaTitulo']);
+                if ($validacion > 0) {
                     $data['Error'] = true;
                     $data['Mensaje'] .= 'Categoria:  "' . $_POST['CategoriaTitulo'] . '" , ya se encuentra registrado ';
                 }
+
+
+                if ($_FILES["files"]["name"] != '') {
+                     $nombre=str_replace(" ","_",$_POST['CategoriaTitulo']);
+                    $Documento = "Categoria/".str_replace("-","",$nombre.".jpg");
+                } else {
+                    $Documento = null;
+                }
+
 
                 if ($data['Error']) {
                     $data['Tipo'] = 'warning';
                     $data['Mensaje'] .= 'Corregir los datos ingresados';
                 } else {
 
-                    $registro = $this->MCategoria->RegistroCategoria();
+                    $registro =$this->MCategoria->RegistroCategoria($Documento);
+
+                    if($Documento!=null || $Documento!=''){
+
+                        $nombre=str_replace(" ","_",$_POST['CategoriaTitulo']);
+                        $Subida=$this->Recurso->upload_documento_binary("files","Categoria",1,$nombre.".jpg");
+                    }
                     if ($registro['Registro']) {
                         $data['Mensaje'] .= 'Categoria Registrado con exito.';
                     } else {
@@ -102,10 +137,8 @@ class Categoria extends CI_Controller
                     }
                 }
             } else {
-                /* modificar Categoria */
-                /* valida Categoria */
-                $VRuc = $this->Recurso->Validaciones('Categoria', 'DescripcionCategoria', $_POST['CategoriaTitulo'], 'idCategoria', $_POST['CategoriaidCategoria']);
-                if ($VRuc > 0) {
+                $validacion = $this->Recurso->Validaciones('categoria', 'NombreCategoria', $_POST['CategoriaTitulo'], 'idCategoria', $_POST['CategoriaidCategoria']);
+                if ($validacion > 0) {
                     $data['Error'] = true;
                     $data['Mensaje'] .= 'Categoria:' . $_POST['CategoriaTitulo'] . ' ya se encuentra registrado <br>';
                 }
@@ -203,12 +236,13 @@ class Categoria extends CI_Controller
 
         echo json_encode($data);
     }
-    public function ListarPrioridad(){
+    public function ListarGrupo(){
          echo '<option value="0"> --- SELECCIONE --- </option>';
-      		 $rspta = $this->MCategoria->ListarPrioridad();
+      		 $rspta = $this->MCategoria->ListarGrupo();
             foreach ($rspta->result() as $reg) {
-             	echo '<option   value=' . $reg->idPrioridad . '>' . $reg->Descripcion . '</option>';
+             	echo '<option   value=' . $reg->idGrupo . '>' . $reg->Descripcion . '</option>';
             }
     }
+
 }
-/* End of file MenuPhp.php */
+

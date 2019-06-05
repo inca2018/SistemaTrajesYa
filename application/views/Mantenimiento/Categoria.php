@@ -11,9 +11,9 @@ $this->load->view('Layout/Nav');
                 <div class="page-body">
                     <div class="card">
                         <div class="card-block">
-                           <div class="col sm-3">
+                            <div class="col sm-3">
 
-                           </div>
+                            </div>
                             <div class="page-header-breadcrumb">
                                 <ul class="breadcrumb-title">
                                     <li class="breadcrumb-item">
@@ -27,7 +27,7 @@ $this->load->view('Layout/Nav');
                         </div>
 
                         <div class="card-block">
-                           <h5 class="col-md-12 sub-title">Lista de Categoriaes</h5>
+                            <h5 class="col-md-12 sub-title">Lista de Categoriaes</h5>
                             <div class="row">
                                 <div class="col-md-3 ml-md-auto col-sm-6 ml-sm-auto">
                                     <button type="button" class="btn btn-grd-success btn-block btn-sm btn-round" onclick="NuevoCategoria();">Nuevo Categoria</button>
@@ -37,20 +37,22 @@ $this->load->view('Layout/Nav');
                         <div class="card-block">
                             <div class="row">
                                 <div class="col-md-12">
-                                   <div class="dt-responsive">
-                                    <table class="table table-sm  w-100 table-hover" id="tablaCategoria">
-                                        <thead class="thead-light text-center">
-                                            <tr>
-                                                <th>Titulo de Categoria</th>
-                                                <th>Imagen Portada</th>
-                                                <th>Acciones</th>
-                                                <th>Fecha de Reg.</th>
-                                                <th>Ultima Act.</th>
-                                                <th>Estado</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody> </tbody>
-                                    </table>
+                                    <div class="dt-responsive">
+                                        <table class="table table-sm  w-100 table-hover" id="tablaCategoria">
+                                            <thead class="thead-light text-center">
+                                                <tr>
+                                                    <th>Titulo de Categoria</th>
+                                                    <th>Imagen Portada</th>
+                                                    <th>Grupo</th>
+                                                    <th>Descripción</th>
+                                                    <th>Acciones</th>
+                                                    <th>Fecha de Reg.</th>
+                                                    <th>Ultima Act.</th>
+                                                    <th>Estado</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody> </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
@@ -67,7 +69,7 @@ $this->load->view('Layout/Nav');
 <?php
    $this->load->view('Layout/Footer');
 ?>
-<div class="modal fade" id="ModalCategoria" role="dialog" aria-labelledby="myModalLabelLarge" aria-hidden="true">
+<div class="modal fade" id="ModalCategoria" role="dialog" aria-labelledby="myModalLabelLarge" aria-hidden="true" style="z-index:10001 !important;">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-body">
@@ -79,15 +81,24 @@ $this->load->view('Layout/Nav');
                             <hr>
                         </div>
                     </div>
-                     <div class="row form-group">
+                    <div class="row form-group">
                         <div class="col-sm-12 col-md-12">
                             <label class="col-form-label">Titulo de Categoria:</label>
-                            <input type="text" class="form-control validarPanel" name="CategoriaTitulo" id="CategoriaTitulo" value=""  maxlength="60">
+                            <input type="text" class="form-control validarPanel" name="CategoriaTitulo" id="CategoriaTitulo" value="" maxlength="60">
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                            <label class="col-form-label">Grupo de Categoria:</label>
+                            <select class="form-control" id="CategoriaGrupo" name="CategoriaGrupo"> </select>
+                        </div>
+                        <div class="col-sm-12 col-md-12">
+                            <label class="col-form-label">Descripción de Categoria:</label>
+                            <textarea name="CategoriaDescripcion" id="CategoriaDescripcion" class="form textarea form-control" rows="3" maxlength="200"></textarea>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12 col-md-12">
-                             <input class="form-control" type="file" name="files[]" id="PortadaCategoria" multiple="multiple">
+                            <label class="col-form-label">Portada:</label>
+                            <input class="form-control" type="file" name="files[]" id="PortadaCategoria" multiple="multiple">
                         </div>
                     </div>
                     <div class="row">

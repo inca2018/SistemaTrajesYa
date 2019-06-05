@@ -1,11 +1,30 @@
 var tablaCategoria;
+var Filter;
+function init() {
+    Iniciar_Componentes();
+    Listar_Categoria();
+    ListarGrupos();
+}
 
-$(document).ready(function(){
-     $("#PortadaCategoria").filer({
-        limit: 2,
-        maxSize: 2,
+function ListarGrupos() {
+    $.post("/Mantenimiento/Categoria/ListarGrupo", function (ts) {
+        $("#CategoriaGrupo").empty();
+        $("#CategoriaGrupo").append(ts);
+    });
+}
+
+function Iniciar_Componentes() {
+
+    $("#FormularioCategoria").on("submit", function (e) {
+        RegistroCategoria(e);
+    });
+
+     Filter=$("#PortadaCategoria").filer({
+        limit: 1,
+        maxSize: 1,
+        fileMaxSize: 10,
         extensions: ["jpg", "png"],
-        changeInput: '<div class="jFiler-input-dragDrop"><div class="jFiler-input-inner"><div class="jFiler-input-icon"><i class="icon-jfi-cloud-up-o"></i></div><div class="jFiler-input-text"><h3>Drag & Drop files here</h3> <span style="display:inline-block; margin: 15px 0">or</span></div><a class="jFiler-input-choose-btn btn btn-primary waves-effect waves-light">Browse Files</a></div></div>',
+        changeInput: '<div class="jFiler-input-dragDrop"><div class="jFiler-input-inner"><div class="jFiler-input-icon"><i class="icon-jfi-cloud-up-o"></i></div><div class="jFiler-input-text"><h3>Arrastre Imagenes Aqui</h3> <span style="display:inline-block; margin: 15px 0">o</span></div><a class="jFiler-input-choose-btn btn btn-primary waves-effect waves-light">Buscar Imagenes</a></div></div>',
         showThumbs: true,
         theme: "dragdropbox",
         templates: {
@@ -69,86 +88,73 @@ $(document).ready(function(){
             dragLeave: null,
             drop: null,
         },
-        uploadFile: {
-            url: "../plugins/jquery.filer/php/upload.php",
+        /*uploadFile: {
+            url: "/Mantenimiento/Categoria/AgregarFile",
             data: null,
             type: 'POST',
             enctype: 'multipart/form-data',
-            beforeSend: function(){},
-            success: function(data, el){
+            beforeSend: function () {
+                console.log("Enviando!!!");
+            },
+            success: function (data, el) {
                 var parent = el.find(".jFiler-jProgressBar").parent();
-                el.find(".jFiler-jProgressBar").fadeOut("slow", function(){
-                    $("<div class=\"jFiler-item-others text-success\"><i class=\"icon-jfi-check-circle\"></i> Success</div>").hide().appendTo(parent).fadeIn("slow");
+                el.find(".jFiler-jProgressBar").fadeOut("slow", function () {
+                    $("<div class=\"jFiler-item-others text-success\"><i class=\"icon-jfi-check-circle\"></i> Guardado</div>").hide().appendTo(parent).fadeIn("slow");
                 });
             },
-            error: function(el){
+            error: function (el) {
                 var parent = el.find(".jFiler-jProgressBar").parent();
-                el.find(".jFiler-jProgressBar").fadeOut("slow", function(){
+                el.find(".jFiler-jProgressBar").fadeOut("slow", function () {
                     $("<div class=\"jFiler-item-others text-error\"><i class=\"icon-jfi-minus-circle\"></i> Error</div>").hide().appendTo(parent).fadeIn("slow");
                 });
             },
             statusCode: null,
             onProgress: null,
             onComplete: null
-        },
-		files: [
-			{
-				name: "Desert.jpg",
-				size: 145,
-				type: "image/jpg",
-				file: "../files/assets/images/file-upload/Desert.jpg"
-			},
-			{
-				name: "overflow.jpg",
-				size: 145,
-				type: "image/jpg",
-				file: "../files/assets/images/file-upload/Desert.jpg"
-			}
-		],
+        }, */
+        files: null,
         addMore: false,
         clipBoardPaste: true,
         excludeName: null,
         beforeRender: null,
         afterRender: null,
         beforeShow: null,
-        beforeSelect: null,
+        beforeSelect: function () {
+            var nombre = $("#CategoriaTitulo").val();
+            if (nombre.length == 0) {
+                mensaje_warning("Ingrese Nombre de Categoria!");
+                return false;
+            } else {
+                return true;
+            }
+        },
         onSelect: null,
         afterShow: null,
-        onRemove: function(itemEl, file, id, listEl, boxEl, newInputEl, inputEl){
+        onRemove: function (itemEl, file, id, listEl, boxEl, newInputEl, inputEl) {
             var file = file.name;
-            $.post('../plugins/jquery.filer/php/remove_file.php', {file: file});
+            $.post('/Mantenimiento/Categoria/EliminarFile', {
+                file: file
+            });
         },
         onEmpty: null,
         options: null,
         captions: {
-            button: "Choose Files",
-            feedback: "Choose files To Upload",
-            feedback2: "files were chosen",
-            drop: "Drop file here to Upload",
-            removeConfirmation: "Are you sure you want to remove this file?",
+            button: "Seleccionar archivos",
+            feedback: "Selecciona archivos para subir",
+            feedback2: "Los archivos fueron elegidos",
+            drop: "Colocar archivo aquí para subir",
+            removeConfirmation: "¿Estás seguro de que quieres eliminar este archivo?",
             errors: {
-                filesLimit: "Only {{fi-limit}} files are allowed to be uploaded.",
-                filesType: "Only Images are allowed to be uploaded.",
-                filesSize: "{{fi-name}} is too large! Please upload file up to {{fi-maxSize}} MB.",
-                filesSizeAll: "Files you've choosed are too large! Please upload files up to {{fi-maxSize}} MB."
+                filesLimit: "Solamente {{fi-limit}} archivos pueden ser cargados.",
+                filesType: "Solo se permite subir imágenes.",
+                filesSize: "{{fi-name}} ¡Es demasiado largo! Por favor suba el archivo a {{fi-maxSize}} MB.",
+                filesSizeAll: "¡Los archivos que has elegido son demasiado grandes! Por favor suba archivos hasta {{fi-maxSize}} MB."
             }
         }
     });
-});
-
-function init() {
-    Iniciar_Componentes();
-    //Listar_Categoria();
 
 }
 
-
-
-function Iniciar_Componentes() {
-    $("#FormularioCategoria").on("submit", function (e) {
-        RegistroCategoria(e);
-    });
-}
 function RegistroCategoria(event) {
     event.preventDefault();
     var formData = new FormData($("#FormularioCategoria")[0]);
@@ -179,6 +185,7 @@ function RegistroCategoria(event) {
         complete: function () {}
     });
 }
+
 function Listar_Categoria() {
     tablaCategoria = $('#tablaCategoria').dataTable({
         "aProcessing": true,
@@ -189,12 +196,12 @@ function Listar_Categoria() {
         "info": true, // Informacion de cabecera tabla
         "responsive": true, // Accion de responsive
         "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-        "order": [[1, "asc"]],
+        "order": [[4, "asc"]],
         "bDestroy": true,
         "columnDefs": [
             {
                 "className": "text-center",
-                "targets": [1,2]
+                "targets": [1, 2]
             }
             , {
                 "className": "text-left",
@@ -218,6 +225,7 @@ function Listar_Categoria() {
         oLanguage: español,
     }).DataTable();
 }
+
 function NuevoCategoria() {
     $("#ModalCategoria").modal({
         backdrop: 'static',
@@ -228,6 +236,7 @@ function NuevoCategoria() {
     $("#tituloModalCategoria").append("Registro de Categoria");
 
 }
+
 function EditarCategoria(idCategoria) {
     $("#ModalCategoria").modal({
         backdrop: 'static',
@@ -239,6 +248,7 @@ function EditarCategoria(idCategoria) {
 
     RecuperarCategoria(idCategoria);
 }
+
 function RecuperarCategoria(idCategoria) {
     //solicitud de recuperar Proveedor
     $.post("/Mantenimiento/Categoria/ObtenerCategoria", {
@@ -247,10 +257,32 @@ function RecuperarCategoria(idCategoria) {
         data = JSON.parse(data);
         console.log(data);
         $("#CategoriaidCategoria").val(data.idCategoria);
-        $("#CategoriaTitulo").val(data.DescripcionCategoria);
+        $("#CategoriaTitulo").val(data.NombreCategoria);
+        $("#CategoriaDescripcion").val(data.Descripcion);
+        $.post("/Mantenimiento/Categoria/ListarGrupo", function (ts) {
+            $("#CategoriaGrupo").empty();
+            $("#CategoriaGrupo").append(ts);
+            $("#CategoriaGrupo").val(data.Grupo_idGrupo);
+            debugger;
 
+            var name2=data.imagenPortada.replace('Categoria/','');
+            var ruta2="assets/images/Categoria/"+name;
+            var size2="100";
+            var type2="image/jpg";
+
+            var obj = { name: name2,size:size2,type:type2,ruta:ruta2};
+            var myJSON = JSON.stringify(obj);
+            console.log(myJSON);
+
+            var api = $.fileuploader.getInstance($("#CategoriaPortada"));
+            api.append(myJSON);
+            api.reset();
+            //Filter[0].files.append(myJSON);
+            //$("#PortadaCategoria").filer('append',myJSON);
+        });
     });
 }
+
 function EliminarCategoria(idCategoria, Categoria) {
     swal({
         title: "Eliminar Categoria?",
@@ -274,6 +306,7 @@ function EliminarCategoria(idCategoria, Categoria) {
         });
     });
 }
+
 function HabilitarCategoria(idCategoria, Categoria) {
     swal({
         title: "Habilitar Categoria?",
@@ -297,6 +330,7 @@ function HabilitarCategoria(idCategoria, Categoria) {
         });
     });
 }
+
 function InabilitarCategoria(idCategoria, Categoria) {
     swal({
         title: "Inhabilitar Categoria?",
@@ -320,10 +354,12 @@ function InabilitarCategoria(idCategoria, Categoria) {
         });
     });
 }
+
 function LimpiarCategoria() {
     $('#FormularioCategoria')[0].reset();
     $("#idCategoria").val("");
 }
+
 function Cancelar() {
     LimpiarCategoria();
     $("#ModalCategoria").modal("hide");

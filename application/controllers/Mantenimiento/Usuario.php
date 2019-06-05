@@ -43,8 +43,6 @@ class Usuario extends CI_Controller
                                                                         </a>';
         }
 
-
-
     }
 
     public function BuscarAccion($reg)
