@@ -95,6 +95,7 @@ class Recurso extends CI_Model {
                 //Como el elemento es un arreglos utilizamos foreach para extraer todos los valores
                foreach($_FILES[$archivo]['tmp_name'] as $key => $tmp_name)
                {
+
                   //Validamos que el archivo exista
                   if($_FILES[$archivo]["name"][$key]) {
                      $filename = $_FILES[$archivo]["name"][$key]; //Obtenemos el nombre original del archivo

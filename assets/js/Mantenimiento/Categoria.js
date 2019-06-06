@@ -1,5 +1,7 @@
 var tablaCategoria;
 var Filter;
+var Imagenes=0;
+
 function init() {
     Iniciar_Componentes();
     Listar_Categoria();
@@ -19,140 +21,85 @@ function Iniciar_Componentes() {
         RegistroCategoria(e);
     });
 
-     Filter=$("#PortadaCategoria").filer({
-        limit: 1,
-        maxSize: 1,
-        fileMaxSize: 10,
-        extensions: ["jpg", "png"],
-        changeInput: '<div class="jFiler-input-dragDrop"><div class="jFiler-input-inner"><div class="jFiler-input-icon"><i class="icon-jfi-cloud-up-o"></i></div><div class="jFiler-input-text"><h3>Arrastre Imagenes Aqui</h3> <span style="display:inline-block; margin: 15px 0">o</span></div><a class="jFiler-input-choose-btn btn btn-primary waves-effect waves-light">Buscar Imagenes</a></div></div>',
-        showThumbs: true,
-        theme: "dragdropbox",
-        templates: {
-            box: '<ul class="jFiler-items-list jFiler-items-grid"></ul>',
-            item: '<li class="jFiler-item">\
-                        <div class="jFiler-item-container">\
-                            <div class="jFiler-item-inner">\
-                                <div class="jFiler-item-thumb">\
-                                    <div class="jFiler-item-status"></div>\
-                                    <div class="jFiler-item-info">\
-                                        <span class="jFiler-item-title"><b title="{{fi-name}}">{{fi-name | limitTo: 25}}</b></span>\
-                                        <span class="jFiler-item-others">{{fi-size2}}</span>\
-                                    </div>\
-                                    {{fi-image}}\
-                                </div>\
-                                <div class="jFiler-item-assets jFiler-row">\
-                                    <ul class="list-inline pull-left">\
-                                        <li>{{fi-progressBar}}</li>\
-                                    </ul>\
-                                    <ul class="list-inline pull-right">\
-                                        <li><a class="icon-jfi-trash jFiler-item-trash-action"></a></li>\
-                                    </ul>\
-                                </div>\
-                            </div>\
-                        </div>\
-                    </li>',
-            itemAppend: '<li class="jFiler-item">\
-                            <div class="jFiler-item-container">\
-                                <div class="jFiler-item-inner">\
-                                    <div class="jFiler-item-thumb">\
-                                        <div class="jFiler-item-status"></div>\
-                                        <div class="jFiler-item-info">\
-                                            <span class="jFiler-item-title"><b title="{{fi-name}}">{{fi-name | limitTo: 25}}</b></span>\
-                                            <span class="jFiler-item-others">{{fi-size2}}</span>\
-                                        </div>\
-                                        {{fi-image}}\
-                                    </div>\
-                                    <div class="jFiler-item-assets jFiler-row">\
-                                        <ul class="list-inline pull-left">\
-                                            <li><span class="jFiler-item-others">{{fi-icon}}</span></li>\
-                                        </ul>\
-                                        <ul class="list-inline pull-right">\
-                                            <li><a class="icon-jfi-trash jFiler-item-trash-action"></a></li>\
-                                        </ul>\
-                                    </div>\
-                                </div>\
-                            </div>\
-                        </li>',
-            progressBar: '<div class="bar"></div>',
-            itemAppendToEnd: false,
-            removeConfirmation: true,
-            _selectors: {
-                list: '.jFiler-items-list',
-                item: '.jFiler-item',
-                progressBar: '.bar',
-                remove: '.jFiler-item-trash-action'
-            }
-        },
-        dragDrop: {
-            dragEnter: null,
-            dragLeave: null,
-            drop: null,
-        },
-        /*uploadFile: {
-            url: "/Mantenimiento/Categoria/AgregarFile",
-            data: null,
-            type: 'POST',
-            enctype: 'multipart/form-data',
-            beforeSend: function () {
-                console.log("Enviando!!!");
-            },
-            success: function (data, el) {
-                var parent = el.find(".jFiler-jProgressBar").parent();
-                el.find(".jFiler-jProgressBar").fadeOut("slow", function () {
-                    $("<div class=\"jFiler-item-others text-success\"><i class=\"icon-jfi-check-circle\"></i> Guardado</div>").hide().appendTo(parent).fadeIn("slow");
-                });
-            },
-            error: function (el) {
-                var parent = el.find(".jFiler-jProgressBar").parent();
-                el.find(".jFiler-jProgressBar").fadeOut("slow", function () {
-                    $("<div class=\"jFiler-item-others text-error\"><i class=\"icon-jfi-minus-circle\"></i> Error</div>").hide().appendTo(parent).fadeIn("slow");
-                });
-            },
-            statusCode: null,
-            onProgress: null,
-            onComplete: null
-        }, */
-        files: null,
-        addMore: false,
-        clipBoardPaste: true,
-        excludeName: null,
-        beforeRender: null,
-        afterRender: null,
-        beforeShow: null,
-        beforeSelect: function () {
-            var nombre = $("#CategoriaTitulo").val();
-            if (nombre.length == 0) {
-                mensaje_warning("Ingrese Nombre de Categoria!");
-                return false;
-            } else {
-                return true;
-            }
-        },
-        onSelect: null,
-        afterShow: null,
-        onRemove: function (itemEl, file, id, listEl, boxEl, newInputEl, inputEl) {
-            var file = file.name;
-            $.post('/Mantenimiento/Categoria/EliminarFile', {
-                file: file
-            });
-        },
-        onEmpty: null,
-        options: null,
-        captions: {
-            button: "Seleccionar archivos",
-            feedback: "Selecciona archivos para subir",
-            feedback2: "Los archivos fueron elegidos",
-            drop: "Colocar archivo aquí para subir",
-            removeConfirmation: "¿Estás seguro de que quieres eliminar este archivo?",
-            errors: {
-                filesLimit: "Solamente {{fi-limit}} archivos pueden ser cargados.",
-                filesType: "Solo se permite subir imágenes.",
-                filesSize: "{{fi-name}} ¡Es demasiado largo! Por favor suba el archivo a {{fi-maxSize}} MB.",
-                filesSizeAll: "¡Los archivos que has elegido son demasiado grandes! Por favor suba archivos hasta {{fi-maxSize}} MB."
-            }
-        }
+    $("#PortadaCategoria").change(function () {
+        readURL(this);
     });
 
+
+}
+
+function readURL(input) {
+    if (input.files.length == 1) {
+        for (var i = 0; i < input.files.length; i++) {
+            var reader = new FileReader();
+
+
+            reader.onloadend = (function (file) {
+                return function (e) {
+
+                    var item =
+                        '<div class="row align-items-center">' +
+                        '<div class="col-sm-4 col-md-4 text-center" style="height:100px;">' +
+                        '<img class="imageUpload"  style="background-image: url(' + e.target.result + ');">' +
+                        '</div>' +
+                        '<div class="col-sm-4 col-md-4 text-center">' +
+                        '<label class="Medida"><h5>' + file.name + '</h5></label>' +
+                        '</div>' +
+                        '<div class="col-sm-4 col-md-4 text-center">' +
+                        '<label for="" class="btn btn-danger btn-sm btn-round" data-imagen="'+file.name+'" onclick="EliminarImage(this)"><i class="fa fa-trash"></i>' + '</label>' +
+                        '</div></div><br>';
+                    if ($('#Archivos').children().length > 0) {
+                        $('#Archivos').children().last().after(item);
+                    } else {
+                        $('#Archivos').html(item);
+                    }
+                };
+            })(input.files[i]);
+
+            /* reader.onload = function (e) {
+                 var item =
+                     '<div class="row">' +
+                     '<div class="col-sm-6 col-md-6 text-center" style="height:150px;">' +
+                     '<img class="imageUpload"  style="background-image: url(' + e.target.result + ');">' +
+                     '</div>' +
+                     '<div class="col-sm-4 col-md-4 text-center">' +
+                     '<label class="Medida">' + file.name + '</label>' +
+                     '</div>' +
+                     '<div class="col-sm-2 col-md-2 text-center">' +
+                     '<label for="" class="btn btn-danger btn-sm btn-round" onclick="EliminarImage(this)"><i class="fa fa-trash"></i>' + '</label>' +
+                     '</div></div><br>';
+                 if ($('#Archivos').children().length > 0) {
+                     $('#Archivos').children().last().after(item);
+                 } else {
+                     $('#Archivos').html(item);
+                 }
+             }*/
+            reader.readAsDataURL(input.files[i]);
+        }
+    } else {
+        mensaje_warning("Debe Seleccionar solo 1 Imagen de Portada");
+    }
+
+}
+
+function EliminarImage(button){
+    debugger;
+    //var nombreImagen=button.data("imagen");
+    var padre=button.parent();
+    var row=padre.parent();
+    row.remove();
+}
+
+
+function parseData(entries) {
+    for (var i = 0; i < entries.length; i++) {
+        reader.onloadend = (function (file) {
+            return function (evt) {
+                createListItem(evt, file)
+            };
+        })(entries[i]);
+        reader.readAsText(entries[i]);
+    }
 }
 
 function RegistroCategoria(event) {
@@ -263,22 +210,14 @@ function RecuperarCategoria(idCategoria) {
             $("#CategoriaGrupo").empty();
             $("#CategoriaGrupo").append(ts);
             $("#CategoriaGrupo").val(data.Grupo_idGrupo);
-            debugger;
 
-            var name2=data.imagenPortada.replace('Categoria/','');
-            var ruta2="assets/images/Categoria/"+name;
-            var size2="100";
-            var type2="image/jpg";
+            var name2 = data.imagenPortada.replace('Categoria/', '');
+            var ruta2 = "assets/images/Categoria/" + name;
+            var size2 = "100";
+            var type2 = "image/jpg";
 
-            var obj = { name: name2,size:size2,type:type2,ruta:ruta2};
-            var myJSON = JSON.stringify(obj);
-            console.log(myJSON);
+            $('#Archivos').html();
 
-            var api = $.fileuploader.getInstance($("#CategoriaPortada"));
-            api.append(myJSON);
-            api.reset();
-            //Filter[0].files.append(myJSON);
-            //$("#PortadaCategoria").filer('append',myJSON);
         });
     });
 }
@@ -358,6 +297,7 @@ function InabilitarCategoria(idCategoria, Categoria) {
 function LimpiarCategoria() {
     $('#FormularioCategoria')[0].reset();
     $("#idCategoria").val("");
+    $('#Archivos').empty();
 }
 
 function Cancelar() {

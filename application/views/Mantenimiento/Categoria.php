@@ -27,7 +27,7 @@ $this->load->view('Layout/Nav');
                         </div>
 
                         <div class="card-block">
-                            <h5 class="col-md-12 sub-title">Lista de Categoriaes</h5>
+                            <h5 class="col-md-12 sub-title">Lista de Categorias</h5>
                             <div class="row">
                                 <div class="col-md-3 ml-md-auto col-sm-6 ml-sm-auto">
                                     <button type="button" class="btn btn-grd-success btn-block btn-sm btn-round" onclick="NuevoCategoria();">Nuevo Categoria</button>
@@ -95,12 +95,21 @@ $this->load->view('Layout/Nav');
                             <textarea name="CategoriaDescripcion" id="CategoriaDescripcion" class="form textarea form-control" rows="3" maxlength="200"></textarea>
                         </div>
                     </div>
+
                     <div class="row">
-                        <div class="col-sm-12 col-md-12">
-                            <label class="col-form-label">Portada:</label>
-                            <input class="form-control" type="file" name="files[]" id="PortadaCategoria" multiple="multiple">
+                        <div class="col-sm-4 col-md-4 AreaArchivos mb-3 mt-3">
+                            <label class="col-form-label">Portada: (Resolucion Permitida 250px x 250px)</label>
+                            <input class="form-control uploadFile" type="file" name="files[]" id="PortadaCategoria" multiple="multiple">
+                            <label for="PortadaCategoria" class="form-control btn btn-success btn-round btn-sm">Buscar Imagenes</label>
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12"  id="Archivos">
+
+                        </div>
+                    </div>
+                    <hr>
                     <div class="row">
                         <div class="col col-md-6 text-left">
                             <input type="button" class="btn btn-grd-danger btn-round btn-sm" value="CANCELAR" onclick="Cancelar();"> </div>
