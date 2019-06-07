@@ -20,7 +20,7 @@ class MPerfil extends CI_Model
     public function RegistroPerfil()
     {
         $data= array(
-            'DescripcionPerfil' => $this->input->post('PerfilTitulo'),
+            'DescripcionPerfil' =>mb_convert_case(mb_strtolower($this->input->post('PerfilTitulo')),
             'Estado_idEstado' => 1,
             'fechaRegistro' => $this->glob['FechaAhora']
         );
@@ -37,7 +37,7 @@ class MPerfil extends CI_Model
     public function UpdatePerfil()
     {
         $data= array(
-            'DescripcionPerfil' => $this->input->post('PerfilTitulo'),
+            'DescripcionPerfil' => mb_convert_case(mb_strtolower($this->input->post('PerfilTitulo')),
             'fechaUpdate' => $this->glob['FechaAhora']
         );
         $this->db->where('idPerfil', $_POST['PerfilidPerfil']);

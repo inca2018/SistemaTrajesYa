@@ -106,9 +106,9 @@ class Categoria extends CI_Controller
                 }
 
 
-                if ($_FILES["files"]["name"] != '') {
-                     $nombre=str_replace(" ","_",$_POST['CategoriaTitulo']);
-                    $Documento = "Categoria/".str_replace("-","",$nombre.".jpg");
+                if ($_POST['Imagenes']!= '') {
+                     $nombre=str_replace("ñ","n",str_replace(" ","_",$_POST['CategoriaTitulo']));
+                     $Documento = "Categoria/".$nombre.".jpg";
                 } else {
                     $Documento = null;
                 }
@@ -123,9 +123,10 @@ class Categoria extends CI_Controller
 
                     if($Documento!=null || $Documento!=''){
 
-                        $nombre=str_replace(" ","_",$_POST['CategoriaTitulo']);
-                        $Subida=$this->Recurso->upload_documento_binary("files","Categoria",1,$nombre.".jpg");
+                        $nombre=str_replace("ñ","n",str_replace(" ","_",$_POST['CategoriaTitulo']));
+                        $Subida=$this->Recurso->GuardarImagenes($_POST['Imagenes'],"Categoria",1,$nombre.".jpg");
                     }
+
                     if ($registro['Registro']) {
                         $data['Mensaje'] .= 'Categoria Registrado con exito.';
                     } else {
@@ -142,11 +143,26 @@ class Categoria extends CI_Controller
                     $data['Error'] = true;
                     $data['Mensaje'] .= 'Categoria:' . $_POST['CategoriaTitulo'] . ' ya se encuentra registrado <br>';
                 }
+
+                 if ($_POST['Imagenes']!= '') {
+                    $nombre=str_replace("ñ","n",str_replace(" ","_",$_POST['CategoriaTitulo']));
+                     $Documento = "Categoria/".$nombre.".jpg";
+                } else {
+                    $Documento = null;
+                }
+
                 if ($data['Error']) {
                     $data['Tipo'] = 'warning';
                     $data['Mensaje'] .= 'Corregir los datos ingresados';
                 } else {
-                    $registro = $this->MCategoria->UpdateCategoria();
+                    $registro = $this->MCategoria->UpdateCategoria($Documento);
+
+                    if($Documento!=null || $Documento!=''){
+
+                        $nombre=str_replace("ñ","n",str_replace(" ","_",$_POST['CategoriaTitulo']));
+                        $Subida=$this->Recurso->GuardarImagenes($_POST['Imagenes'],"Categoria",1,$nombre.".jpg");
+                    }
+
                     if ($registro['Registro']) {
                         $data['Mensaje'] .= 'Categoria Modificado con exito.';
                     } else {
@@ -171,6 +187,14 @@ class Categoria extends CI_Controller
     public function ObtenerCategoria()
     {
         $data = $this->MCategoria->ObtenerCategoria();
+        if($data->imagenPortada!=null){
+            $ruta="assets/images/".$data->imagenPortada;
+            // Cargando la imagen
+            $archivo = file_get_contents($ruta);
+            // Decodificando la imagen en base64
+            $base64 = 'data:image/jpg;base64,' . base64_encode($archivo);
+            $data->imagenPortada=$base64;
+        }
         echo json_encode($data);
     }
     public function EliminarCategoria()
@@ -245,4 +269,3 @@ class Categoria extends CI_Controller
     }
 
 }
-

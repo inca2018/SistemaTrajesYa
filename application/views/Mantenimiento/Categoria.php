@@ -95,24 +95,22 @@ $this->load->view('Layout/Nav');
                             <textarea name="CategoriaDescripcion" id="CategoriaDescripcion" class="form textarea form-control" rows="3" maxlength="200"></textarea>
                         </div>
                     </div>
-
                     <div class="row">
-                        <div class="col-sm-4 col-md-4 AreaArchivos mb-3 mt-3">
-                            <label class="col-form-label">Portada: (Resolucion Permitida 250px x 250px)</label>
-                            <input class="form-control uploadFile" type="file" name="files[]" id="PortadaCategoria" multiple="multiple">
-                            <label for="PortadaCategoria" class="form-control btn btn-success btn-round btn-sm">Buscar Imagenes</label>
+                        <div class="col-sm-4 col-md-4">
+                            <label class="col-form-label">Portada:</label>
                         </div>
                     </div>
-
                     <div class="row">
-                        <div class="col-sm-12 col-md-12"  id="Archivos">
-
+                        <div class="col-sm-12">
+                            <div class="images">
+                                <div class="pic">Agregar Imagen</div>
+                            </div>
                         </div>
                     </div>
                     <hr>
                     <div class="row">
                         <div class="col col-md-6 text-left">
-                            <input type="button" class="btn btn-grd-danger btn-round btn-sm" value="CANCELAR" onclick="Cancelar();"> </div>
+                            <input type="button" class="btn btn-grd-danger btn-round btn-sm"  value="CANCELAR" onclick="Cancelar();"> </div>
                         <div class="col col-md-6 text-right">
                             <input type="submit" value="GUARDAR" class="btn btn-grd-primary btn-round btn-sm"> </div>
                     </div>

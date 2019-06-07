@@ -20,7 +20,7 @@ class MGrupo extends CI_Model
     public function RegistroGrupo()
     {
         $data= array(
-            'Descripcion' => $this->input->post('GrupoTitulo'),
+            'Descripcion' => mb_convert_case(mb_strtolower($this->input->post('GrupoTitulo')), MB_CASE_TITLE, "UTF-8"),
             'Estado_idEstado' => 1,
             'fechaRegistro' => $this->glob['FechaAhora']
         );
@@ -37,7 +37,7 @@ class MGrupo extends CI_Model
     public function UpdateGrupo()
     {
         $data= array(
-            'Descripcion' => $this->input->post('GrupoTitulo'),
+            'Descripcion' =>mb_convert_case(mb_strtolower($this->input->post('GrupoTitulo')), MB_CASE_TITLE, "UTF-8"),
             'fechaUpdate' => $this->glob['FechaAhora']
         );
         $this->db->where('idGrupo', $_POST['GrupoidGrupo']);

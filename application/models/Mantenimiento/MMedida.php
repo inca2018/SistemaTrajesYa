@@ -20,7 +20,7 @@ class MMedida extends CI_Model
     public function RegistroMedida()
     {
         $data= array(
-            'NombreMedida' => $this->input->post('MedidaTitulo'),
+            'NombreMedida' =>mb_convert_case(mb_strtolower($this->input->post('MedidaTitulo')), MB_CASE_TITLE, "UTF-8"),
             'Estado_idEstado' => 1,
             'fechaRegistro' => $this->glob['FechaAhora']
         );
@@ -38,7 +38,7 @@ class MMedida extends CI_Model
     public function UpdateMedida()
     {
         $data= array(
-            'NombreMedida' => $this->input->post('MedidaTitulo'),
+            'NombreMedida' => $this->mb_convert_case(mb_strtolower($this->input->post('MedidaTitulo')), MB_CASE_TITLE, "UTF-8"),
             'fechaUpdate' => $this->glob['FechaAhora']
         );
         $this->db->where('idMedida', $_POST['MedidaidMedida']);

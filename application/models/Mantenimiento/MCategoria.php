@@ -20,7 +20,7 @@ class MCategoria extends CI_Model
     public function RegistroCategoria($Documento)
     {
         $data= array(
-            'NombreCategoria' => ucwords(strtolower($this->input->post('CategoriaTitulo'))),
+            'NombreCategoria' =>mb_convert_case(mb_strtolower($this->input->post('CategoriaTitulo')), MB_CASE_TITLE, "UTF-8"),
             'Descripcion' => $this->input->post('CategoriaDescripcion'),
             'imagenPortada' =>$Documento,
             'Grupo_idGrupo' => $this->input->post('CategoriaGrupo'),
@@ -37,10 +37,13 @@ class MCategoria extends CI_Model
 
         return $insert_data;
     }
-    public function UpdateCategoria()
+    public function UpdateCategoria($Documento)
     {
         $data= array(
-            'NombreCategoria' => $this->input->post('CategoriaTitulo'),
+            'NombreCategoria' =>mb_convert_case(mb_strtolower($this->input->post('CategoriaTitulo')), MB_CASE_TITLE, "UTF-8"),
+            'Descripcion' => $this->input->post('CategoriaDescripcion'),
+            'imagenPortada' =>$Documento,
+            'Grupo_idGrupo' => $this->input->post('CategoriaGrupo'),
             'fechaUpdate' => $this->glob['FechaAhora']
         );
         $this->db->where('idCategoria', $_POST['CategoriaidCategoria']);

@@ -1,11 +1,40 @@
 var tablaCategoria;
 var Filter;
-var Imagenes=0;
+var Cantidad = 1
 
 function init() {
+    uploadImage();
     Iniciar_Componentes();
     Listar_Categoria();
     ListarGrupos();
+}
+
+function uploadImage() {
+    //Recuperar el Agregador
+    var button = $('.images .pic')
+    //Crear input
+    var uploader = $('<input type="file" accept="image/*" />')
+    //Recuperar Imagenes adjuntadas
+    var images = $('.images')
+    button.on('click', function () {
+        var images = $('.images .img')
+        if (images.length >= Cantidad) {
+            mensaje_warning("Solo puede Seleccionar " + Cantidad + " Imagen(es).")
+        } else {
+            uploader.click()
+        }
+
+    })
+    uploader.on('change', function () {
+        var reader = new FileReader()
+        reader.onload = function (event) {
+            images.prepend('<div class="img" style="background-image: url(\'' + event.target.result + '\');" rel="' + event.target.result + '"><span>remove</span></div>')
+        }
+        reader.readAsDataURL(uploader[0].files[0])
+    })
+    images.on('click', '.img', function () {
+        $(this).remove()
+    })
 }
 
 function ListarGrupos() {
@@ -36,17 +65,17 @@ function readURL(input) {
 
             reader.onloadend = (function (file) {
                 return function (e) {
-
+                    var nombre = file.name.replace(" ", "-");
                     var item =
-                        '<div class="row align-items-center">' +
-                        '<div class="col-sm-4 col-md-4 text-center" style="height:100px;">' +
+                        '<div class="row align-items-center" id="' + nombre + '">' +
+                        '<div class="col-sm-4 col-md-4 text-center" style="height:120px;">' +
                         '<img class="imageUpload"  style="background-image: url(' + e.target.result + ');">' +
                         '</div>' +
                         '<div class="col-sm-4 col-md-4 text-center">' +
                         '<label class="Medida"><h5>' + file.name + '</h5></label>' +
                         '</div>' +
                         '<div class="col-sm-4 col-md-4 text-center">' +
-                        '<label for="" class="btn btn-danger btn-sm btn-round" data-imagen="'+file.name+'" onclick="EliminarImage(this)"><i class="fa fa-trash"></i>' + '</label>' +
+                        '<label for="" class="btn btn-danger btn-sm btn-round" onclick="EliminarImage(\'' + nombre + '\')"><i class="fa fa-trash"></i>' + '</label>' +
                         '</div></div><br>';
                     if ($('#Archivos').children().length > 0) {
                         $('#Archivos').children().last().after(item);
@@ -55,25 +84,6 @@ function readURL(input) {
                     }
                 };
             })(input.files[i]);
-
-            /* reader.onload = function (e) {
-                 var item =
-                     '<div class="row">' +
-                     '<div class="col-sm-6 col-md-6 text-center" style="height:150px;">' +
-                     '<img class="imageUpload"  style="background-image: url(' + e.target.result + ');">' +
-                     '</div>' +
-                     '<div class="col-sm-4 col-md-4 text-center">' +
-                     '<label class="Medida">' + file.name + '</label>' +
-                     '</div>' +
-                     '<div class="col-sm-2 col-md-2 text-center">' +
-                     '<label for="" class="btn btn-danger btn-sm btn-round" onclick="EliminarImage(this)"><i class="fa fa-trash"></i>' + '</label>' +
-                     '</div></div><br>';
-                 if ($('#Archivos').children().length > 0) {
-                     $('#Archivos').children().last().after(item);
-                 } else {
-                     $('#Archivos').html(item);
-                 }
-             }*/
             reader.readAsDataURL(input.files[i]);
         }
     } else {
@@ -82,29 +92,13 @@ function readURL(input) {
 
 }
 
-function EliminarImage(button){
-    debugger;
-    //var nombreImagen=button.data("imagen");
-    var padre=button.parent();
-    var row=padre.parent();
-    row.remove();
-}
-
-
-function parseData(entries) {
-    for (var i = 0; i < entries.length; i++) {
-        reader.onloadend = (function (file) {
-            return function (evt) {
-                createListItem(evt, file)
-            };
-        })(entries[i]);
-        reader.readAsText(entries[i]);
-    }
-}
-
 function RegistroCategoria(event) {
     event.preventDefault();
+
+    var imagenes = RecuperarImagenes();
+    var imagenesBr = imagenes.join("|");
     var formData = new FormData($("#FormularioCategoria")[0]);
+    formData.append("Imagenes", imagenesBr);
     console.log(formData);
     $.ajax({
         url: "/Mantenimiento/Categoria/InsertUpdateCategoria",
@@ -129,7 +123,9 @@ function RegistroCategoria(event) {
         error: function (e) {
             console.log(e.responseText);
         },
-        complete: function () {}
+        complete: function () {
+
+        }
     });
 }
 
@@ -211,12 +207,12 @@ function RecuperarCategoria(idCategoria) {
             $("#CategoriaGrupo").append(ts);
             $("#CategoriaGrupo").val(data.Grupo_idGrupo);
 
-            var name2 = data.imagenPortada.replace('Categoria/', '');
-            var ruta2 = "assets/images/Categoria/" + name;
-            var size2 = "100";
-            var type2 = "image/jpg";
+            if (data.imagenPortada != null) {
+                //Recuperando 1 Imagen
+                var images = $('.images');
+                images.prepend('<div class="img" style="background-image: url(\'' + data.imagenPortada + '\');" rel="' + data.imagenPortada + '"><span>remove</span></div>');
+            }
 
-            $('#Archivos').html();
 
         });
     });
@@ -296,13 +292,34 @@ function InabilitarCategoria(idCategoria, Categoria) {
 
 function LimpiarCategoria() {
     $('#FormularioCategoria')[0].reset();
-    $("#idCategoria").val("");
+    $("#CategoriaidCategoria").val("");
     $('#Archivos').empty();
+    resetUpload();
 }
 
 function Cancelar() {
     LimpiarCategoria();
     $("#ModalCategoria").modal("hide");
+    resetUpload();
+}
+
+function resetUpload() {
+    var images = $('.images .img')
+    for (var i = 0; i < images.length; i++) {
+        $(images)[i].remove()
+    }
+}
+
+function RecuperarImagenes() {
+
+    var images = $('.images .img');
+    var imageArr = [];
+
+    for (var i = 0; i < images.length; i++) {
+        imageArr.push($(images[i]).attr('rel'));
+    }
+
+    return imageArr;
 }
 
 init();

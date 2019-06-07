@@ -24,8 +24,8 @@ class MUsuario extends CI_Model
         $data                    = array(
             'usuario' => $this->input->post('UsuarioUsuario'),
             'password' => $password,
-            'NombreUsuario' => ucwords(strtolower($this->input->post('UsuarioNombre'))),
-            'ApellidosUsuario' => ucwords(strtolower($this->input->post('UsuarioApellido'))),
+            'NombreUsuario' =>mb_convert_case(mb_strtolower($this->input->post('UsuarioNombre')),
+            'ApellidosUsuario' =>mb_convert_case(mb_strtolower($this->input->post('UsuarioApellido')),
             'Dni' => $this->input->post('UsuarioDni'),
             'Correo' => $this->input->post('UsuarioCorreo'),
             'fechaRegistro' => $this->glob['FechaAhora'],
@@ -39,7 +39,7 @@ class MUsuario extends CI_Model
 
 
         /** Registro de Historial **/
-        $Mensaje=" Se Registró nuevo Usuario: ".$this->input->post('UsuarioUsuario')." - Nombres: ".ucwords(strtolower($this->input->post('UsuarioNombre')))." ".ucwords(strtolower($this->input->post('UsuarioApellido'))).".";
+        $Mensaje=" Se Registró nuevo Usuario: ".$this->input->post('UsuarioUsuario')." - Nombres: ".mb_convert_case(mb_strtolower($this->input->post('UsuarioNombre'))." ".mb_convert_case(mb_strtolower($this->input->post('UsuarioApellido')).".";
         $this->db->select("FU_REGISTRO_HISTORIAL(1,".$this->glob['idUsuario'].",'".$Mensaje."','".$this->glob['FechaAhora']."') AS Respuesta");
         $func["Historial"] = $this->db->get();
 
@@ -53,8 +53,8 @@ class MUsuario extends CI_Model
             if($ruta_image== ''){
                 $data                    = array(
                 'usuario' => $this->input->post('UsuarioUsuario'),
-                'NombreUsuario' => ucwords(strtolower($this->input->post('UsuarioNombre'))),
-                'ApellidosUsuario' => ucwords(strtolower($this->input->post('UsuarioApellido'))),
+                'NombreUsuario' =>mb_convert_case(mb_strtolower($this->input->post('UsuarioNombre')),
+                'ApellidosUsuario' =>mb_convert_case(mb_strtolower($this->input->post('UsuarioApellido')),
                 'Dni' => $this->input->post('UsuarioDni'),
                 'Correo' => $this->input->post('UsuarioCorreo'),
                 'fechaUpdate' => $this->glob['FechaAhora'],
@@ -64,8 +64,8 @@ class MUsuario extends CI_Model
             }else{
                  $data                    = array(
                 'usuario' => $this->input->post('UsuarioUsuario'),
-                'NombreUsuario' => ucwords(strtolower($this->input->post('UsuarioNombre'))),
-                'ApellidosUsuario' => ucwords(strtolower($this->input->post('UsuarioApellido'))),
+                'NombreUsuario' =>mb_convert_case(mb_strtolower($this->input->post('UsuarioNombre')),
+                'ApellidosUsuario' =>mb_convert_case(mb_strtolower($this->input->post('UsuarioApellido')),
                 'Dni' => $this->input->post('UsuarioDni'),
                 'Correo' => $this->input->post('UsuarioCorreo'),
                 'fechaUpdate' => $this->glob['FechaAhora'],
@@ -80,8 +80,8 @@ class MUsuario extends CI_Model
                  $data                    = array(
                 'usuario' => $this->input->post('UsuarioUsuario'),
                 'password' => $password,
-                'NombreUsuario' => ucwords(strtolower($this->input->post('UsuarioNombre'))),
-                'ApellidosUsuario' => ucwords(strtolower($this->input->post('UsuarioApellido'))),
+                'NombreUsuario' =>mb_convert_case(mb_strtolower($this->input->post('UsuarioNombre')),
+                'ApellidosUsuario' =>mb_convert_case(mb_strtolower($this->input->post('UsuarioApellido')),
                 'Dni' => $this->input->post('UsuarioDni'),
                 'Correo' => $this->input->post('UsuarioCorreo'),
                 'fechaUpdate' => $this->glob['FechaAhora'],
@@ -92,8 +92,8 @@ class MUsuario extends CI_Model
                  $data                    = array(
                 'usuario' => $this->input->post('UsuarioUsuario'),
                 'password' => $password,
-                'NombreUsuario' => ucwords(strtolower($this->input->post('UsuarioNombre'))),
-                'ApellidosUsuario' => ucwords(strtolower($this->input->post('UsuarioApellido'))),
+                'NombreUsuario' =>mb_convert_case(mb_strtolower($this->input->post('UsuarioNombre')),
+                'ApellidosUsuario' =>mb_convert_case(mb_strtolower($this->input->post('UsuarioApellido')),
                 'Dni' => $this->input->post('UsuarioDni'),
                 'Correo' => $this->input->post('UsuarioCorreo'),
                 'fechaUpdate' => $this->glob['FechaAhora'],
@@ -109,10 +109,9 @@ class MUsuario extends CI_Model
 
 
         /** Registro de Historial **/
-        $Mensaje=" Se Actualizó  Usuario: ".$this->input->post('UsuarioUsuario')." - Nombres: ".ucwords(strtolower($this->input->post('UsuarioNombre')))." ".ucwords(strtolower($this->input->post('UsuarioApellido'))).".";
+        $Mensaje=" Se Actualizó  Usuario: ".$this->input->post('UsuarioUsuario')." - Nombres: ".mb_convert_case(mb_strtolower($this->input->post('UsuarioNombre'))." ".mb_convert_case(mb_strtolower($this->input->post('UsuarioApellido')).".";
         $this->db->select("FU_REGISTRO_HISTORIAL(2,".$this->glob['idUsuario'].",'".$Mensaje."','".$this->glob['FechaAhora']."') AS Respuesta");
         $func["Historial"] = $this->db->get();
-
 
         return $insert_data;
     }

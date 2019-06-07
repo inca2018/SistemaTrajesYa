@@ -108,7 +108,44 @@ class Recurso extends CI_Model {
                  return true;
               }
        }
-   }    
+   }
+
+    public function GuardarImagenes($Archivos,$Carpeta,$Tipo,$Nombre){
+         // ubicar el de recurso
+      $linkDocumento='assets/images/'.$Carpeta.'/';
+      if(!file_exists($linkDocumento)){
+         mkdir("$linkDocumento",0777);
+      }
+
+       if($Tipo==2){
+           //editar
+           $linkRecurso2='assets/images/'.$Carpeta.'/'.$Nombre.'.jpg';
+            if(file_exists($linkRecurso2)){
+                 unlink($linkRecurso2);
+              }
+               if(isset($_FILES[$Archivos])){
+                 $destination ='assets/images/'.$Carpeta.'/'.$Nombre.'.jpg';
+                 $subida = move_uploaded_file($_FILES[$archivo]['tmp_name'], $destination);
+                 return $subida;
+            }
+       }else{
+           //registrar
+            if(isset($Archivos)){
+                $Destination ='assets/images/'.$Carpeta.'/';
+                //Como el elemento es un arreglos utilizamos foreach para extraer todos los valores
+                $Archivos=explode("|",$Archivos);
+               foreach($Archivos as $key => $tmp_name)
+               {
+                  if($Archivos[$key]){
+                     $temp=explode(",",$Archivos[$key]);
+                     $data = base64_decode($temp[1]);
+                     file_put_contents($Destination.$Nombre, $data);
+                  }
+               }
+                 return true;
+              }
+       }
+    }
 
 }
 
