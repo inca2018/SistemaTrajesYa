@@ -83,7 +83,7 @@ class MCategoria extends CI_Model
         $query=$row->row();
 
          /** Registro de Historial **/
-        $Mensaje=" Se Eliminó  Categoria: ".$query->DescripcionCategoria."";
+        $Mensaje=" Se Eliminó  Categoria: ".$query->NombreCategoria."";
         $this->db->select("FU_REGISTRO_HISTORIAL(5,".$this->glob['idUsuario'].",'".$Mensaje."','".$this->glob['FechaAhora']."') AS Respuesta");
         $func["Historial"] = $this->db->get();
 
@@ -107,11 +107,11 @@ class MCategoria extends CI_Model
         /** Registro de Historial **/
         $Mensaje="";
         if($codigo==1){
-             $Mensaje=" Se Habilitó  Categoria: ".$query->DescripcionCategoria."";
+             $Mensaje=" Se Habilitó  Categoria: ".$query->NombreCategoria."";
              $this->db->select("FU_REGISTRO_HISTORIAL(3,".$this->glob['idUsuario'].",'".$Mensaje."','".$this->glob['FechaAhora']."') AS Respuesta");
              $func["Historial"] = $this->db->get();
         }else{
-             $Mensaje=" Se Inhabilitó  Categoria: ".$query->DescripcionCategoria."";
+             $Mensaje=" Se Inhabilitó  Categoria: ".$query->NombreCategoria."";
              $this->db->select("FU_REGISTRO_HISTORIAL(4,".$this->glob['idUsuario'].",'".$Mensaje."','".$this->glob['FechaAhora']."') AS Respuesta");
              $func["Historial"] = $this->db->get();
         }

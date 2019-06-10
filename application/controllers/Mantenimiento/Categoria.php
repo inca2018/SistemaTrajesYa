@@ -57,10 +57,10 @@ class Categoria extends CI_Controller
             $data[] = array(
 
                 "0" => $reg->Titulo,
-                "1" => $reg->grupoCategoria,
-                "2" => $this->BuscarImagen($reg),
-                "3" => $reg->Descripcion,
-                "4" => $this->BuscarAccion($reg),
+                "1" => $this->BuscarImagen($reg),
+                "2" => $reg->grupoCategoria,
+                "3" => $this->BuscarAccion($reg),
+                "4" => $reg->Descripcion,
                 "5" => $reg->fechaRegistro,
                 "6" => $reg->fechaUpdate,
                 "7" => $this->BuscarEstado($reg)
@@ -204,6 +204,14 @@ class Categoria extends CI_Controller
             'Mensaje' => '',
             'Tipo' => 'success'
         );
+
+         $respta = $this->MCategoria->ObtenerCategoria();
+            if($respta->imagenPortada!=null){
+               $linkEliminar='assets/images/'.$respta->imagenPortada;
+                if(file_exists($linkEliminar)){
+                     unlink($linkEliminar);
+                  }
+            }
 
         $delete = $this->MCategoria->EliminarCategoria();
         if ($delete['Delete']) {

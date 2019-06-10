@@ -139,7 +139,7 @@ function Listar_Categoria() {
         "info": true, // Informacion de cabecera tabla
         "responsive": true, // Accion de responsive
         "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-        "order": [[4, "asc"]],
+        "order": [[3, "asc"]],
         "bDestroy": true,
         "columnDefs": [
             {
@@ -320,6 +320,13 @@ function RecuperarImagenes() {
     }
 
     return imageArr;
+}
+
+
+function SubCategorias(idCategoria){
+     $.redirect('/Mantenimiento/SubCategoria/', {
+        'idCategoria': idCategoria
+    });
 }
 
 init();

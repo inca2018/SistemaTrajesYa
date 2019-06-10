@@ -44,8 +44,8 @@ $this->load->view('Layout/Nav');
                                                     <th>Titulo de Categoria</th>
                                                     <th>Imagen Portada</th>
                                                     <th>Grupo</th>
-                                                    <th>Descripción</th>
                                                     <th>Acciones</th>
+                                                    <th>Descripción</th>
                                                     <th>Fecha de Reg.</th>
                                                     <th>Ultima Act.</th>
                                                     <th>Estado</th>
