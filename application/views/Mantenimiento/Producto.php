@@ -42,7 +42,11 @@ $this->load->view('Layout/Nav');
                                         <thead class="thead-light text-center">
                                             <tr>
                                                 <th>Titulo de Producto</th>
-                                                <th>Acciones</th>
+                                                <th>Descripción</th>
+                                                <th>Portada</th>
+                                                <th>Categoria/SubCategoria</th>
+                                                <th>Origen</th>
+                                                <th>Acción</th>
                                                 <th>Fecha de Reg.</th>
                                                 <th>Ultima Act.</th>
                                                 <th>Estado</th>
@@ -66,7 +70,7 @@ $this->load->view('Layout/Nav');
 <?php
    $this->load->view('Layout/Footer');
 ?>
-<div class="modal fade" id="ModalProducto" role="dialog" aria-labelledby="myModalLabelLarge" aria-hidden="true">
+<div class="modal fade" id="ModalProducto" role="dialog" aria-labelledby="myModalLabelLarge" aria-hidden="true" style="z-index:10001 !important;">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-body">
@@ -101,17 +105,34 @@ $this->load->view('Layout/Nav');
                     <div class="row form-group" id="AreaUbicacion" style="display:none;">
                         <div class="col-sm-4 col-md-4">
                             <label class="col-form-label">Departamento:</label>
-                            <select class="form-control" id="ProductoDepartamento" name="ProductoDepartamento"> </select>
+                            <select class="form-control" id="ProductoDepartamento" name="ProductoDepartamento">
+                             <option value="">--- SELECCIONE ---</option></select>
                         </div>
                          <div class="col-sm-4 col-md-4">
                             <label class="col-form-label">Provincia:</label>
-                            <select class="form-control" id="ProductoProvincia" name="ProductoProvincia"> </select>
+                            <select class="form-control" id="ProductoProvincia" name="ProductoProvincia">
+                             <option value="">--- SELECCIONE ---</option></select>
                         </div>
                          <div class="col-sm-4 col-md-4">
                             <label class="col-form-label">Distrito:</label>
-                            <select class="form-control" id="ProductoDistrito" name="ProductoDistrito"> </select>
+                            <select class="form-control" id="ProductoDistrito" name="ProductoDistrito">
+                             <option value="">--- SELECCIONE ---</option> </select>
                         </div>
                     </div>
+
+                     <div class="row">
+                        <div class="col-sm-4 col-md-4">
+                            <label class="col-form-label">Portada:</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="images">
+                                <div class="pic">Agregar Imagen</div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
 
                     <div class="row">
                         <div class="col col-md-6 text-left">

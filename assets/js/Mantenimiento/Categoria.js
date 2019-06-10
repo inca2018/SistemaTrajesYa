@@ -50,47 +50,8 @@ function Iniciar_Componentes() {
         RegistroCategoria(e);
     });
 
-    $("#PortadaCategoria").change(function () {
-        readURL(this);
-    });
-
-
 }
 
-function readURL(input) {
-    if (input.files.length == 1) {
-        for (var i = 0; i < input.files.length; i++) {
-            var reader = new FileReader();
-
-
-            reader.onloadend = (function (file) {
-                return function (e) {
-                    var nombre = file.name.replace(" ", "-");
-                    var item =
-                        '<div class="row align-items-center" id="' + nombre + '">' +
-                        '<div class="col-sm-4 col-md-4 text-center" style="height:120px;">' +
-                        '<img class="imageUpload"  style="background-image: url(' + e.target.result + ');">' +
-                        '</div>' +
-                        '<div class="col-sm-4 col-md-4 text-center">' +
-                        '<label class="Medida"><h5>' + file.name + '</h5></label>' +
-                        '</div>' +
-                        '<div class="col-sm-4 col-md-4 text-center">' +
-                        '<label for="" class="btn btn-danger btn-sm btn-round" onclick="EliminarImage(\'' + nombre + '\')"><i class="fa fa-trash"></i>' + '</label>' +
-                        '</div></div><br>';
-                    if ($('#Archivos').children().length > 0) {
-                        $('#Archivos').children().last().after(item);
-                    } else {
-                        $('#Archivos').html(item);
-                    }
-                };
-            })(input.files[i]);
-            reader.readAsDataURL(input.files[i]);
-        }
-    } else {
-        mensaje_warning("Debe Seleccionar solo 1 Imagen de Portada");
-    }
-
-}
 
 function RegistroCategoria(event) {
     event.preventDefault();

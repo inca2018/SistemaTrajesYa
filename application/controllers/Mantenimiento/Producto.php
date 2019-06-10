@@ -13,20 +13,53 @@ class Producto extends CI_Controller
     {
         $this->load->view('Mantenimiento/Producto');
     }
+
+     public function BuscarImagen($reg){
+        if($reg->imagen==null){
+            return 'Sin Portada';
+        }else{
+           return  ' <a href="../../assets/images/'.$reg->imagen.'" data-lightbox="1" data-title="'.$reg->Titulo.'">
+                                                                            <img src="../../assets/images/'.$reg->imagen.'" class="img-fluid rounded img-30">
+                                                                        </a>';
+        }
+
+    }
     public function BuscarEstado($reg)
     {
-        if ($reg->estado_idEstado == '1' || $reg->estado_idEstado == 1) {
+        if ($reg->Estado_idEstado == '1' || $reg->estado_idEstado == 1) {
             return '<div class="badge badge-success">' . $reg->nombreEstado . '</div>';
-        } elseif ($reg->estado_idEstado == '2' || $reg->estado_idEstado == 2) {
+        } elseif ($reg->Estado_idEstado == '2' || $reg->Estado_idEstado == 2) {
             return '<div class="badge badge-danger">' . $reg->nombreEstado . '</div>';
         } else {
             return '<div class="badge badge-primary">' . $reg->nombreEstado . '</div>';
         }
     }
+    public function BuscarUbicacion($reg){
+        $ubicacion="";
+        if($reg->departamento==""){
+           $ubicacion.="-";
+            return $ubicacion;
+        }else{
+            if($reg->provincia==""){
+              $ubicacion.=$reg->departamento;
+                return $ubicacion;
+            }else{
+               if($reg->distrito==""){
+                   $ubicacion.=$reg->departamento."/".$reg->provincia;
+                   return $ubicacion;
+               }else{
+                  $ubicacion.=$reg->departamento."/".$reg->provincia."/".$reg->distrito;
+                   return $ubicacion;
+               }
+            }
+        }
+    }
+
+
 
     public function BuscarAccion($reg)
     {
-        if ($reg->estado_idEstado == 1) {
+        if ($reg->Estado_idEstado == 1) {
             return '
 
             <button type="button" title="Editar" class="btn btn-grd-warning btn-mini btn-round" onclick="EditarProducto(' . $reg->idProducto . ')"><i class="fa fa-edit"></i></button>
@@ -49,10 +82,16 @@ class Producto extends CI_Controller
             $data[] = array(
 
                 "0" => $reg->Titulo,
-                "1" => $this->BuscarAccion($reg),
-                "2" => $reg->fechaRegistro,
-                "3" => $reg->fechaUpdate,
-                "4" => $this->BuscarEstado($reg)
+                "1" => $reg->DescripcionProducto,
+                "2" => $this->BuscarImagen($reg),
+                "3" => $reg->categoria."/".$reg->subcategoria,
+                "4" => $this->BuscarUbicacion($reg),
+                "5" => $this->BuscarAccion($reg),
+                "6" => ' <button type="button" title="Editar" class="btn btn-grd-secondary btn-mini btn-round" onclick="Galeria(' . $reg->idProducto . ')">Ver Galeria de Fotos </button>',
+                "7" =>  ' <button type="button" title="Editar" class="btn btn-grd-primary btn-mini btn-round" onclick="Galeria(' . $reg->idProducto . ')">Ver Tarifas </button>',
+                "8" => $reg->fechaRegistro,
+                "9" => $reg->fechaUpdate,
+                "10" => $this->BuscarEstado($reg)
             );
         }
 
@@ -65,6 +104,15 @@ class Producto extends CI_Controller
         echo json_encode($results);
     }
 
+    function check_default($post_string)
+    {
+      return $post_string == '0' ? FALSE : TRUE;
+    }
+     function check_default2($post_string)
+    {
+      return $post_string == '0' ? FALSE : TRUE;
+    }
+
     public function InsertUpdateProducto()
     {
 
@@ -75,22 +123,46 @@ class Producto extends CI_Controller
         );
         $this->form_validation->set_rules('ProductoTitulo', 'Titulo del Producto', 'trim|required|min_length[3]|max_length[120]');
 
+
+        $this->form_validation->set_rules('ProductoCategoria', 'Categoria de Producto', 'required|callback_check_default');
+        $this->form_validation->set_message('check_default', 'El campo Categoria de Producto es Obligatorio');
+
+        $this->form_validation->set_rules('ProductoSubCategoria', 'SubCategoria de Producto', 'required|callback_check_default2');
+        $this->form_validation->set_message('check_default2', 'El campo SubCategoria de Producto es Obligatorio');
+
         if ($this->form_validation->run() == true) {
             /* Registras Producto */
             if (empty($_POST['ProductoidProducto'])) {
                 /* valida Producto */
-                $VRuc = $this->Recurso->Validaciones('Producto', 'NombreProducto', $_POST['ProductoTitulo']);
+                $VRuc = $this->Recurso->Validaciones('producto', 'NombreProducto', $_POST['ProductoTitulo']);
                 if ($VRuc > 0) {
                     $data['Error'] = true;
                     $data['Mensaje'] .= 'Producto:  "' . $_POST['ProductoTitulo'] . '" , ya se encuentra registrado ';
                 }
+
+                 if ($_POST['Imagenes']!= '') {
+                     $nombre=str_replace(" ","_",$_POST['ProductoTitulo']);
+                     $nombre=mb_convert_case(mb_strtolower($nombre), MB_CASE_TITLE, "UTF-8");
+                     $Documento = "Producto/".$nombre.".jpg";
+                } else {
+                    $Documento = null;
+                }
+
 
                 if ($data['Error']) {
                     $data['Tipo'] = 'warning';
                     $data['Mensaje'] .= 'Corregir los datos ingresados';
                 } else {
 
-                    $registro = $this->MProducto->RegistroProducto();
+                    $registro = $this->MProducto->RegistroProducto($Documento);
+
+                    if($Documento!=null || $Documento!=''){
+
+                         $nombre=str_replace(" ","_",$_POST['ProductoTitulo']);
+                        $nombre=mb_convert_case(mb_strtolower($nombre), MB_CASE_TITLE, "UTF-8");
+                        $Subida=$this->Recurso->GuardarImagenes($_POST['Imagenes'],"Producto",1,$nombre.".jpg");
+                    }
+
                     if ($registro['Registro']) {
                         $data['Mensaje'] .= 'Producto Registrado con exito.';
                     } else {
@@ -104,16 +176,33 @@ class Producto extends CI_Controller
             } else {
                 /* modificar Producto */
                 /* valida Producto */
-                $VRuc = $this->Recurso->Validaciones('Producto', 'NombreProducto', $_POST['ProductoTitulo'], 'idProducto', $_POST['ProductoidProducto']);
+                $VRuc = $this->Recurso->Validaciones('producto', 'NombreProducto', $_POST['ProductoTitulo'], 'idProducto', $_POST['ProductoidProducto']);
                 if ($VRuc > 0) {
                     $data['Error'] = true;
                     $data['Mensaje'] .= 'Producto:' . $_POST['ProductoTitulo'] . ' ya se encuentra registrado <br>';
                 }
+
+                 if ($_POST['Imagenes']!= '') {
+                     $nombre=str_replace(" ","_",$_POST['ProductoTitulo']);
+                     $nombre=mb_convert_case(mb_strtolower($nombre), MB_CASE_TITLE, "UTF-8");
+                     $Documento = "Producto/".$nombre.".jpg";
+                } else {
+                    $Documento = null;
+                }
+
                 if ($data['Error']) {
                     $data['Tipo'] = 'warning';
                     $data['Mensaje'] .= 'Corregir los datos ingresados';
                 } else {
-                    $registro = $this->MProducto->UpdateProducto();
+                    $registro = $this->MProducto->UpdateProducto($Documento);
+
+                    if($Documento!=null || $Documento!=''){
+
+                         $nombre=str_replace(" ","_",$_POST['ProductoTitulo']);
+                        $nombre=mb_convert_case(mb_strtolower($nombre), MB_CASE_TITLE, "UTF-8");
+                        $Subida=$this->Recurso->GuardarImagenes($_POST['Imagenes'],"Producto",1,$nombre.".jpg");
+                    }
+
                     if ($registro['Registro']) {
                         $data['Mensaje'] .= 'Producto Modificado con exito.';
                     } else {
@@ -138,6 +227,14 @@ class Producto extends CI_Controller
     public function ObtenerProducto()
     {
         $data = $this->MProducto->ObtenerProducto();
+        if($data->imagenPortada!=null){
+            $ruta="assets/images/".$data->imagenPortada;
+            // Cargando la imagen
+            $archivo = file_get_contents($ruta);
+            // Decodificando la imagen en base64
+            $base64 = 'data:image/jpg;base64,' . base64_encode($archivo);
+            $data->imagenPortada=$base64;
+        }
         echo json_encode($data);
     }
     public function EliminarProducto()
@@ -219,21 +316,21 @@ class Producto extends CI_Controller
     }
 
      public function ListarDepartamento(){
-         echo '<option value="0"> --- SELECCIONE --- </option>';
+         echo '<option value=""> --- SELECCIONE --- </option>';
       		 $rspta = $this->MProducto->ListarDepartamento();
             foreach ($rspta->result() as $reg) {
              	echo '<option   value=' . $reg->idDepartamento . '>' . $reg->departamento . '</option>';
             }
     }
     public function ListarProvincia(){
-         echo '<option value="0"> --- SELECCIONE --- </option>';
+         echo '<option value=""> --- SELECCIONE --- </option>';
       		 $rspta = $this->MProducto->ListarProvincia();
             foreach ($rspta->result() as $reg) {
              	echo '<option   value=' . $reg->idProvincia . '>' . $reg->provincia . '</option>';
             }
     }
      public function ListarDistrito(){
-         echo '<option value="0"> --- SELECCIONE --- </option>';
+         echo '<option value=""> --- SELECCIONE --- </option>';
       		 $rspta = $this->MProducto->ListarDistrito();
             foreach ($rspta->result() as $reg) {
              	echo '<option   value=' . $reg->idDistrito . '>' . $reg->distrito . '</option>';

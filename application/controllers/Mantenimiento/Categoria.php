@@ -107,7 +107,8 @@ class Categoria extends CI_Controller
 
 
                 if ($_POST['Imagenes']!= '') {
-                     $nombre=str_replace("ñ","n",str_replace(" ","_",$_POST['CategoriaTitulo']));
+                     $nombre=str_replace(" ","_",$_POST['CategoriaTitulo']);
+                     $nombre=mb_convert_case(mb_strtolower($nombre), MB_CASE_TITLE, "UTF-8");
                      $Documento = "Categoria/".$nombre.".jpg";
                 } else {
                     $Documento = null;
@@ -123,7 +124,8 @@ class Categoria extends CI_Controller
 
                     if($Documento!=null || $Documento!=''){
 
-                        $nombre=str_replace("ñ","n",str_replace(" ","_",$_POST['CategoriaTitulo']));
+                       $nombre=str_replace(" ","_",$_POST['CategoriaTitulo']);
+                     $nombre=mb_convert_case(mb_strtolower($nombre), MB_CASE_TITLE, "UTF-8");
                         $Subida=$this->Recurso->GuardarImagenes($_POST['Imagenes'],"Categoria",1,$nombre.".jpg");
                     }
 
@@ -145,7 +147,8 @@ class Categoria extends CI_Controller
                 }
 
                  if ($_POST['Imagenes']!= '') {
-                    $nombre=str_replace("ñ","n",str_replace(" ","_",$_POST['CategoriaTitulo']));
+                     $nombre=str_replace(" ","_",$_POST['CategoriaTitulo']);
+                     $nombre=mb_convert_case(mb_strtolower($nombre), MB_CASE_TITLE, "UTF-8");
                      $Documento = "Categoria/".$nombre.".jpg";
                 } else {
                     $Documento = null;
@@ -159,7 +162,8 @@ class Categoria extends CI_Controller
 
                     if($Documento!=null || $Documento!=''){
 
-                        $nombre=str_replace("ñ","n",str_replace(" ","_",$_POST['CategoriaTitulo']));
+                        $nombre=str_replace(" ","_",$_POST['CategoriaTitulo']);
+                        $nombre=mb_convert_case(mb_strtolower($nombre), MB_CASE_TITLE, "UTF-8");
                         $Subida=$this->Recurso->GuardarImagenes($_POST['Imagenes'],"Categoria",1,$nombre.".jpg");
                     }
 

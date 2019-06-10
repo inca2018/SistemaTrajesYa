@@ -17,10 +17,38 @@ class MProducto extends CI_Model
         global $GLOBALS;
         $this->glob =& $GLOBALS;
     }
-    public function RegistroProducto()
+    public function RegistroProducto($Documento)
     {
+        $departamento=null;
+        if($this->input->post('ProductoDepartamento')==''){
+            $departamento=null;
+        }else{
+            $departamento=$this->input->post('ProductoDepartamento');
+        }
+
+        $provincia=null;
+        if($this->input->post('ProductoProvincia')==''){
+            $provincia=null;
+        }else{
+            $provincia=$this->input->post('ProductoProvincia');
+        }
+
+        $distrito=null;
+        if($this->input->post('ProductoDistrito')==''){
+            $distrito=null;
+        }else{
+            $distrito=$this->input->post('ProductoDistrito');
+        }
+
         $data= array(
             'NombreProducto' =>mb_convert_case(mb_strtolower($this->input->post('ProductoTitulo')), MB_CASE_TITLE, "UTF-8"),
+            'DescripcionProducto' =>$this->input->post('ProductoDescripcion'),
+            'imagenPortada' =>$Documento,
+            'Categoria_idCategoria' =>$this->input->post('ProductoCategoria'),
+            'SubCategoria_idSubCategoria' =>$this->input->post('ProductoSubCategoria'),
+            'Departamento_idDepartamento' =>$departamento,
+            'Provincia_idProvincia' =>$provincia,
+            'Distrito_idDistrito' =>$distrito,
             'Estado_idEstado' => 1,
             'fechaRegistro' => $this->glob['FechaAhora']
         );
@@ -35,10 +63,38 @@ class MProducto extends CI_Model
 
         return $insert_data;
     }
-    public function UpdateProducto()
+    public function UpdateProducto($Documento)
     {
+         $departamento=null;
+        if($this->input->post('ProductoDepartamento')==''){
+            $departamento=null;
+        }else{
+            $departamento=$this->input->post('ProductoDepartamento');
+        }
+
+        $provincia=null;
+        if($this->input->post('ProductoProvincia')==''){
+            $provincia=null;
+        }else{
+            $provincia=$this->input->post('ProductoProvincia');
+        }
+
+        $distrito=null;
+        if($this->input->post('ProductoDistrito')==''){
+            $distrito=null;
+        }else{
+            $distrito=$this->input->post('ProductoDistrito');
+        }
+
         $data= array(
-            'NombreProducto' => $this->mb_convert_case(mb_strtolower($this->input->post('ProductoTitulo')), MB_CASE_TITLE, "UTF-8"),
+            'NombreProducto' =>mb_convert_case(mb_strtolower($this->input->post('ProductoTitulo')), MB_CASE_TITLE, "UTF-8"),
+            'DescripcionProducto' =>$this->input->post('ProductoDescripcion'),
+            'imagenPortada' =>$Documento,
+            'Categoria_idCategoria' =>$this->input->post('ProductoCategoria'),
+            'SubCategoria_idSubCategoria' =>$this->input->post('ProductoSubCategoria'),
+            'Departamento_idDepartamento' =>$departamento,
+            'Provincia_idProvincia' =>$provincia,
+            'Distrito_idDistrito' =>$distrito,
             'fechaUpdate' => $this->glob['FechaAhora']
         );
         $this->db->where('idProducto', $_POST['ProductoidProducto']);
@@ -54,24 +110,29 @@ class MProducto extends CI_Model
     }
     public function ListarProducto()
     {
-
-        $this->db->select('m.idProducto,m.NombreProducto as Titulo,DATE_FORMAT(m.fechaRegistro,"%d/%m/%Y") as fechaRegistro,DATE_FORMAT(m.fechaUpdate,"%d/%m/%Y") as fechaUpdate,m.estado_idEstado,e.DescripcionEstado as nombreEstado ');
-        $this->db->from('Producto m');
-        $this->db->join('estado e', 'e.idEstado=m.estado_idEstado');
-        $this->db->order_by('m.idProducto', 'desc');
+        $this->db->select('p.idProducto,p.NombreProducto as Titulo,p.DescripcionProducto,p.imagenPortada as imagen,DATE_FORMAT(p.fechaRegistro,"%d/%m/%Y") as fechaRegistro,DATE_FORMAT(p.fechaUpdate,"%d/%m/%Y") as fechaUpdate,p.Estado_idEstado,e.DescripcionEstado as nombreEstado,cat.Grupo_idGrupo as tipo,cat.idCategoria,cat.NombreCategoria as categoria,sub.idSubCategoria as subcategoria,sub.NombreSubCategoria,dep.departamento,pro.provincia,dis.distrito ');
+        $this->db->from('producto p');
+        $this->db->join('categoria cat', 'cat.idCategoria=p.Categoria_idCategoria');
+        $this->db->join('subcategoria sub', 'sub.idSubCategoria=p.SubCategoria_idSubCategoria');
+        $this->db->join('estado e', 'e.idEstado=p.Estado_idEstado');
+        $this->db->join('departamento dep', 'dep.idDepartamento=p.Departamento_idDepartamento','left');
+        $this->db->join('provincia pro', 'pro.idProvincia=p.Provincia_idProvincia','left');
+        $this->db->join('distrito dis', 'dis.idDistrito=p.Distrito_idDistrito','left');
+        $this->db->where('p.Estado_idEstado=',1);
+        $this->db->order_by('p.idProducto', 'desc');
         return $this->db->get();
     }
     public function ObtenerProducto()
     {
         $this->db->where('idProducto', $_POST['idProducto']);
-        $query = $this->db->get('Producto');
+        $query = $this->db->get('producto');
         return $query->row();
     }
     public function EliminarProducto()
     {
          /** Recuperar Datos para Historial **/
         $this->db->where('idProducto', $_POST['idProducto']);
-        $row = $this->db->get('Producto');
+        $row = $this->db->get('producto');
         $query=$row->row();
 
          /** Registro de Historial **/
