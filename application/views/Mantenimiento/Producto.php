@@ -47,6 +47,8 @@ $this->load->view('Layout/Nav');
                                                 <th>Categoria/SubCategoria</th>
                                                 <th>Origen</th>
                                                 <th>Acción</th>
+                                                 <th>Galeria</th>
+                                                  <th>Tarifa</th>
                                                 <th>Fecha de Reg.</th>
                                                 <th>Ultima Act.</th>
                                                 <th>Estado</th>
@@ -62,8 +64,8 @@ $this->load->view('Layout/Nav');
                 </div>
             </div>
         </div>
-        <footer class="text-center">
-            <span class="text-center text-muted">ColorLib - FuturoBlanquiazul 2019</span>
+         <footer class="text-center">
+            <span class="text-center text-muted">ColorLib - TrajesYa! 2019</span>
         </footer>
     </div>
 </div>

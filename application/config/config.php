@@ -24,7 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */  
 $config['base_url'] = 'http://sistematrajesya.com/';
- 
+//$config['base_url'] = 'http://admin.trajesya.com/';
 /*
 |--------------------------------------------------------------------------
 | Index File

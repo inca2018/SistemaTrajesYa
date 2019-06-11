@@ -56,8 +56,8 @@ $this->load->view('Layout/Nav');
                 </div>
             </div>
         </div>
-        <footer class="text-center">
-            <span class="text-center text-muted">ColorLib - FuturoBlanquiazul 2019</span>
+         <footer class="text-center">
+            <span class="text-center text-muted">ColorLib - TrajesYa! 2019</span>
         </footer>
     </div>
 </div>

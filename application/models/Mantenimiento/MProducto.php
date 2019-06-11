@@ -118,7 +118,6 @@ class MProducto extends CI_Model
         $this->db->join('departamento dep', 'dep.idDepartamento=p.Departamento_idDepartamento','left');
         $this->db->join('provincia pro', 'pro.idProvincia=p.Provincia_idProvincia','left');
         $this->db->join('distrito dis', 'dis.idDistrito=p.Distrito_idDistrito','left');
-        $this->db->where('p.Estado_idEstado=',1);
         $this->db->order_by('p.idProducto', 'desc');
         return $this->db->get();
     }
@@ -143,7 +142,7 @@ class MProducto extends CI_Model
 
 
         $this->db->where('idProducto', $_POST['idProducto']);
-        $delete_data["Delete"] = $this->db->delete('Producto');
+        $delete_data["Delete"] = $this->db->delete('producto');
         $delete_data["errDB"]  = $this->db->error();
         return $delete_data;
 
@@ -156,7 +155,7 @@ class MProducto extends CI_Model
 
          /** Recuperar Datos para Historial **/
         $this->db->where('idProducto', $_POST['idProducto']);
-        $row = $this->db->get('Producto');
+        $row = $this->db->get('producto');
         $query=$row->row();
 
         /** Registro de Historial **/
@@ -174,7 +173,7 @@ class MProducto extends CI_Model
 
 
         $this->db->where('idProducto', $_POST['idProducto']);
-        $insert_data["accion"] = $this->db->update('Producto', $data);
+        $insert_data["accion"] = $this->db->update('producto', $data);
         $insert_data["errDB"]  = $this->db->error();
         return $insert_data;
     }

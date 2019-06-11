@@ -22,11 +22,10 @@ class Producto extends CI_Controller
                                                                             <img src="../../assets/images/'.$reg->imagen.'" class="img-fluid rounded img-30">
                                                                         </a>';
         }
-
     }
     public function BuscarEstado($reg)
     {
-        if ($reg->Estado_idEstado == '1' || $reg->estado_idEstado == 1) {
+        if ($reg->Estado_idEstado == '1' || $reg->Estado_idEstado == 1) {
             return '<div class="badge badge-success">' . $reg->nombreEstado . '</div>';
         } elseif ($reg->Estado_idEstado == '2' || $reg->Estado_idEstado == 2) {
             return '<div class="badge badge-danger">' . $reg->nombreEstado . '</div>';
@@ -55,8 +54,6 @@ class Producto extends CI_Controller
         }
     }
 
-
-
     public function BuscarAccion($reg)
     {
         if ($reg->Estado_idEstado == 1) {
@@ -66,7 +63,7 @@ class Producto extends CI_Controller
             <button type="button"  title="Inabilitar" class="btn btn-grd-primary btn-mini btn-round" onclick="InabilitarProducto(' . $reg->idProducto . ",'" . $reg->Titulo . "'" . ')"><i class="fa fa-arrow-circle-down"></i></button>
             <button type="button"  title="Eliminar" class="btn btn-grd-danger btn-mini btn-round" onclick="EliminarProducto(' . $reg->idProducto . ",'" . $reg->Titulo . "'" . ')"><i class="fa fa-trash"></i></button>
                ';
-        } elseif ($reg->estado_idEstado == 2) {
+        } elseif ($reg->Estado_idEstado == 2) {
             return '<button type="button"  title="Habilitar" class="btn btn-grd-info btn-mini btn-round" onclick="HabilitarProducto(' . $reg->idProducto . ",'" . $reg->Titulo . "'" . ')"><i class="fa fa-arrow-circle-up"></i></button> <button type="button"  title="Eliminar" class="btn btn-grd-danger btn-mini btn-round" onclick="EliminarProducto(' . $reg->idProducto . ')"><i class="fa fa-trash"></i></button> ';
         }
     }
@@ -87,7 +84,7 @@ class Producto extends CI_Controller
                 "3" => $reg->categoria."/".$reg->subcategoria,
                 "4" => $this->BuscarUbicacion($reg),
                 "5" => $this->BuscarAccion($reg),
-                "6" => ' <button type="button" title="Editar" class="btn btn-grd-secondary btn-mini btn-round" onclick="Galeria(' . $reg->idProducto . ')">Ver Galeria de Fotos </button>',
+                "6" => ' <button type="button" title="Editar" class="btn btn-grd-inverse  btn-mini btn-round" onclick="Galeria(' . $reg->idProducto . ')">Ver Galeria de Fotos </button>',
                 "7" =>  ' <button type="button" title="Editar" class="btn btn-grd-primary btn-mini btn-round" onclick="Galeria(' . $reg->idProducto . ')">Ver Tarifas </button>',
                 "8" => $reg->fechaRegistro,
                 "9" => $reg->fechaUpdate,
@@ -244,6 +241,14 @@ class Producto extends CI_Controller
             'Mensaje' => '',
             'Tipo' => 'success'
         );
+
+         $respta = $this->MProducto->ObtenerProducto();
+            if($respta->imagenPortada!=null){
+               $linkEliminar='assets/images/'.$respta->imagenPortada;
+                if(file_exists($linkEliminar)){
+                     unlink($linkEliminar);
+                  }
+            }
 
         $delete = $this->MProducto->EliminarProducto();
         if ($delete['Delete']) {

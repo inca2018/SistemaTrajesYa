@@ -191,6 +191,7 @@ function Listar_Producto() {
 }
 
 function NuevoProducto() {
+    resetUpload();
     $("#AreaUbicacion").hide();
     $("#ModalProducto").modal({
         backdrop: 'static',
@@ -350,6 +351,7 @@ function InabilitarProducto(idProducto, Producto) {
 function LimpiarProducto() {
     $('#FormularioProducto')[0].reset();
     $("#idProducto").val("");
+    resetUpload();
 }
 
 function Cancelar() {

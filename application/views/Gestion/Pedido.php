@@ -10,7 +10,6 @@ $this->load->view('Layout/Nav');
             <div class="page-wrapper">
                 <div class="page-body">
                     <div class="card">
-                        <input type="hidden" id="idCategoria" value="<?php echo $_POST["idCategoria"]; ?>">
                         <div class="card-block">
                             <div class="col sm-3">
 
@@ -20,26 +19,18 @@ $this->load->view('Layout/Nav');
                                     <li class="breadcrumb-item">
                                         <a href="/Menu"> <i class="feather icon-home"></i> </a>
                                     </li>
-                                    <li class="breadcrumb-item"><a href="#">Mantenimiento</a> </li>
-                                    <li class="breadcrumb-item"><a href="/Mantenimiento/Categoria">Categoria</a> </li>
-                                    <li class="breadcrumb-item"><a href="/Mantenimiento/SubCategoria">SubCategoria</a> </li>
+                                    <li class="breadcrumb-item"><a href="#">Gestión</a> </li>
+                                    <li class="breadcrumb-item"><a href="/Mantenimiento/Pedido">Pedido</a> </li>
                                 </ul>
                             </div>
-                        </div>
-                        <div class="card-block">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Categoria:</h6>
-                                    <h5 class="text-primary" id="NameCategoria"></h5>
-                                </div>
-                            </div>
+
                         </div>
 
                         <div class="card-block">
-                            <h5 class="col-md-12 sub-title">Lista de SubCategorias</h5>
+                            <h5 class="col-md-12 sub-title">Lista de Pedidos</h5>
                             <div class="row">
                                 <div class="col-md-3 ml-md-auto col-sm-6 ml-sm-auto">
-                                    <button type="button" class="btn btn-grd-success btn-block btn-sm btn-round" onclick="NuevoSubCategoria();">Nuevo SubCategoria</button>
+                                    <button type="button" class="btn btn-grd-success btn-block btn-sm btn-round" onclick="NuevoPedido();">Nuevo Pedido</button>
                                 </div>
                             </div>
                         </div>
@@ -47,11 +38,12 @@ $this->load->view('Layout/Nav');
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="dt-responsive">
-                                        <table class="table table-sm  w-100 table-hover" id="tablaSubCategoria">
+                                        <table class="table table-sm  w-100 table-hover" id="tablaPedido">
                                             <thead class="thead-light text-center">
                                                 <tr>
-                                                    <th>Titulo de SubCategoria</th>
+                                                    <th>Titulo de Pedido</th>
                                                     <th>Imagen Portada</th>
+                                                    <th>Grupo</th>
                                                     <th>Acciones</th>
                                                     <th>Descripción</th>
                                                     <th>Fecha de Reg.</th>
@@ -77,26 +69,30 @@ $this->load->view('Layout/Nav');
 <?php
    $this->load->view('Layout/Footer');
 ?>
-<div class="modal fade" id="ModalSubCategoria" role="dialog" aria-labelledby="myModalLabelLarge" aria-hidden="true" style="z-index:10001 !important;">
+<div class="modal fade" id="ModalPedido" role="dialog" aria-labelledby="myModalLabelLarge" aria-hidden="true" style="z-index:10001 !important;">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-body">
-                <form id="FormularioSubCategoria" method="POST" autocomplete="off">
-                    <input type="hidden" name="SubCategoriaidSubCategoria" id="SubCategoriaidSubCategoria">
+                <form id="FormularioPedido" method="POST" autocomplete="off">
+                    <input type="hidden" name="PedidoidPedido" id="PedidoidPedido">
                     <div class="form-group row">
                         <div class="col-sm-12 center_element">
-                            <h4 id="tituloModalSubCategoria"></h4>
+                            <h4 id="tituloModalPedido"></h4>
                             <hr>
                         </div>
                     </div>
                     <div class="row form-group">
                         <div class="col-sm-12 col-md-12">
-                            <label class="col-form-label">Titulo de SubCategoria:</label>
-                            <input type="text" class="form-control validarPanel" name="SubCategoriaTitulo" id="SubCategoriaTitulo" value="" maxlength="60">
+                            <label class="col-form-label">Titulo de Pedido:</label>
+                            <input type="text" class="form-control validarPanel" name="PedidoTitulo" id="PedidoTitulo" value="" maxlength="60">
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                            <label class="col-form-label">Grupo de Pedido:</label>
+                            <select class="form-control" id="PedidoGrupo" name="PedidoGrupo"> </select>
                         </div>
                         <div class="col-sm-12 col-md-12">
-                            <label class="col-form-label">Descripción de SubCategoria:</label>
-                            <textarea name="SubCategoriaDescripcion" id="SubCategoriaDescripcion" class="form textarea form-control" rows="3" maxlength="200"></textarea>
+                            <label class="col-form-label">Descripción de Pedido:</label>
+                            <textarea name="PedidoDescripcion" id="PedidoDescripcion" class="form textarea form-control" rows="3" maxlength="200"></textarea>
                         </div>
                     </div>
                     <div class="row">
@@ -123,4 +119,4 @@ $this->load->view('Layout/Nav');
         </div>
     </div>
 </div>
-<script type="text/javascript" src="<?php echo base_url();?>assets/js/Mantenimiento/SubCategoria.js"></script>
+<script type="text/javascript" src="<?php echo base_url();?>assets/js/Mantenimiento/Pedido.js"></script>

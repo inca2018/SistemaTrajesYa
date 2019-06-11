@@ -8,7 +8,6 @@
 <input class="btn btn-success" type="hidden" id="notify_success" data-message="Message with status.." data-options="{&quot;status&quot;:&quot;success&quot;, &quot;pos&quot;:&quot;bottom-right&quot;}">
 
 
-
 </div>
 </div>
 </div>

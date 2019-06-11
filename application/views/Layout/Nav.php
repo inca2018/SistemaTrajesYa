@@ -72,12 +72,12 @@
                         <ul class="pcoded-item pcoded-left-item">
                             <li class="Menu1 pcoded-hasmenu">
                                 <a href="javascript:void(0)">
-                                    <span class="pcoded-micon"><i class="feather icon-sidebar"></i></span>
+                                    <span class="pcoded-micon"><i class="feather icon-check-circle"></i></span>
                                     <span class="pcoded-mtext">Gestión</span>
                                 </a>
                                 <ul class="pcoded-submenu">
                                     <li class="Option">
-                                        <a href="/Gestion/Ubigeo">
+                                        <a href="/Gestion/Pedido">
                                             <span class="pcoded-mtext">Pedidos</span>
                                         </a>
                                     </li>
@@ -85,7 +85,7 @@
                             </li>
                             <li class="Menu1 pcoded-hasmenu">
                                 <a href="javascript:void(0)" id="Mantenimiento">
-                                    <span class="pcoded-micon"><i class="feather icon-sidebar"></i></span>
+                                    <span class="pcoded-micon"><i class="feather icon-sliders"></i></span>
                                     <span class="pcoded-mtext">Mantenimientos</span>
                                 </a>
                                 <ul class="pcoded-submenu">

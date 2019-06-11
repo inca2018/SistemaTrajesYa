@@ -28,7 +28,6 @@ class Perfil extends CI_Controller
     {
         if ($reg->estado_idEstado == 1) {
             return '
-            <button type="button" title="Asignar Empleados" class="btn btn-grd-info btn-mini btn-round" onclick="AsignarEmpleados(' . $reg->idPerfil . ')"><i class="fa fa-user-plus"></i></button>
             <button type="button" title="Editar" class="btn btn-grd-warning btn-mini btn-round" onclick="EditarPerfil(' . $reg->idPerfil . ')"><i class="fa fa-edit"></i></button>
             <button type="button"  title="Inabilitar" class="btn btn-grd-primary btn-mini btn-round" onclick="InabilitarPerfil(' . $reg->idPerfil . ",'" . $reg->Titulo . "'" . ')"><i class="fa fa-arrow-circle-down"></i></button>
             <button type="button"  title="Eliminar" class="btn btn-grd-danger btn-mini btn-round" onclick="EliminarPerfil(' . $reg->idPerfil . ",'" . $reg->Titulo . "'" . ')"><i class="fa fa-trash"></i></button>
