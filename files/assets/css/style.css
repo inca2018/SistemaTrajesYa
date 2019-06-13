@@ -7527,7 +7527,7 @@ table tbody .border-bottom-info td {
 }
 
 .pcoded[nav-type="st6"] .pcoded-item.pcoded-left-item>li>a>.pcoded-micon i {
-    color: #c3c3c3
+    color: #b8812c
 }
 
 .pcoded[nav-type="st6"] .pcoded-navbar[navbar-theme="themelight1"] .pcoded-item.pcoded-left-item>li>a>.pcoded-micon {
@@ -9978,7 +9978,7 @@ table tbody .border-bottom-info td {
 }
 
 .pcoded .pcoded-navbar .pcoded-navigatio-lavel[menu-title-theme="theme5"] {
-    color: #999 !important
+    color: #ba8206 !important
 }
 
 .pcoded .pcoded-navbar .pcoded-navigatio-lavel[menu-title-theme="theme6"] {
@@ -10604,15 +10604,41 @@ table tbody .border-bottom-info td {
 }
 
 .pcoded .pcoded-navbar[navbar-theme="theme1"] {
-    background: #404E67
+    /*background: #404E67*/
+     background: #FEDA3B !important;
+    background: -moz-linear-gradient(-45deg, #FEDA3B 0%, #F6A300 100%) !important;
+    background: -webkit-gradient(left top, right bottom, color-stop(0%, #FEDA3B), color-stop(100%, #F6A300)) !important;
+    background: -webkit-linear-gradient(-45deg, #FEDA3B 0%, #F6A300 100%) !important;
+    background: -o-linear-gradient(-45deg, #FEDA3B 0%, #F6A300 100%) !important;
+    background: -ms-linear-gradient(-45deg, #FEDA3B 0%, #F6A300 100%) !important;
+    background: linear-gradient(135deg, #FEDA3B 0%, #F6A300 100%) !important;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FEDA3B', endColorstr='#F6A300', GradientType=1) !important;
+
 }
 
 .pcoded .pcoded-navbar[navbar-theme="theme1"] .main-menu {
-    background-color: #404E67
+    /*background-color: #404E67*/
+
+     background: #FEDA3B !important;
+    background: -moz-linear-gradient(-45deg, #FEDA3B 0%, #F6A300 100%) !important;
+    background: -webkit-gradient(left top, right bottom, color-stop(0%, #FEDA3B), color-stop(100%, #F6A300)) !important;
+    background: -webkit-linear-gradient(-45deg, #FEDA3B 0%, #F6A300 100%) !important;
+    background: -o-linear-gradient(-45deg, #FEDA3B 0%, #F6A300 100%) !important;
+    background: -ms-linear-gradient(-45deg, #FEDA3B 0%, #F6A300 100%) !important;
+    background: linear-gradient(135deg, #FEDA3B 0%, #F6A300 100%) !important;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FEDA3B', endColorstr='#F6A300', GradientType=1) !important;
 }
 
 .pcoded .pcoded-navbar[navbar-theme="theme1"] .main-menu .main-menu-header {
-    background-color: #404E67
+    /*background-color: #404E67*/
+     background: #FEDA3B !important;
+    background: -moz-linear-gradient(-45deg, #FEDA3B 0%, #F6A300 100%) !important;
+    background: -webkit-gradient(left top, right bottom, color-stop(0%, #FEDA3B), color-stop(100%, #F6A300)) !important;
+    background: -webkit-linear-gradient(-45deg, #FEDA3B 0%, #F6A300 100%) !important;
+    background: -o-linear-gradient(-45deg, #FEDA3B 0%, #F6A300 100%) !important;
+    background: -ms-linear-gradient(-45deg, #FEDA3B 0%, #F6A300 100%) !important;
+    background: linear-gradient(135deg, #FEDA3B 0%, #F6A300 100%) !important;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FEDA3B', endColorstr='#F6A300', GradientType=1) !important;
 }
 
 .pcoded .pcoded-navbar[navbar-theme="theme1"] .main-menu .main-menu-header .user-details span {
@@ -10624,26 +10650,54 @@ table tbody .border-bottom-info td {
 }
 
 .pcoded .pcoded-navbar[navbar-theme="theme1"] .pcoded-item>li>a {
-    color: #dcdcdc
+    /*color: #dcdcdc*/
+    color: #f6e7cf;
 }
 
 .pcoded .pcoded-navbar[navbar-theme="theme1"] .pcoded-item>li.active>a {
-    background: #404E67;
+    /*background: #404E67;
     color: #dcdcdc;
-    border-bottom-color: #404E67
+    border-bottom-color: #404E67*/
+    background: #F6A300;
+    color: #916019;
 }
 
 .pcoded .pcoded-navbar[navbar-theme="theme1"] .pcoded-item>li>a {
-    border-bottom-color: #404E67
+    /*border-bottom-color: #404E67*/
+        background: #FEDA3B !important;
+    background: -moz-linear-gradient(-45deg, #FEDA3B 0%, #F6A300 100%) !important;
+    background: -webkit-gradient(left top, right bottom, color-stop(0%, #FEDA3B), color-stop(100%, #F6A300)) !important;
+    background: -webkit-linear-gradient(-45deg, #FEDA3B 0%, #F6A300 100%) !important;
+    background: -o-linear-gradient(-45deg, #FEDA3B 0%, #F6A300 100%) !important;
+    background: -ms-linear-gradient(-45deg, #FEDA3B 0%, #F6A300 100%) !important;
+    background: linear-gradient(135deg, #FEDA3B 0%, #F6A300 100%) !important;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FEDA3B', endColorstr='#F6A300', GradientType=1) !important;
 }
 
 .pcoded .pcoded-navbar[navbar-theme="theme1"] .pcoded-item li.pcoded-hasmenu .pcoded-submenu {
-    background: #404E67
+    /*background: #404E67*/
+
+      background: #FEDA3B !important;
+    background: -moz-linear-gradient(-45deg, #FEDA3B 0%, #F6A300 100%) !important;
+    background: -webkit-gradient(left top, right bottom, color-stop(0%, #FEDA3B), color-stop(100%, #F6A300)) !important;
+    background: -webkit-linear-gradient(-45deg, #FEDA3B 0%, #F6A300 100%) !important;
+    background: -o-linear-gradient(-45deg, #FEDA3B 0%, #F6A300 100%) !important;
+    background: -ms-linear-gradient(-45deg, #FEDA3B 0%, #F6A300 100%) !important;
+    background: linear-gradient(135deg, #FEDA3B 0%, #F6A300 100%) !important;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FEDA3B', endColorstr='#F6A300', GradientType=1) !important;
 }
 
 .pcoded .pcoded-navbar[navbar-theme="theme1"] .pcoded-item li.pcoded-hasmenu .pcoded-submenu li>a {
-    border-bottom-color: #546686;
-    color: #dcdcdc
+    /*border-bottom-color: #546686;
+    color: #dcdcdc*/
+      background: #FEDA3B !important;
+    background: -moz-linear-gradient(-45deg, #FEDA3B 0%, #F6A300 100%) !important;
+    background: -webkit-gradient(left top, right bottom, color-stop(0%, #FEDA3B), color-stop(100%, #F6A300)) !important;
+    background: -webkit-linear-gradient(-45deg, #FEDA3B 0%, #F6A300 100%) !important;
+    background: -o-linear-gradient(-45deg, #FEDA3B 0%, #F6A300 100%) !important;
+    background: -ms-linear-gradient(-45deg, #FEDA3B 0%, #F6A300 100%) !important;
+    background: linear-gradient(135deg, #FEDA3B 0%, #F6A300 100%) !important;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FEDA3B', endColorstr='#F6A300', GradientType=1) !important;
 }
 
 .pcoded .pcoded-navbar[navbar-theme="theme1"] .pcoded-item>li.pcoded-hasmenu>a:after,
@@ -10658,22 +10712,49 @@ table tbody .border-bottom-info td {
 
 .pcoded .pcoded-navbar[navbar-theme="theme1"] .pcoded-item>li.active:hover>a,
 .pcoded .pcoded-navbar[navbar-theme="theme1"] .pcoded-item>li:hover>a {
-    background: #404E67;
-    color: #dcdcdc
+    /*background: #404E67;
+    color: #dcdcdc*/
+      background: #F6A300 !important;
+
 }
 
 .pcoded .pcoded-navbar[navbar-theme="theme1"] .pcoded-item .pcoded-hasmenu .pcoded-submenu li:hover>a {
-    background-color: #404E67;
-    color: #dcdcdc
+    /*background-color: #404E67;
+    color: #dcdcdc*/
+
+      background: #FEDA3B !important;
+    background: -moz-linear-gradient(-45deg, #FEDA3B 0%, #F6A300 100%) !important;
+    background: -webkit-gradient(left top, right bottom, color-stop(0%, #FEDA3B), color-stop(100%, #F6A300)) !important;
+    background: -webkit-linear-gradient(-45deg, #FEDA3B 0%, #F6A300 100%) !important;
+    background: -o-linear-gradient(-45deg, #FEDA3B 0%, #F6A300 100%) !important;
+    background: -ms-linear-gradient(-45deg, #FEDA3B 0%, #F6A300 100%) !important;
+    background: linear-gradient(135deg, #FEDA3B 0%, #F6A300 100%) !important;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FEDA3B', endColorstr='#F6A300', GradientType=1) !important;
 }
 
 .pcoded .pcoded-navbar[navbar-theme="theme1"] .pcoded-item .pcoded-hasmenu .pcoded-submenu li:hover>a:before {
-    border-left-color: #404E67
+    /*border-left-color: #404E67*/
+      background: #FEDA3B !important;
+    background: -moz-linear-gradient(-45deg, #FEDA3B 0%, #F6A300 100%) !important;
+    background: -webkit-gradient(left top, right bottom, color-stop(0%, #FEDA3B), color-stop(100%, #F6A300)) !important;
+    background: -webkit-linear-gradient(-45deg, #FEDA3B 0%, #F6A300 100%) !important;
+    background: -o-linear-gradient(-45deg, #FEDA3B 0%, #F6A300 100%) !important;
+    background: -ms-linear-gradient(-45deg, #FEDA3B 0%, #F6A300 100%) !important;
+    background: linear-gradient(135deg, #FEDA3B 0%, #F6A300 100%) !important;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FEDA3B', endColorstr='#F6A300', GradientType=1) !important;
 }
 
 .pcoded .pcoded-navbar[navbar-theme="theme1"] .pcoded-item .pcoded-hasmenu .pcoded-submenu li.active>a {
     color: #dcdcdc;
-    background-color: #404E67
+    /*background-color: #404E67*/
+      background: #FEDA3B !important;
+    background: -moz-linear-gradient(-45deg, #FEDA3B 0%, #F6A300 100%) !important;
+    background: -webkit-gradient(left top, right bottom, color-stop(0%, #FEDA3B), color-stop(100%, #F6A300)) !important;
+    background: -webkit-linear-gradient(-45deg, #FEDA3B 0%, #F6A300 100%) !important;
+    background: -o-linear-gradient(-45deg, #FEDA3B 0%, #F6A300 100%) !important;
+    background: -ms-linear-gradient(-45deg, #FEDA3B 0%, #F6A300 100%) !important;
+    background: linear-gradient(135deg, #FEDA3B 0%, #F6A300 100%) !important;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FEDA3B', endColorstr='#F6A300', GradientType=1) !important;
 }
 
 .pcoded .pcoded-navbar[navbar-theme="theme1"] .pcoded-item .pcoded-hasmenu .pcoded-submenu li.active>a .pcoded-mtext:before {
@@ -10900,7 +10981,16 @@ table tbody .border-bottom-info td {
 }
 
 .pcoded .pcoded-header .navbar-logo[logo-theme="theme1"] {
-    background-color: #404E67
+    /*background-color: #404E67*/
+     background: #FEDA3B !important;
+    background: -moz-linear-gradient(-45deg, #FEDA3B 0%, #F6A300 100%) !important;
+    background: -webkit-gradient(left top, right bottom, color-stop(0%, #FEDA3B), color-stop(100%, #F6A300)) !important;
+    background: -webkit-linear-gradient(-45deg, #FEDA3B 0%, #F6A300 100%) !important;
+    background: -o-linear-gradient(-45deg, #FEDA3B 0%, #F6A300 100%) !important;
+    background: -ms-linear-gradient(-45deg, #FEDA3B 0%, #F6A300 100%) !important;
+    background: linear-gradient(135deg, #FEDA3B 0%, #F6A300 100%) !important;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FEDA3B', endColorstr='#F6A300', GradientType=1) !important;
+
 }
 
 .pcoded[sidebar-img="true"] .pcoded-navbar {
