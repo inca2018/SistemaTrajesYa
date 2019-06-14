@@ -4884,8 +4884,8 @@ a[data-toggle="lightbox"] .img-fluid {
     border-radius: 50%;
     padding: 10px;
     border: 3px solid transparent;
-    border-left-color: #01a9ac;
-    border-right-color: #01a9ac;
+    border-left-color: #F6A300;
+    border-right-color: #F6A300;
     -webkit-animation: round-rotate 1.5s ease-in-out infinite;
     animation: round-rotate 1.5s ease-in-out infinite
 }
@@ -4895,8 +4895,8 @@ a[data-toggle="lightbox"] .img-fluid {
     width: 100%;
     border-radius: 50%;
     border: 3px solid transparent;
-    border-left-color: #0ac282;
-    border-right-color: #0ac282;
+    border-left-color: #FEDA3B;
+    border-right-color: #FEDA3B;
     -webkit-animation: round-rotate 1.5s ease-in-out infinite;
     animation: round-rotate 1.5s ease-in-out infinite
 }
@@ -10310,7 +10310,7 @@ table tbody .border-bottom-info td {
 
 .pcoded .pcoded-navbar[active-item-theme="theme5"] .pcoded-item li .pcoded-submenu li.active>a,
 .pcoded .pcoded-navbar[active-item-theme="theme5"] .pcoded-item li .pcoded-submenu li:hover>a {
-    color: #FFB64D !important
+    color: white !important
 }
 
 .pcoded .pcoded-navbar[active-item-theme="theme5"] .pcoded-item li .pcoded-submenu li.active>a {
@@ -12956,7 +12956,7 @@ body.menu-bottom #collapse-menu {
 }
 
 .form-control:focus {
-    border: 1px solid #01a9ac
+    border: 1px solid #F6A300
 }
 
 .form-control.form-control-normal {
@@ -15277,8 +15277,8 @@ table.table-bordered.dataTable tbody td:focus {
 }
 
 .page-item.active .page-link {
-    background-color: #01a9ac;
-    border-color: #01a9ac
+    background-color: #F6A300;
+    border-color: #F6A300
 }
 
 .page-link {
