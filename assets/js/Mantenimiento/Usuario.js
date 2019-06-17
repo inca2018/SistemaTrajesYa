@@ -148,7 +148,7 @@ function RecuperarUsuario(idUsuario) {
         data = JSON.parse(data);
         console.log(data);
 
-        if(data.imagen==null){
+        if(data.imagen==null || data.imagen==""){
             $("#imagePreview").removeAttr("style");
             $("#imagePreview").attr("style","background-image: url('/assets/images/usuario_default.svg'); width: 100; height: 100;");
         }else{

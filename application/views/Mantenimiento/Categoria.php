@@ -86,7 +86,7 @@ $this->load->view('Layout/Nav');
                             <label class="col-form-label">Titulo de Categoria:</label>
                             <input type="text" class="form-control validarPanel" name="CategoriaTitulo" id="CategoriaTitulo" value="" maxlength="60">
                         </div>
-                        <div class="col-sm-6 col-md-6">
+                         <div class="col-sm-6 col-md-6">
                             <label class="col-form-label">Grupo de Categoria:</label>
                             <select class="form-control" id="CategoriaGrupo" name="CategoriaGrupo"> </select>
                         </div>

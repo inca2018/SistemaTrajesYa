@@ -226,7 +226,7 @@ function RecuperarProducto(idProducto) {
         $("#ProductoidProducto").val(data.idProducto);
         $("#ProductoTitulo").val(data.NombreProducto);
         $("#ProductoDescripcion").val(data.DescripcionProducto);
-        if (data.imagenPortada != null) {
+        if (data.imagenPortada != null && data.imagenPortada!="") {
             //Recuperando 1 Imagen
             var images = $('.images');
             images.prepend('<div class="img" style="background-image: url(\'' + data.imagenPortada + '\');" rel="' + data.imagenPortada + '"><span>remove</span></div>');
@@ -377,6 +377,12 @@ function RecuperarImagenes() {
     }
 
     return imageArr;
+}
+
+function Galeria(idProducto){
+     $.redirect('/Mantenimiento/Galeria/', {
+        'idProducto': idProducto
+    });
 }
 
 init();

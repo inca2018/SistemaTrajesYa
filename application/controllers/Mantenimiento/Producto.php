@@ -44,10 +44,10 @@ class Producto extends CI_Controller
                 return $ubicacion;
             }else{
                if($reg->distrito==""){
-                   $ubicacion.=$reg->departamento."/".$reg->provincia;
+                   $ubicacion.=$reg->departamento." / ".$reg->provincia;
                    return $ubicacion;
                }else{
-                  $ubicacion.=$reg->departamento."/".$reg->provincia."/".$reg->distrito;
+                  $ubicacion.=$reg->departamento." / ".$reg->provincia." / ".$reg->distrito;
                    return $ubicacion;
                }
             }
@@ -81,11 +81,11 @@ class Producto extends CI_Controller
                 "0" => $reg->Titulo,
                 "1" => $reg->DescripcionProducto,
                 "2" => $this->BuscarImagen($reg),
-                "3" => $reg->categoria."/".$reg->subcategoria,
+                "3" => $reg->categoria." / ".$reg->NombreSubCategoria,
                 "4" => $this->BuscarUbicacion($reg),
                 "5" => $this->BuscarAccion($reg),
                 "6" => ' <button type="button" title="Editar" class="btn btn-grd-inverse  btn-mini btn-round" onclick="Galeria(' . $reg->idProducto . ')">Ver Galeria de Fotos </button>',
-                "7" =>  ' <button type="button" title="Editar" class="btn btn-grd-primary btn-mini btn-round" onclick="Galeria(' . $reg->idProducto . ')">Ver Tarifas </button>',
+                "7" =>  ' <button type="button" title="Editar" class="btn btn-grd-primary btn-mini btn-round" onclick="Tarifa(' . $reg->idProducto . ')">Ver Tarifas </button>',
                 "8" => $reg->fechaRegistro,
                 "9" => $reg->fechaUpdate,
                 "10" => $this->BuscarEstado($reg)
