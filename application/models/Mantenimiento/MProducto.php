@@ -52,7 +52,7 @@ class MProducto extends CI_Model
             'Estado_idEstado' => 1,
             'fechaRegistro' => $this->glob['FechaAhora']
         );
-        $insert_data["Registro"] = $this->db->insert('Producto', $data);
+        $insert_data["Registro"] = $this->db->insert('producto', $data);
         $insert_data["errDB"]    = $this->db->error();
 
          /** Registro de Historial **/
@@ -98,7 +98,7 @@ class MProducto extends CI_Model
             'fechaUpdate' => $this->glob['FechaAhora']
         );
         $this->db->where('idProducto', $_POST['ProductoidProducto']);
-        $insert_data["Registro"] = $this->db->update('Producto', $data);
+        $insert_data["Registro"] = $this->db->update('producto', $data);
         $insert_data["errDB"]    = $this->db->error();
 
          /** Registro de Historial **/
