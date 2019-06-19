@@ -27,7 +27,7 @@ class MSubCategoria extends CI_Model
             'Estado_idEstado' => 1,
             'fechaRegistro' => $this->glob['FechaAhora']
         );
-        $insert_data["Registro"] = $this->db->insert('subCategoria', $data);
+        $insert_data["Registro"] = $this->db->insert('subcategoria', $data);
         $insert_data["errDB"]    = $this->db->error();
 
          /** Registro de Historial **/
@@ -46,7 +46,7 @@ class MSubCategoria extends CI_Model
             'fechaUpdate' => $this->glob['FechaAhora']
         );
         $this->db->where('idSubCategoria', $_POST['SubCategoriaidSubCategoria']);
-        $insert_data["Registro"] = $this->db->update('subCategoria', $data);
+        $insert_data["Registro"] = $this->db->update('subcategoria', $data);
         $insert_data["errDB"]    = $this->db->error();
 
 
@@ -61,7 +61,7 @@ class MSubCategoria extends CI_Model
     {
 
         $this->db->select('p.idSubCategoria,p.NombreSubCategoria as Titulo,p.Descripcion,p.imagenPortada as imagen,DATE_FORMAT(p.fechaRegistro,"%d/%m/%Y") as fechaRegistro,DATE_FORMAT(p.fechaUpdate,"%d/%m/%Y") as fechaUpdate,p.Estado_idEstado,e.DescripcionEstado as nombreEstado ');
-        $this->db->from('subCategoria p');
+        $this->db->from('subcategoria p');
         $this->db->join('estado e', 'e.idEstado=p.estado_idEstado');
         $this->db->where('p.Categoria_idCategoria', $_POST['idCategoria']);
         $this->db->order_by('p.idSubCategoria', 'desc');
@@ -70,7 +70,7 @@ class MSubCategoria extends CI_Model
     public function ObtenerSubCategoria()
     {
         $this->db->where('idSubCategoria', $_POST['idSubCategoria']);
-        $query = $this->db->get('subCategoria');
+        $query = $this->db->get('subcategoria');
         return $query->row();
     }
     public function EliminarSubCategoria()
@@ -78,7 +78,7 @@ class MSubCategoria extends CI_Model
 
          /** Recuperar Datos para Historial **/
         $this->db->where('idSubCategoria', $_POST['idSubCategoria']);
-        $row = $this->db->get('subCategoria');
+        $row = $this->db->get('subcategoria');
         $query=$row->row();
 
          /** Registro de Historial **/
@@ -87,7 +87,7 @@ class MSubCategoria extends CI_Model
         $func["Historial"] = $this->db->get();
 
         $this->db->where('idSubCategoria', $_POST['idSubCategoria']);
-        $delete_data["Delete"] = $this->db->delete('subCategoria');
+        $delete_data["Delete"] = $this->db->delete('subcategoria');
         $delete_data["errDB"]  = $this->db->error();
 
         return $delete_data;
@@ -99,7 +99,7 @@ class MSubCategoria extends CI_Model
         );
          /** Recuperar Datos para Historial **/
         $this->db->where('idSubCategoria', $_POST['idSubCategoria']);
-        $row = $this->db->get('SubCategoria');
+        $row = $this->db->get('subcategoria');
         $query=$row->row();
         /** Registro de Historial **/
         $Mensaje="";
@@ -113,7 +113,7 @@ class MSubCategoria extends CI_Model
              $func["Historial"] = $this->db->get();
         }
         $this->db->where('idSubCategoria', $_POST['idSubCategoria']);
-        $insert_data["accion"] = $this->db->update('SubCategoria', $data);
+        $insert_data["accion"] = $this->db->update('subcategoria', $data);
         $insert_data["errDB"]  = $this->db->error();
         return $insert_data;
     }

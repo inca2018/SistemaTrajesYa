@@ -91,13 +91,11 @@ class SubCategoria extends CI_Controller
             /* Registras SubCategoria */
             if (empty($_POST['SubCategoriaidSubCategoria'])) {
                 /* valida SubCategoria */
-                $validacion = $this->Recurso->Validaciones('SubCategoria', 'NombreSubCategoria', $_POST['SubCategoriaTitulo']);
+                $validacion = $this->Recurso->Validaciones('subcategoria', 'NombreSubCategoria', $_POST['SubCategoriaTitulo']);
                 if ($validacion > 0) {
                     $data['Error'] = true;
                     $data['Mensaje'] .= 'SubCategoria:  "' . $_POST['SubCategoriaTitulo'] . '" , ya se encuentra registrado ';
                 }
-
-
                 if ($_POST['Imagenes']!= '') {
                      $nombre=str_replace(" ","_",$_POST['SubCategoriaTitulo']);
                      $nombre=mb_convert_case(mb_strtolower($nombre), MB_CASE_TITLE, "UTF-8");
@@ -132,7 +130,7 @@ class SubCategoria extends CI_Controller
                     }
                 }
             } else {
-                $validacion = $this->Recurso->Validaciones('SubCategoria', 'NombreSubCategoria', $_POST['SubCategoriaTitulo'], 'idSubCategoria', $_POST['SubCategoriaidSubCategoria']);
+                $validacion = $this->Recurso->Validaciones('subcategoria', 'NombreSubCategoria', $_POST['SubCategoriaTitulo'], 'idSubCategoria', $_POST['SubCategoriaidSubCategoria']);
                 if ($validacion > 0) {
                     $data['Error'] = true;
                     $data['Mensaje'] .= 'SubCategoria:' . $_POST['SubCategoriaTitulo'] . ' ya se encuentra registrado <br>';

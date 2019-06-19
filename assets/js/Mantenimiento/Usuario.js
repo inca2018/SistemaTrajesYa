@@ -84,7 +84,7 @@ function Listar_Usuario() {
         "info": true, // Informacion de cabecera tabla
         "responsive": true, // Accion de responsive
         "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-        "order": [[0, "asc"]],
+        "order": [[4, "asc"]],
         "bDestroy": true,
         "columnDefs": [
             {
