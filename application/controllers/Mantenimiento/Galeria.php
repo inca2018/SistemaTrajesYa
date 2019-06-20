@@ -96,9 +96,9 @@ class Galeria extends CI_Controller
                     $data['Mensaje'] .= 'Galeria:  "' . $_POST['GaleriaTitulo'] . '" , ya se encuentra registrado ';
                 }
                  $cantidadRegistros = $this->Recurso->Validaciones('galeria', 'Producto_idProducto', $_POST['idProducto']);
-                if ($cantidadRegistros == 2) {
+                if ($cantidadRegistros == 10) {
                     $data['Error'] = true;
-                    $data['Mensaje'] .= 'No puede Registrar mas de 2 Imagenes.';
+                    $data['Mensaje'] .= 'No puede Registrar mas de 10 Imagenes.';
                 }
 
                 if ($_POST['Imagenes']!= '') {

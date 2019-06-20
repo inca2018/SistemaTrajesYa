@@ -47,8 +47,9 @@ $this->load->view('Layout/Nav');
                                                 <th>Categoria/SubCategoria</th>
                                                 <th>Origen</th>
                                                 <th>Acción</th>
-                                                 <th>Galeria</th>
-                                                  <th>Tarifa</th>
+                                                <th>Galeria</th>
+                                                <th>Tarifa</th>
+                                                <th>Medidas</th>
                                                 <th>Fecha de Reg.</th>
                                                 <th>Ultima Act.</th>
                                                 <th>Estado</th>

@@ -34,6 +34,22 @@ class Local extends CI_Controller
         }
     }
 
+    public function BuscarContacto($reg){
+        if($reg->TelefonoFijo==null){
+            if($reg->TelefonoCelular==null){
+                 return ' Sin Contacto Registrado';
+            }else{
+                 return $reg->TelefonoCelular;
+            }
+        }else{
+            if($reg->TelefonoCelular==null){
+                return $reg->TelefonoFijo;
+            }else{
+                return $reg->TelefonoFijo.' / '.$reg->TelefonoCelular;
+            }
+        }
+    }
+
     public function BuscarAccion($reg)
     {
         if ($reg->Estado_idEstado == 1) {
@@ -59,10 +75,11 @@ class Local extends CI_Controller
                 "2" => $reg->Direccion,
                 "3" => $reg->Encargado,
                 "4" => $reg->HorarioAtencion,
-                "5" => $this->BuscarAccion($reg),
-                "6" => $reg->fechaRegistro,
-                "7" => $reg->fechaUpdate,
-                "8" => $this->BuscarEstado($reg)
+                "5" => $this->BuscarContacto($reg),
+                "6" => $this->BuscarAccion($reg),
+                "7" => $reg->fechaRegistro,
+                "8" => $reg->fechaUpdate,
+                "9" => $this->BuscarEstado($reg)
             );
         }
 
@@ -90,6 +107,9 @@ class Local extends CI_Controller
         );
 
         $this->form_validation->set_rules('LocalTitulo', 'Titulo del Local', 'trim|required|min_length[3]|max_length[120]');
+
+        $this->form_validation->set_rules('LocalFijo', 'Teléfono Fijo del Local', 'trim|min_length[7]|max_length[7]');
+        $this->form_validation->set_rules('LocalCelular', 'Teléfono Celular del Local', 'trim|min_length[9]|max_length[9]');
 
         if ($this->form_validation->run() == true) {
             /* Registras Local */

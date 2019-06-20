@@ -46,6 +46,7 @@ $this->load->view('Layout/Nav');
                                                     <th>Dirección</th>
                                                     <th>Encargado</th>
                                                     <th>Horario de Atención</th>
+                                                    <th>Teléfonos de Contacto</th>
                                                     <th>Acciones</th>
                                                     <th>Fecha de Reg.</th>
                                                     <th>Ultima Act.</th>
@@ -98,6 +99,14 @@ $this->load->view('Layout/Nav');
                         <div class="col-sm-6 col-md-6">
                             <label class="col-form-label">Horario de Atención:</label>
                             <input type="text" class="form-control  " name="LocalHorarioAtencion" id="LocalHorarioAtencion" value="" maxlength="100">
+                        </div>
+                        <div class="col-sm-3 col-md-3">
+                            <label class="col-form-label">Teléfono Fijo:</label>
+                            <input type="text" class="form-control  " name="LocalFijo" id="LocalFijo" value=""  onkeypress="return SoloNumerosModificado(event,7,this.id);">
+                        </div>
+                        <div class="col-sm-3 col-md-3">
+                            <label class="col-form-label">Teléfono Celular:</label>
+                            <input type="text" class="form-control  " name="LocalCelular" id="LocalCelular" value="" onkeypress="return SoloNumerosModificado(event,9,this.id);">
                         </div>
                     </div>
                     <div class="row">

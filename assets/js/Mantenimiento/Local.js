@@ -158,6 +158,8 @@ function RecuperarLocal(idLocal) {
         $("#LocalDireccion").val(data.Direccion);
         $("#LocalEncargado").val(data.Encargado);
         $("#LocalHorarioAtencion").val(data.HorarioAtencion);
+        $("#LocalFijo").val(data.TelefonoFijo);
+        $("#LocalCelular").val(data.TelefonoCelular);
 
             if (data.imagenPortada != null && data.imagenPortada!="") {
                 //Recuperando 1 Imagen
@@ -273,10 +275,5 @@ function RecuperarImagenes() {
 }
 
 
-function SubLocals(idLocal){
-     $.redirect('/Mantenimiento/SubLocal/', {
-        'idLocal': idLocal
-    });
-}
 
 init();

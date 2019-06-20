@@ -19,11 +19,23 @@ class MLocal extends CI_Model
     }
     public function RegistroLocal($Documento)
     {
+        $telefonoFijo=NULL;
+        if($this->input->post('LocalFijo')!="" && $this->input->post('LocalFijo')!=NULL){
+            $telefonoFijo=$this->input->post('LocalFijo');
+        }
+        $telefonoCelular=NULL;
+        if($this->input->post('LocalCelular')!="" && $this->input->post('LocalCelular')!=NULL){
+            $telefonoCelular=$this->input->post('LocalCelular');
+        }
+
+
         $data= array(
             'NombreLocal' =>mb_convert_case(mb_strtolower($this->input->post('LocalTitulo')), MB_CASE_TITLE, "UTF-8"),
             'Direccion' => $this->input->post('LocalDireccion'),
             'Encargado' =>mb_convert_case(mb_strtolower($this->input->post('LocalEncargado')), MB_CASE_TITLE, "UTF-8"),
             'HorarioAtencion' => $this->input->post('LocalHorarioAtencion'),
+            'TelefonoFijo' => $telefonoFijo,
+            'TelefonoCelular' => $telefonoCelular,
             'imagenPortada' =>$Documento,
             'Estado_idEstado' => 1,
             'fechaRegistro' => $this->glob['FechaAhora']
@@ -40,11 +52,22 @@ class MLocal extends CI_Model
     }
     public function UpdateLocal($Documento)
     {
+         $telefonoFijo=NULL;
+        if($this->input->post('LocalFijo')!="" && $this->input->post('LocalFijo')!=NULL){
+            $telefonoFijo=$this->input->post('LocalFijo');
+        }
+        $telefonoCelular=NULL;
+        if($this->input->post('LocalCelular')!="" && $this->input->post('LocalCelular')!=NULL){
+            $telefonoCelular=$this->input->post('LocalCelular');
+        }
+
         $data= array(
             'NombreLocal' =>mb_convert_case(mb_strtolower($this->input->post('LocalTitulo')), MB_CASE_TITLE, "UTF-8"),
             'Direccion' => $this->input->post('LocalDireccion'),
             'Encargado' =>mb_convert_case(mb_strtolower($this->input->post('LocalEncargado')), MB_CASE_TITLE, "UTF-8"),
             'HorarioAtencion' => $this->input->post('LocalHorarioAtencion'),
+            'TelefonoFijo' => $telefonoFijo,
+            'TelefonoCelular' => $telefonoCelular,
             'imagenPortada' =>$Documento,
             'fechaUpdate' => $this->glob['FechaAhora']
         );
@@ -62,7 +85,7 @@ class MLocal extends CI_Model
     }
     public function ListarLocal()
     {
-        $this->db->select('l.idLocal,l.NombreLocal as Titulo,l.Direccion,l.Encargado,l.HorarioAtencion,l.imagenPortada as imagen,DATE_FORMAT(l.fechaRegistro,"%d/%m/%Y") as fechaRegistro,DATE_FORMAT(l.fechaUpdate,"%d/%m/%Y") as fechaUpdate,l.Estado_idEstado,e.DescripcionEstado as nombreEstado ');
+        $this->db->select('l.idLocal,l.NombreLocal as Titulo,l.Direccion,l.Encargado,l.HorarioAtencion,l.TelefonoFijo,l.TelefonoCelular,l.imagenPortada as imagen,DATE_FORMAT(l.fechaRegistro,"%d/%m/%Y") as fechaRegistro,DATE_FORMAT(l.fechaUpdate,"%d/%m/%Y") as fechaUpdate,l.Estado_idEstado,e.DescripcionEstado as nombreEstado ');
         $this->db->from('local l');
         $this->db->join('estado e', 'e.idEstado=l.Estado_idEstado');
         $this->db->order_by('l.idLocal', 'desc');
