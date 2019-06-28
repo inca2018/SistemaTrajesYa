@@ -384,5 +384,15 @@ function Galeria(idProducto){
         'idProducto': idProducto
     });
 }
+function AsignacionMedida(idProducto){
+     $.redirect('/Mantenimiento/AsignacionMedida/', {
+        'idProducto': idProducto
+    });
+}
+function Tarifa(idProducto){
+     $.redirect('/Mantenimiento/Tarifa/', {
+        'idProducto': idProducto
+    });
+}
 
 init();

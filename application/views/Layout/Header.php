@@ -17,7 +17,7 @@
     <meta name="keywords" content="Alianza Lima , Responsive, Futuro,Blanquiazul,2019,Administrador">
     <meta name="author" content="#">
     <!-- Favicon icon -->
-    <link rel="icon" href="<?php echo base_url(); ?>\files\assets\images\favicon.ico" type="image/x-icon">
+    <link rel="icon" href="<?php echo base_url(); ?>\files\assets\images\trajesya.ico" type="image/x-icon">
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
     <!-- Required Fremwork -->

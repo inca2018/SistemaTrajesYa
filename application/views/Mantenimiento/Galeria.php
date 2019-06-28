@@ -21,6 +21,7 @@ $this->load->view('Layout/Nav');
                                         <a href="/Menu"> <i class="feather icon-home"></i> </a>
                                     </li>
                                     <li class="breadcrumb-item"><a href="#">Mantenimiento</a> </li>
+                                    <li class="breadcrumb-item"><a href="/Mantenimiento/Producto">Producto</a> </li>
                                     <li class="breadcrumb-item"><a href="/Mantenimiento/Galeria">Galeria</a> </li>
                                 </ul>
                             </div>

@@ -86,7 +86,7 @@ class Producto extends CI_Controller
                 "5" => $this->BuscarAccion($reg),
                 "6" => ' <button type="button" title="Ver Galeria de Fotos" class="btn btn-grd-inverse  btn-mini btn-round" onclick="Galeria(' . $reg->idProducto . ')">Ver Galeria de Fotos</button>',
                 "7" =>  ' <button type="button" title="Ver Tarifa Disponibles" class="btn btn-grd-primary btn-mini btn-round" onclick="Tarifa(' . $reg->idProducto . ')">Ver Tarifas Disponibles </button>',
-                "8" =>  ' <button type="button" title="Ver Medidas Disponibles" class="btn btn-grd-info btn-mini btn-round" onclick="Medidas(' . $reg->idProducto . ')">Ver Medidas Disponibles</button>',
+                "8" =>  ' <button type="button" title="Ver Medidas Disponibles" class="btn btn-grd-info btn-mini btn-round" onclick="AsignacionMedida(' . $reg->idProducto . ')">Ver Medidas Disponibles</button>',
                 "9" => $reg->fechaRegistro,
                 "10" => $reg->fechaUpdate,
                 "11" => $this->BuscarEstado($reg)

@@ -31,7 +31,7 @@ a {
 a:focus,
 a:hover {
     text-decoration: none;
-    color: #01a9ac
+    color: #F6A300
 }
 
 h6 {
@@ -307,7 +307,7 @@ p {
 
 .card .card-block a.dropdown-item:active,
 .card .card-block a.dropdown-item .active {
-    background-color: #01a9ac
+    background-color: #F6A300
 }
 
 .card .card-block.remove-label i {
@@ -539,7 +539,7 @@ p {
 }
 
 .sweet-alert button.confirm {
-    background-color: #01a9ac !important
+    background-color: #F6A300 !important
 }
 
 .sweet-alert .sa-input-error {
@@ -761,7 +761,7 @@ button.close {
 }
 
 .mytooltip .tooltip-item2 {
-    color: #01a9ac;
+    color: #F6A300;
     cursor: pointer;
     z-index: 100;
     position: relative;
@@ -931,7 +931,7 @@ button.close {
     bottom: 100%;
     border-radius: 50%;
     text-align: center;
-    background: #01a9ac;
+    background: #F6A300;
     color: #fff;
     opacity: 0;
     margin-bottom: 20px;
@@ -1005,7 +1005,7 @@ button.close {
     margin-left: -180px;
     bottom: -5px;
     text-align: left;
-    background: #01a9ac;
+    background: #F6A300;
     opacity: 0;
     font-size: 14px;
     line-height: 27px;
@@ -1071,13 +1071,13 @@ button.close {
     width: 0;
     position: absolute;
     pointer-events: none;
-    border-color: #01a9ac transparent transparent;
+    border-color: #F6A300 transparent transparent;
     border-width: 10px;
     margin-left: -10px
 }
 
 .tooltip-content5 .tooltip-text3 {
-    border-bottom: 10px solid #01a9ac;
+    border-bottom: 10px solid #F6A300;
     overflow: hidden;
     -webkit-transform: scale3d(0, 1, 1);
     transform: scale3d(0, 1, 1);
@@ -1101,13 +1101,13 @@ button.close {
 
 a.mytooltip {
     font-weight: 700;
-    color: #01a9ac;
+    color: #F6A300;
     z-index: 9
 }
 
 .tooltip-link a {
     margin-left: 10px;
-    color: #01a9ac
+    color: #F6A300
 }
 
 .tooltip-icon button i {
@@ -1115,12 +1115,12 @@ a.mytooltip {
 }
 
 .owl-theme .owl-nav [class*='owl-']:hover {
-    background: #01a9ac
+    background: #F6A300
 }
 
 .owl-theme .owl-dots .owl-dot.active span,
 .owl-theme .owl-dots .owl-dot:hover span {
-    background: #01a9ac
+    background: #F6A300
 }
 
 .animation-image img {
@@ -1142,7 +1142,7 @@ a.mytooltip {
 }
 
 .jFiler-theme-default .jFiler-input-button {
-    background-color: #01a9ac;
+    background-color: #F6A300;
     background-image: none;
     color: #fff
 }
@@ -1170,15 +1170,15 @@ a.mytooltip {
 }
 
 .jFiler-input-choose-btn {
-    border: 1px solid #01a9ac;
+    border: 1px solid #F6A300;
     padding: 10px 25px;
-    background: #01a9ac;
+    background: #F6A300;
     color: #fff !important
 }
 
 .jFiler-input-choose-btn:hover {
     background: #fff;
-    border: 1px solid #01a9ac;
+    border: 1px solid #F6A300;
     color: #fff !important
 }
 
@@ -1556,7 +1556,7 @@ a.bg-danger:hover {
 .md-tabs .nav-link.active,
 .md-tabs .nav-link.active:focus,
 .md-tabs .nav-link.active:hover {
-    color: #01a9ac;
+    color: #F6A300;
     border: none;
     background-color: transparent;
     border-radius: 0
@@ -1568,7 +1568,7 @@ a.bg-danger:hover {
 }
 
 .nav-tabs .slide {
-    background: #01a9ac;
+    background: #F6A300;
     width: calc(100% / 4);
     height: 4px;
     position: absolute;
@@ -1579,7 +1579,7 @@ a.bg-danger:hover {
 
 .nav-tabs .slide .nav-item.show .nav-link,
 .nav-tabs .slide .nav-link {
-    color: #01a9ac
+    color: #F6A300
 }
 
 .img-tabs img {
@@ -1620,7 +1620,7 @@ a.bg-danger:hover {
 }
 
 .h-active a {
-    color: #01a9ac !important;
+    color: #F6A300 !important;
     font-weight: 600
 }
 
@@ -1635,7 +1635,7 @@ a.bg-danger:hover {
 .table-primary,
 .table-primary>td,
 .table-primary>th {
-    background-color: #01a9ac
+    background-color: #F6A300
 }
 
 .table-responsive {
@@ -1870,7 +1870,7 @@ h6.media-heading {
 .contact-details table .fa-star,
 .contact-details table .fa-star-o,
 .review-star i {
-    color: #01a9ac
+    color: #F6A300
 }
 
 .review-star i:last-child {
@@ -2099,15 +2099,15 @@ h6.media-heading {
 }
 
 .btn-outline-primary {
-    border-color: #01a9ac;
+    border-color: #F6A300;
     font-weight: 500;
     padding: 10px 16px;
     font-size: 15px
 }
 
 .btn-outline-primary:hover {
-    background-color: #01a9ac;
-    border-color: #01a9ac
+    background-color: #F6A300;
+    border-color: #F6A300
 }
 
 .simple-cards p {
@@ -2163,12 +2163,12 @@ img.comment-img {
 }
 
 .page-link {
-    color: #01a9ac
+    color: #F6A300
 }
 
 .page-item.active .page-link {
-    background-color: #01a9ac;
-    border-color: #01a9ac
+    background-color: #F6A300;
+    border-color: #F6A300
 }
 
 #main {
@@ -2194,7 +2194,7 @@ img.comment-img {
 
 .blog-page .blog-box h5 {
     border-bottom: 1px solid #ccc;
-    color: #01a9ac;
+    color: #F6A300;
     margin-top: 0;
     padding-bottom: 10px;
     margin-bottom: 15px;
@@ -2203,7 +2203,7 @@ img.comment-img {
 }
 
 .blog-page .blog-box .option-font {
-    background-color: #01a9ac;
+    background-color: #F6A300;
     border-radius: 50%;
     bottom: 320px;
     color: #fff;
@@ -2302,7 +2302,7 @@ img.comment-img {
 .blog-date i {
     margin-left: 5px;
     font-size: 14px;
-    color: #01a9ac
+    color: #F6A300
 }
 
 .blog-date .icon-calendar {
@@ -2322,7 +2322,7 @@ img.comment-img {
 
 .blog-single h4 {
     margin-top: 20px;
-    color: #01a9ac;
+    color: #F6A300;
     font-weight: 400
 }
 
@@ -2336,8 +2336,8 @@ img.comment-img {
 
 .blog-single .qutoe-text {
     font-size: 15px;
-    color: #01a9ac;
-    border-left: 3px solid #01a9ac;
+    color: #F6A300;
+    border-left: 3px solid #F6A300;
     padding-left: 25px;
     font-weight: 400
 }
@@ -2356,7 +2356,7 @@ img.comment-img {
 }
 
 .blog-s-reply h6 {
-    color: #01a9ac
+    color: #F6A300
 }
 
 .shares-like li:first-child,
@@ -2387,8 +2387,8 @@ img.comment-img {
 }
 
 .blog-tag li:hover {
-    background-color: #01a9ac;
-    border-color: #01a9ac
+    background-color: #F6A300;
+    border-color: #F6A300
 }
 
 .blog-tag li:hover a,
@@ -2447,7 +2447,7 @@ img.comment-img {
 .blog-article .articles a {
     font-weight: 400;
     font-size: 15px;
-    color: #01a9ac;
+    color: #F6A300;
     margin: 20px 0;
     display: block
 }
@@ -2470,11 +2470,11 @@ img.comment-img {
 
 .system_font_color {
     font-size: 18px;
-    color: #01a9ac
+    color: #F6A300
 }
 
 .system_font_color a {
-    color: #01a9ac;
+    color: #F6A300;
     margin-left: 5px
 }
 
@@ -2511,7 +2511,7 @@ img.comment-img {
 }
 
 .blog_detail_social_icon span:hover {
-    background-color: #01a9ac;
+    background-color: #F6A300;
     color: #fff
 }
 
@@ -2556,7 +2556,7 @@ img.comment-img {
 }
 
 figure.effect-goliath {
-    background: #01a9ac
+    background: #F6A300
 }
 
 .barchart canvas,
@@ -2671,7 +2671,7 @@ figure.effect-goliath {
 }
 
 .media .b-2-primary {
-    border: 2px solid #01a9ac
+    border: 2px solid #F6A300
 }
 
 .thumb-block {
@@ -2704,7 +2704,7 @@ figure.effect-goliath {
 
 .dropdown-item.active,
 .dropdown-item:active {
-    background-color: #01a9ac
+    background-color: #F6A300
 }
 
 .task-detail-right .counter {
@@ -2889,7 +2889,7 @@ p.task-due {
 }
 
 .faq-progress .progress .faq-bar4 {
-    background-color: #01a9ac
+    background-color: #F6A300
 }
 
 .faq-progress .progress .faq-text4 {
@@ -2923,7 +2923,7 @@ p.task-due {
 }
 
 .issue-progress .progress .issue-bar1 {
-    background: #01a9ac;
+    background: #F6A300;
     height: 10px;
     border-radius: 0;
     position: absolute;
@@ -3174,7 +3174,7 @@ table.matrics-table tr:first-child td {
 }
 
 .page-link:hover {
-    color: #01a9ac
+    color: #F6A300
 }
 
 .slick-prev {
@@ -3527,7 +3527,7 @@ a[data-toggle="lightbox"] .img-fluid {
 }
 
 .fb-timeliner h2 {
-    background: #01a9ac;
+    background: #F6A300;
     color: #fff;
     margin-top: 0;
     padding: 15px;
@@ -3612,16 +3612,16 @@ a[data-toggle="lightbox"] .img-fluid {
 }
 
 #msform #progressbar li.active {
-    color: #01a9ac
+    color: #F6A300
 }
 
 #msform #progressbar li.active:before,
 #progressbar li.active:after {
-    background: #01a9ac
+    background: #F6A300
 }
 
 #msform a {
-    color: #01a9ac;
+    color: #F6A300;
     font-weight: 600
 }
 
@@ -4997,7 +4997,7 @@ a[data-toggle="lightbox"] .img-fluid {
 }
 
 .dotted-line-theme .no_edit {
-    border-bottom: 1px dotted #01a9ac
+    border-bottom: 1px dotted #F6A300
 }
 
 .handsontable td,
@@ -5850,7 +5850,7 @@ a[data-toggle="lightbox"] .img-fluid {
 }
 
 .text-primary {
-    color: #01a9ac !important
+    color: #F6A300 !important
 }
 
 .text-warning {
@@ -5911,8 +5911,8 @@ a[data-toggle="lightbox"] .img-fluid {
 }
 
 .label-primary {
-    background: -webkit-gradient(linear, left top, right top, from(#01a9ac), to(#01dbdf));
-    background: linear-gradient(to right, #01a9ac, #01dbdf)
+    background: -webkit-gradient(linear, left top, right top, from(#F6A300), to(#01dbdf));
+    background: linear-gradient(to right, #F6A300, #01dbdf)
 }
 
 .label-warning {
@@ -5950,7 +5950,7 @@ a[data-toggle="lightbox"] .img-fluid {
 }
 
 .badge-primary {
-    background-color: #01a9ac
+    background-color: #F6A300
 }
 
 .badge-warning {
@@ -5994,7 +5994,7 @@ a[data-toggle="lightbox"] .img-fluid {
 }
 
 .bg-primary {
-    background-color: #01a9ac !important;
+    background-color: #F6A300 !important;
     color: #fff
 }
 
@@ -6029,7 +6029,7 @@ a[data-toggle="lightbox"] .img-fluid {
 }
 
 .color-primary {
-    background-color: #01a9ac
+    background-color: #F6A300
 }
 
 .color-warning {
@@ -6057,7 +6057,7 @@ a[data-toggle="lightbox"] .img-fluid {
 }
 
 .loader-primary {
-    background-color: #01a9ac !important
+    background-color: #F6A300 !important
 }
 
 .loader-warning {
@@ -6085,8 +6085,8 @@ a[data-toggle="lightbox"] .img-fluid {
 }
 
 .nestable-primary {
-    background-color: #01a9ac !important;
-    border-color: #01a9ac;
+    background-color: #F6A300 !important;
+    border-color: #F6A300;
     color: #fff !important
 }
 
@@ -6129,7 +6129,7 @@ a[data-toggle="lightbox"] .img-fluid {
 table thead .border-bottom-primary th,
 table tbody .border-bottom-primary th,
 table tbody .border-bottom-primary td {
-    border-bottom: 1px solid #01a9ac
+    border-bottom: 1px solid #F6A300
 }
 
 table thead .border-bottom-warning th,
@@ -6170,9 +6170,9 @@ table tbody .border-bottom-info td {
 
 .table-styling .table-primary,
 .table-styling.table-primary {
-    background-color: #01a9ac;
+    background-color: #F6A300;
     color: #fff;
-    border: 3px solid #01a9ac
+    border: 3px solid #F6A300
 }
 
 .table-styling .table-primary thead,
@@ -6260,7 +6260,7 @@ table tbody .border-bottom-info td {
 }
 
 .toolbar-primary .tool-item {
-    background: #01a9ac !important
+    background: #F6A300 !important
 }
 
 .toolbar-primary .tool-item.selected,
@@ -6269,23 +6269,23 @@ table tbody .border-bottom-info td {
 }
 
 .toolbar-primary.tool-top .arrow {
-    border-color: #01a9ac transparent transparent
+    border-color: #F6A300 transparent transparent
 }
 
 .toolbar-primary.tool-bottom .arrow {
-    border-color: transparent transparent #01a9ac
+    border-color: transparent transparent #F6A300
 }
 
 .toolbar-primary.tool-left .arrow {
-    border-color: transparent transparent transparent #01a9ac
+    border-color: transparent transparent transparent #F6A300
 }
 
 .toolbar-primary.tool-right .arrow {
-    border-color: transparent #01a9ac transparent transparent
+    border-color: transparent #F6A300 transparent transparent
 }
 
 .btn-toolbar-primary.pressed {
-    background-color: #01a9ac
+    background-color: #F6A300
 }
 
 .toolbar-warning .tool-item {
@@ -6463,7 +6463,7 @@ table tbody .border-bottom-info td {
 }
 
 .card-border-primary {
-    border-top: 4px solid #01a9ac
+    border-top: 4px solid #F6A300
 }
 
 .card-border-warning {
@@ -6491,7 +6491,7 @@ table tbody .border-bottom-info td {
 }
 
 .panels-wells .panel-primary {
-    border-color: #01a9ac
+    border-color: #F6A300
 }
 
 .panels-wells .panel-warning {
@@ -6519,19 +6519,19 @@ table tbody .border-bottom-info td {
 }
 
 .b-t-primary {
-    border-top: 1px solid #01a9ac
+    border-top: 1px solid #F6A300
 }
 
 .b-b-primary {
-    border-bottom: 1px solid #01a9ac
+    border-bottom: 1px solid #F6A300
 }
 
 .b-l-primary {
-    border-left: 1px solid #01a9ac
+    border-left: 1px solid #F6A300
 }
 
 .b-r-primary {
-    border-right: 1px solid #01a9ac
+    border-right: 1px solid #F6A300
 }
 
 .b-t-warning {
@@ -7599,7 +7599,7 @@ table tbody .border-bottom-info td {
 }
 
 .main-menu .main-menu-content .more-details a:hover {
-    color: #01a9ac
+    color: #F6A300
 }
 
 .main-menu .main-menu-content .more-details a i {
@@ -7811,7 +7811,7 @@ table tbody .border-bottom-info td {
 
 .header-navbar .navbar-wrapper .navbar-container .header-notification .show-notification li,
 .header-navbar .navbar-wrapper .navbar-container .header-notification .profile-notification li {
-    border-top: 1px solid #01a9ac, #fe9365, #e0e0e0, #fe5d70, #0ac282, #404E67, #2DCEE3;
+    border-top: 1px solid #F6A300, #fe9365, #e0e0e0, #fe5d70, #0ac282, #404E67, #2DCEE3;
     line-height: initial;
     padding: 1em 20px;
     width: 100%;
@@ -11124,7 +11124,7 @@ table tbody .border-bottom-info td {
     display: block;
     cursor: pointer;
     text-align: center;
-    background: #01a9ac;
+    background: #F6A300;
     color: #fff;
     -webkit-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
     box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
@@ -11169,7 +11169,7 @@ table tbody .border-bottom-info td {
 
 #styleSelector .nav-tabs {
     margin-bottom: 20px;
-    border-bottom: 2px solid #01a9ac;
+    border-bottom: 2px solid #F6A300;
     padding-bottom: 5px
 }
 
@@ -11194,7 +11194,7 @@ table tbody .border-bottom-info td {
 
 #styleSelector .nav-tabs .nav-item a.active {
     color: #fff;
-    background-color: #01a9ac
+    background-color: #F6A300
 }
 
 #styleSelector .style-cont {
@@ -11259,7 +11259,7 @@ table tbody .border-bottom-info td {
 }
 
 #styleSelector #menu-effect .micon.st1 {
-    background-color: #01a9ac
+    background-color: #F6A300
 }
 
 #styleSelector #menu-effect .micon.st1 b,
@@ -11299,7 +11299,7 @@ table tbody .border-bottom-info td {
 }
 
 #styleSelector #menu-effect .micon.st5 i {
-    color: #01a9ac
+    color: #F6A300
 }
 
 #styleSelector #bg-pattern-visiblity {
@@ -12171,8 +12171,8 @@ body.menu-bottom #collapse-menu {
 }
 
 .list-group-item.active {
-    background-color: #01a9ac;
-    border-color: #01a9ac
+    background-color: #F6A300;
+    border-color: #F6A300
 }
 
 .show>.btn-primary.dropdown-toggle,
@@ -12264,8 +12264,8 @@ body.menu-bottom #collapse-menu {
 .btn-primary,
 .sweet-alert button.confirm,
 .wizard>.actions a {
-    background-color: #01a9ac;
-    border-color: #01a9ac;
+    background-color: #F6A300;
+    border-color: #F6A300;
     color: #fff;
     cursor: pointer;
     -webkit-transition: all ease-in 0.3s;
@@ -12682,7 +12682,7 @@ body.menu-bottom #collapse-menu {
 .btn-primary.btn-mat,
 .sweet-alert button.btn-mat.confirm,
 .wizard>.actions a.btn-mat {
-    background-color: #01a9ac
+    background-color: #F6A300
 }
 
 .btn-primary.btn-mat:before,
@@ -12771,7 +12771,7 @@ body.menu-bottom #collapse-menu {
 .btn-primary .badge,
 .sweet-alert button.confirm .badge,
 .wizard>.actions a .badge {
-    color: #01a9ac;
+    color: #F6A300;
     background-color: #fff
 }
 
@@ -12880,7 +12880,7 @@ body.menu-bottom #collapse-menu {
 
 .dropdown-primary .dropdown-menu a:hover,
 .dropdown-split-primary .dropdown-menu a:hover {
-    background-color: #01a9ac;
+    background-color: #F6A300;
     color: #fff
 }
 
@@ -13000,20 +13000,20 @@ body.menu-bottom #collapse-menu {
 }
 
 .form-control-primary {
-    border-color: #01a9ac;
-    color: #01a9ac
+    border-color: #F6A300;
+    color: #F6A300
 }
 
 .form-control-primary:focus {
-    border-color: #01a9ac
+    border-color: #F6A300
 }
 
 .input-group-primary .input-group-addon {
-    background-color: #01a9ac
+    background-color: #F6A300
 }
 
 .input-group-primary .form-control {
-    border-color: #01a9ac
+    border-color: #F6A300
 }
 
 .form-control-warning {
@@ -13119,24 +13119,24 @@ body.menu-bottom #collapse-menu {
 }
 
 .form-txt-primary {
-    color: #01a9ac
+    color: #F6A300
 }
 
 .form-txt-primary:focus {
-    color: #01a9ac
+    color: #F6A300
 }
 
 .form-txt-primary::-moz-placeholder {
-    color: #01a9ac;
+    color: #F6A300;
     opacity: 1
 }
 
 .form-txt-primary:-ms-input-placeholder {
-    color: #01a9ac
+    color: #F6A300
 }
 
 .form-txt-primary::-webkit-input-placeholder {
-    color: #01a9ac
+    color: #F6A300
 }
 
 .form-txt-warning {
@@ -13266,14 +13266,14 @@ body.menu-bottom #collapse-menu {
 }
 
 .form-bg-primary {
-    background-color: #01a9ac;
-    border-color: #01a9ac;
+    background-color: #F6A300;
+    border-color: #F6A300;
     color: #fff
 }
 
 .form-bg-primary:focus {
-    background-color: #01a9ac;
-    border-color: #01a9ac;
+    background-color: #F6A300;
+    border-color: #F6A300;
     color: #fff
 }
 
@@ -13498,7 +13498,7 @@ body.menu-bottom #collapse-menu {
 }
 
 .input-group-addon {
-    background-color: #01a9ac;
+    background-color: #F6A300;
     color: #fff
 }
 
@@ -13568,8 +13568,8 @@ body.menu-bottom #collapse-menu {
 .radio .helper::after {
     -webkit-transform: scale(0);
     transform: scale(0);
-    background-color: #01a9ac;
-    border-color: #01a9ac
+    background-color: #F6A300;
+    border-color: #F6A300
 }
 
 .radio .helper::after,
@@ -13585,11 +13585,11 @@ body.menu-bottom #collapse-menu {
     transition: -webkit-transform 0.28s ease;
     transition: transform 0.28s ease, -webkit-transform 0.28s ease;
     border-radius: 50%;
-    border: 0.125rem solid #01a9ac
+    border: 0.125rem solid #F6A300
 }
 
 .radio label:hover .helper {
-    color: #01a9ac
+    color: #F6A300
 }
 
 .radio input:checked~.helper::after {
@@ -13598,7 +13598,7 @@ body.menu-bottom #collapse-menu {
 }
 
 .radio input:checked~.helper::before {
-    color: #01a9ac
+    color: #F6A300
 }
 
 .radio.radiofill input:checked~.helper::after {
@@ -13607,7 +13607,7 @@ body.menu-bottom #collapse-menu {
 }
 
 .radio.radiofill .helper::after {
-    background-color: #01a9ac
+    background-color: #F6A300
 }
 
 .radio.radio-outline input:checked~.helper::after {
@@ -13617,7 +13617,7 @@ body.menu-bottom #collapse-menu {
 
 .radio.radio-outline .helper::after {
     background-color: #fff;
-    border: 0.225rem solid #01a9ac
+    border: 0.225rem solid #F6A300
 }
 
 .radio.radio-matrial input~.helper::after {
@@ -13632,7 +13632,7 @@ body.menu-bottom #collapse-menu {
 }
 
 .radio.radio-matrial input:checked~.helper::before {
-    background-color: #01a9ac
+    background-color: #F6A300
 }
 
 .radio.radio-disable {
@@ -13649,21 +13649,21 @@ body.menu-bottom #collapse-menu {
 }
 
 .radio.radiofill.radio-primary .helper::after {
-    background-color: #01a9ac;
-    border-color: #01a9ac
+    background-color: #F6A300;
+    border-color: #F6A300
 }
 
 .radio.radiofill.radio-primary .helper::before {
-    border-color: #01a9ac
+    border-color: #F6A300
 }
 
 .radio.radio-outline.radio-primary .helper::after {
     background-color: #fff;
-    border: 0.225rem solid #01a9ac
+    border: 0.225rem solid #F6A300
 }
 
 .radio.radio-outline.radio-primary .helper::before {
-    border-color: #01a9ac
+    border-color: #F6A300
 }
 
 .radio.radio-matrial.radio-primary input~.helper::after {
@@ -13672,8 +13672,8 @@ body.menu-bottom #collapse-menu {
 }
 
 .radio.radio-matrial.radio-primary input~.helper::before {
-    background-color: #01a9ac;
-    border-color: #01a9ac
+    background-color: #F6A300;
+    border-color: #F6A300
 }
 
 .radio.radiofill.radio-warning .helper::after {
@@ -13852,7 +13852,7 @@ body.menu-bottom #collapse-menu {
     -webkit-animation: check linear 0.5s;
     animation: check linear 0.5s;
     opacity: 1;
-    border-color: #01a9ac
+    border-color: #F6A300
 }
 
 .border-checkbox-section .border-checkbox-group .border-checkbox:checked+.border-checkbox-label:after .border-checkbox-label:before {
@@ -13889,7 +13889,7 @@ body.menu-bottom #collapse-menu {
 .border-checkbox-section .border-checkbox-group .border-checkbox-label:before {
     content: "";
     display: block;
-    border: 2px solid #01a9ac;
+    border: 2px solid #F6A300;
     width: 20px;
     height: 20px;
     position: absolute;
@@ -13936,11 +13936,11 @@ body.menu-bottom #collapse-menu {
 }
 
 .border-checkbox-section .border-checkbox-group-primary .border-checkbox-label:before {
-    border: 2px solid #01a9ac
+    border: 2px solid #F6A300
 }
 
 .border-checkbox-section .border-checkbox-group-primary .border-checkbox:checked+.border-checkbox-label:after {
-    border-color: #01a9ac
+    border-color: #F6A300
 }
 
 .border-checkbox-section .border-checkbox-group-warning .border-checkbox-label:before {
@@ -14047,7 +14047,7 @@ body.menu-bottom #collapse-menu {
 .checkbox-fade .cr,
 .checkbox-zoom .cr {
     border-radius: 0;
-    border: 2px solid #01a9ac;
+    border: 2px solid #F6A300;
     cursor: pointer;
     display: inline-block;
     float: left;
@@ -14059,7 +14059,7 @@ body.menu-bottom #collapse-menu {
 
 .checkbox-fade .cr .cr-icon,
 .checkbox-zoom .cr .cr-icon {
-    color: #01a9ac;
+    color: #F6A300;
     font-size: 0.8em;
     left: 0;
     line-height: 0;
@@ -14123,14 +14123,14 @@ body.menu-bottom #collapse-menu {
 .checkbox-fade.zoom-primary .cr,
 .checkbox-zoom.fade-in-primary .cr,
 .checkbox-zoom.zoom-primary .cr {
-    border: 2px solid #01a9ac
+    border: 2px solid #F6A300
 }
 
 .checkbox-fade.fade-in-primary .cr .cr-icon,
 .checkbox-fade.zoom-primary .cr .cr-icon,
 .checkbox-zoom.fade-in-primary .cr .cr-icon,
 .checkbox-zoom.zoom-primary .cr .cr-icon {
-    color: #01a9ac
+    color: #F6A300
 }
 
 .checkbox-fade.fade-in-warning .cr,
@@ -14308,7 +14308,7 @@ body.menu-bottom #collapse-menu {
 }
 
 .checkbox-primary input[type="checkbox"]:checked+label::before {
-    background-color: #01a9ac
+    background-color: #F6A300
 }
 
 .checkbox-warning input[type="checkbox"]:checked+label::before {
@@ -14336,7 +14336,7 @@ body.menu-bottom #collapse-menu {
 }
 
 .bootstrap-tagsinput {
-    border: 1px solid #01a9ac;
+    border: 1px solid #F6A300;
     line-height: 30px;
     border-radius: 2px
 }
@@ -14347,7 +14347,7 @@ body.menu-bottom #collapse-menu {
 }
 
 .select2-container--default:focus {
-    border-color: #01a9ac
+    border-color: #F6A300
 }
 
 .select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
@@ -14355,11 +14355,11 @@ body.menu-bottom #collapse-menu {
 }
 
 .select2-container--default .select2-search__field:focus {
-    border: 1px solid #01a9ac
+    border: 1px solid #F6A300
 }
 
 .select2-container--default .select2-results__option--highlighted[aria-selected] {
-    background-color: #01a9ac
+    background-color: #F6A300
 }
 
 .select2-container--default .select2-selection--multiple {
@@ -14367,8 +14367,8 @@ body.menu-bottom #collapse-menu {
 }
 
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
-    background-color: #01a9ac;
-    border: 1px solid #01a9ac;
+    background-color: #F6A300;
+    border: 1px solid #F6A300;
     padding: 5px 15px;
     color: #fff
 }
@@ -14382,7 +14382,7 @@ body.menu-bottom #collapse-menu {
 }
 
 .select2-container--default.select2-container--focus .select2-selection--multiple {
-    border: 1px solid #01a9ac
+    border: 1px solid #F6A300
 }
 
 .select2-container--default .select2-selection--single {
@@ -14391,7 +14391,7 @@ body.menu-bottom #collapse-menu {
 }
 
 .select2-container--default .select2-selection--single .select2-selection__rendered {
-    background-color: #01a9ac;
+    background-color: #F6A300;
     color: #fff;
     padding: 8px 30px 8px 20px
 }
@@ -14406,19 +14406,19 @@ body.menu-bottom #collapse-menu {
 }
 
 .ms-container .ms-list.ms-focus {
-    border-color: #01a9ac;
+    border-color: #f8b210;
     -webkit-box-shadow: inset 0 1px 1px rgba(26, 188, 156, 0.49), 0 0 8px rgba(26, 188, 156, 0.5);
     box-shadow: inset 0 1px 1px rgba(26, 188, 156, 0.49), 0 0 8px rgba(26, 188, 156, 0.5)
 }
 
 .ms-container .ms-selectable li.ms-hover,
 .ms-container .ms-selection li.ms-hover {
-    background-color: #01a9ac
+    background-color: #f8b210
 }
 
 .ms-selectable .custom-header,
 .ms-selection .custom-header {
-    background-color: #01a9ac;
+    background-color: #F6A300;
     color: #fff;
     text-align: center
 }
@@ -14444,7 +14444,7 @@ body.menu-bottom #collapse-menu {
 }
 
 .wizard>.steps .current a {
-    background: #01a9ac;
+    background: #F6A300;
     -webkit-transition: all ease-in 0.3s;
     transition: all ease-in 0.3s;
     cursor: pointer;
@@ -14468,7 +14468,7 @@ body.menu-bottom #collapse-menu {
     content: "";
     position: absolute;
     height: 2px;
-    background: #01a9ac;
+    background: #F6A300;
     width: 100%;
     top: 30px;
     z-index: -1
@@ -14579,8 +14579,8 @@ span.badge {
 
 .label-inverse-primary {
     border: 1px solid;
-    border-color: #01a9ac;
-    color: #01a9ac !important
+    border-color: #F6A300;
+    color: #F6A300 !important
 }
 
 .label-inverse-success {
@@ -14621,8 +14621,8 @@ span.badge {
 
 .badge-inverse-primary {
     border: 1px solid;
-    border-color: #01a9ac;
-    color: #01a9ac !important
+    border-color: #F6A300;
+    color: #F6A300 !important
 }
 
 .badge-inverse-success {
@@ -14765,8 +14765,8 @@ label.txt-ellipsis {
 }
 
 .j-pro .j-header {
-    background-color: #01a9ac;
-    border-top: 1px solid #01a9ac;
+    background-color: #F6A300;
+    border-top: 1px solid #F6A300;
     -webkit-box-shadow: none;
     box-shadow: none
 }
@@ -14781,7 +14781,7 @@ label.txt-ellipsis {
 
 .j-pro .j-footer {
     background-color: #fff;
-    border-top: 1px dashed #01a9ac;
+    border-top: 1px dashed #F6A300;
     padding: 20px 25px;
     position: inherit
 }
@@ -14855,7 +14855,7 @@ label.txt-ellipsis {
 .j-forms input[type="url"]:focus,
 .j-forms textarea:focus,
 .j-forms select:focus {
-    border: 1px solid #01a9ac
+    border: 1px solid #F6A300
 }
 
 .j-pro .j-radio-toggle,
@@ -14867,19 +14867,19 @@ label.txt-ellipsis {
 
 .j-pro .j-tooltip,
 .j-pro .j-tooltip-image {
-    background-color: #01a9ac
+    background-color: #F6A300
 }
 
 .j-pro .j-tooltip:before,
 .j-pro .j-tooltip-image:before {
-    border-color: #01a9ac transparent
+    border-color: #F6A300 transparent
 }
 
 .j-pro .j-primary-btn,
 .j-pro .j-file-button,
 .j-pro .j-secondary-btn,
 .j-pro .j-widget .j-addon-btn {
-    background-color: #01a9ac
+    background-color: #F6A300
 }
 
 .j-pro .j-primary-btn:hover,
@@ -14893,7 +14893,7 @@ label.txt-ellipsis {
 .j-pro .j-ratings input+label:hover~label,
 .j-pro .j-ratings input:checked+label,
 .j-pro .j-ratings input:checked+label~label {
-    color: #01a9ac
+    color: #F6A300
 }
 
 .j-unit .checkbox-fade {
@@ -14921,7 +14921,7 @@ label.txt-ellipsis {
 }
 
 .j-forms .link {
-    color: #01a9ac;
+    color: #F6A300;
     border-bottom: none;
     text-transform: capitalize;
     margin-bottom: 15px
@@ -14948,8 +14948,8 @@ label.txt-ellipsis {
 }
 
 .j-forms .header {
-    background-color: #01a9ac;
-    border-top: 1px solid #01a9ac;
+    background-color: #F6A300;
+    border-top: 1px solid #F6A300;
     -webkit-box-shadow: none;
     box-shadow: none
 }
@@ -14960,7 +14960,7 @@ label.txt-ellipsis {
 
 .j-forms .widget .addon,
 .j-forms .widget .addon-btn {
-    background-color: #01a9ac;
+    background-color: #F6A300;
     color: #fff
 }
 
@@ -14996,7 +14996,7 @@ label.txt-ellipsis {
 }
 
 .j-forms .stepper .stepper-arrow {
-    background-color: #01a9ac
+    background-color: #F6A300
 }
 
 .j-forms .stepper .stepper-arrow:hover {
@@ -15035,7 +15035,7 @@ label.txt-ellipsis {
 
 .j-tabs-container .j-tabs-label,
 .j-tabs-container input[type="radio"]:checked+.j-tabs-label {
-    border-top: 4px solid #01a9ac
+    border-top: 4px solid #F6A300
 }
 
 .pop-up-logo img {
@@ -15328,13 +15328,13 @@ tr.shown td.details-control {
 
 #row-select .selected,
 #row-delete .selected {
-    background-color: #01a9ac;
+    background-color: #F6A300;
     color: #fff
 }
 
 div.dt-autofill-list div.dt-autofill-button button {
-    background-color: #01a9ac;
-    border-color: #01a9ac
+    background-color: #F6A300;
+    border-color: #F6A300
 }
 
 table.dataTable {
@@ -15343,7 +15343,7 @@ table.dataTable {
 
 table.dataTable tbody>tr.selected,
 table.dataTable tbody>tr>.selected {
-    background-color: #01a9ac;
+    background-color: #F6A300;
     color: #fff
 }
 
@@ -15370,8 +15370,8 @@ div.dt-button:active:not(.disabled),
 div.dt-button.active:not(.disabled),
 a.dt-button:active:not(.disabled),
 a.dt-button.active:not(.disabled) {
-    background-color: #01a9ac;
-    border-color: #01a9ac;
+    background-color: #F6A300;
+    border-color: #F6A300;
     border-radius: 2px;
     color: #fff;
     background-image: none;
@@ -15413,7 +15413,7 @@ div.dt-button:hover:not(.disabled),
 a.dt-button:hover:not(.disabled) {
     background-image: none;
     background-color: #01c2c5;
-    border-color: #01a9ac
+    border-color: #F6A300
 }
 
 button.dt-button.btn-warning:hover:not(.disabled),
@@ -15446,8 +15446,8 @@ div.dt-button-collection div.dt-button:active:not(.disabled),
 div.dt-button-collection div.dt-button.active:not(.disabled),
 div.dt-button-collection a.dt-button:active:not(.disabled),
 div.dt-button-collection a.dt-button.active:not(.disabled) {
-    background-color: #01a9ac;
-    border-color: #01a9ac;
+    background-color: #F6A300;
+    border-color: #F6A300;
     background-image: none
 }
 
@@ -15457,7 +15457,7 @@ div.dt-buttons {
 
 .card .table-card-header b {
     display: block;
-    color: #01a9ac;
+    color: #F6A300;
     margin-top: 15px
 }
 
@@ -15530,7 +15530,7 @@ table.fixedHeader-locked {
 
 table.dataTable th.focus,
 table.dataTable td.focus {
-    outline: 3px solid #01a9ac;
+    outline: 3px solid #F6A300;
     outline-offset: -1px
 }
 
@@ -15608,8 +15608,8 @@ div.DTS div.dataTables_length {
 .footable .pagination>.active>span,
 .footable .pagination>.active>span:focus,
 .footable .pagination>.active>span:hover {
-    background-color: #01a9ac;
-    border-color: #01a9ac
+    background-color: #F6A300;
+    border-color: #F6A300
 }
 
 .footable .pagination>li>a,
@@ -15769,16 +15769,16 @@ table.footable-paging-center>tfoot>tr.footable-paging>td {
 }
 
 .bg-c-blue {
-    background: -webkit-gradient(linear, left top, right top, from(#01a9ac), to(#01dbdf));
-    background: linear-gradient(to right, #01a9ac, #01dbdf)
+    background: -webkit-gradient(linear, left top, right top, from(#F6A300), to(#01dbdf));
+    background: linear-gradient(to right, #F6A300, #01dbdf)
 }
 
 .bg-simple-c-blue {
-    background: #01a9ac
+    background: #F6A300
 }
 
 .text-c-blue {
-    color: #01a9ac
+    color: #F6A300
 }
 
 .bg-c-pink {
@@ -15834,16 +15834,16 @@ table.footable-paging-center>tfoot>tr.footable-paging>td {
 }
 
 .bg-c-lite-green {
-    background: -webkit-gradient(linear, left top, right top, from(#01a9ac), to(#01dbdf));
-    background: linear-gradient(to right, #01a9ac, #01dbdf)
+    background: -webkit-gradient(linear, left top, right top, from(#F6A300), to(#01dbdf));
+    background: linear-gradient(to right, #F6A300, #01dbdf)
 }
 
 .bg-simple-c-lite-green {
-    background: #01a9ac
+    background: #F6A300
 }
 
 .text-c-lite-green {
-    color: #01a9ac
+    color: #F6A300
 }
 
 .update-card {
@@ -16498,7 +16498,7 @@ table.footable-paging-center>tfoot>tr.footable-paging>td {
     width: 120px;
     height: 120px;
     border-radius: 50%;
-    border: 1px solid #01a9ac;
+    border: 1px solid #F6A300;
     padding: 4px
 }
 
@@ -16520,7 +16520,7 @@ table.footable-paging-center>tfoot>tr.footable-paging>td {
     bottom: -15px;
     left: calc(100% - 27px);
     color: #fff;
-    background-color: #01a9ac;
+    background-color: #F6A300;
     border-radius: 5px;
     padding: 0 3px
 }
@@ -16779,8 +16779,8 @@ table.footable-paging-center>tfoot>tr.footable-paging>td {
 
 .alert-primary {
     background-color: #fff;
-    border-color: #01a9ac;
-    color: #01a9ac
+    border-color: #F6A300;
+    color: #F6A300
 }
 
 .alert-success {
@@ -16818,11 +16818,11 @@ table.footable-paging-center>tfoot>tr.footable-paging>td {
 
 .border-primary {
     border-color: transparent;
-    border-left: 3px solid #01a9ac;
+    border-left: 3px solid #F6A300;
     border-radius: 0;
     -webkit-box-shadow: 0 0 1px #999;
     box-shadow: 0 0 1px #999;
-    color: #01a9ac
+    color: #F6A300
 }
 
 .border-success {
@@ -16867,7 +16867,7 @@ table.footable-paging-center>tfoot>tr.footable-paging>td {
 }
 
 .background-primary {
-    background-color: #01a9ac;
+    background-color: #F6A300;
     color: #fff
 }
 
@@ -16929,7 +16929,7 @@ table.footable-paging-center>tfoot>tr.footable-paging>td {
 }
 
 .login-block .auth-box .confirm h3 {
-    color: #01a9ac;
+    color: #F6A300;
     font-size: 34px
 }
 
@@ -16999,7 +16999,7 @@ table.footable-paging-center>tfoot>tr.footable-paging>td {
 .front-icon-breadcrumb .big-icon i {
     font-size: 50px;
     margin-right: 10px;
-    color: #01a9ac
+    color: #F6A300
 }
 
 .front-icon-breadcrumb .d-inline-block span {
@@ -17014,7 +17014,7 @@ table.footable-paging-center>tfoot>tr.footable-paging>td {
 .info-breadcrumb,
 .warning-breadcrumb,
 .success-breadcrumb {
-    background-color: #01a9ac;
+    background-color: #F6A300;
     color: #fff
 }
 
@@ -17126,7 +17126,7 @@ table.footable-paging-center>tfoot>tr.footable-paging>td {
 }
 
 #main-chat .chat-single-box.active .chat-header {
-    background-color: #01a9ac
+    background-color: #F6A300
 }
 
 #main-chat .chat-single-box.active .chat-header a {
@@ -17412,7 +17412,7 @@ table.footable-paging-center>tfoot>tr.footable-paging>td {
     height: 0;
     content: '';
     border: 8px solid transparent;
-    border-left-color: #01a9ac
+    border-left-color: #F6A300
 }
 
 .chat-reply-box {
@@ -17440,7 +17440,7 @@ table.footable-paging-center>tfoot>tr.footable-paging>td {
     right: 0;
     border: none;
     background-color: transparent;
-    color: #01a9ac;
+    color: #F6A300;
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg)
 }
@@ -17489,7 +17489,7 @@ table.footable-paging-center>tfoot>tr.footable-paging>td {
 }
 
 .chat-menu-reply {
-    background: #01a9ac;
+    background: #F6A300;
     margin-right: 10px
 }
 
@@ -17516,7 +17516,7 @@ table.footable-paging-center>tfoot>tr.footable-paging>td {
 
 .chat-footer,
 .chat-link {
-    border-color: #01a9ac
+    border-color: #F6A300
 }
 
 .chat-footer .input-group-addon {
@@ -17524,7 +17524,7 @@ table.footable-paging-center>tfoot>tr.footable-paging>td {
 }
 
 .form-control:focus~.chat-send {
-    border-color: #01a9ac
+    border-color: #F6A300
 }
 
 .minimized-box {
@@ -17551,7 +17551,7 @@ table.footable-paging-center>tfoot>tr.footable-paging>td {
 
 .form-control:focus~.input-group-btn .btn-secondary {
     border-color: #66afe9;
-    color: #01a9ac
+    color: #F6A300
 }
 
 .img-chat-profile {
@@ -20422,7 +20422,7 @@ table.footable-paging-center>tfoot>tr.footable-paging>td {
 
 .jp-card .jp-card-front,
 .jp-card .jp-card-back {
-    background: #01a9ac !important
+    background: #F6A300 !important
 }
 
 .payment-form {
@@ -20439,11 +20439,11 @@ table.footable-paging-center>tfoot>tr.footable-paging>td {
 }
 
 .long-press:focus {
-    outline-color: #01a9ac
+    outline-color: #F6A300
 }
 
 .inputor:focus {
-    border-color: #01a9ac
+    border-color: #F6A300
 }
 
 #edui1 {
@@ -20689,12 +20689,12 @@ table.footable-paging-center>tfoot>tr.footable-paging>td {
 }
 
 .social-msg a:hover {
-    color: #01a9ac
+    color: #F6A300
 }
 
 .social-msg a:hover span,
 .social-msg a:hover i {
-    color: #01a9ac !important
+    color: #F6A300 !important
 }
 
 .view-info .social-label,
@@ -20812,7 +20812,7 @@ tr:first-child>td>.fc-day-grid-event {
 }
 
 .fc-state-active {
-    background-color: #01a9ac;
+    background-color: #F6A300;
     color: #fff
 }
 
@@ -20882,9 +20882,9 @@ tr:first-child>td>.fc-day-grid-event {
 }
 
 .fc th {
-    background: #01a9ac;
+    background: #F6A300;
     color: #fff;
-    border-color: #01a9ac
+    border-color: #F6A300
 }
 
 .fc-event-container a {
@@ -20996,7 +20996,7 @@ tr:first-child>td>.fc-day-grid-event {
 }
 
 .clndr.event-listing {
-    background-color: #01a9ac;
+    background-color: #F6A300;
     float: left;
     width: 35%
 }
@@ -21020,7 +21020,7 @@ tr:first-child>td>.fc-day-grid-event {
 }
 
 .fc-event {
-    border-color: #01a9ac
+    border-color: #F6A300
 }
 
 .job-right-header .card-header .card-header-right {
@@ -21048,7 +21048,7 @@ tr:first-child>td>.fc-day-grid-event {
 }
 
 .job-right-header a {
-    color: #01a9ac;
+    color: #F6A300;
     font-weight: 600
 }
 
@@ -21160,7 +21160,7 @@ tr:first-child>td>.fc-day-grid-event {
 
 .job-meta-data i {
     margin-right: 5px;
-    color: #01a9ac
+    color: #F6A300
 }
 
 .email-card {
@@ -21168,7 +21168,7 @@ tr:first-child>td>.fc-day-grid-event {
 }
 
 .email-card .user-head {
-    background-color: #01a9ac;
+    background-color: #F6A300;
     padding: 10px;
     min-height: 80px;
     display: -webkit-box;
@@ -21225,7 +21225,7 @@ tr:first-child>td>.fc-day-grid-event {
 
 .email-card .user-body .page-list li.mail-section a.active,
 .email-card .user-body .page-list li.mail-section a:hover {
-    color: #01a9ac;
+    color: #F6A300;
     background-color: #48fbfe
 }
 
@@ -21256,7 +21256,7 @@ tr:first-child>td>.fc-day-grid-event {
 }
 
 .email-card .user-body .label-list a.mail-work:before {
-    background-color: #01a9ac
+    background-color: #F6A300
 }
 
 .email-card .user-body .label-list a.mail-design:before {
@@ -21276,7 +21276,7 @@ tr:first-child>td>.fc-day-grid-event {
 }
 
 .email-card .mail-box-head {
-    background-color: #01a9ac;
+    background-color: #F6A300;
     min-height: 80px;
     padding: 20px 0
 }
@@ -21422,7 +21422,7 @@ tr:first-child>td>.fc-day-grid-event {
 .success-nav li.active a,
 .info-nav li.active a,
 .danger-nav li.active a {
-    color: #01a9ac;
+    color: #F6A300;
     font-weight: 600
 }
 
@@ -22052,7 +22052,7 @@ tr:first-child>td>.fc-day-grid-event {
     top: 0;
     left: 32px;
     bottom: 0;
-    border-left: 1px solid #01a9ac
+    border-left: 1px solid #F6A300
 }
 
 .note-card .note-write:after {
@@ -22062,7 +22062,7 @@ tr:first-child>td>.fc-day-grid-event {
     top: 0;
     left: 34px;
     bottom: 0;
-    border-left: 1px solid #01a9ac
+    border-left: 1px solid #F6A300
 }
 
 .note-card #Note-pad {
@@ -22158,7 +22158,7 @@ pre.line-numbers>code {
 }
 
 .progress-bar-primary {
-    background-color: #01a9ac
+    background-color: #F6A300
 }
 
 .progress-bar-success {
@@ -22400,7 +22400,7 @@ pre.line-numbers>code {
 
 #circle-loader2 {
     fill: none;
-    stroke: #01a9ac;
+    stroke: #F6A300;
     stroke-width: 4;
     -webkit-animation: draw 3s ease-in-out infinite;
     animation: draw 3s ease-in-out infinite
@@ -22462,7 +22462,7 @@ pre.line-numbers>code {
 
 .preloader3>div {
     margin: 2px;
-    background-color: #01a9ac;
+    background-color: #F6A300;
     height: 10px;
     width: 10px;
     border-radius: 50%;
@@ -22597,7 +22597,7 @@ pre.line-numbers>code {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    background-color: #01a9ac;
+    background-color: #F6A300;
     opacity: 0.6;
     position: absolute;
     top: 0;
@@ -22639,7 +22639,7 @@ pre.line-numbers>code {
     display: inline-block;
     padding: 11px;
     margin: 0 0.6em;
-    background: #01a9ac;
+    background: #F6A300;
     border-radius: 100%
 }
 
@@ -22762,8 +22762,8 @@ pre.line-numbers>code {
     z-index: -1;
     left: 33px;
     border: 17px solid transparent;
-    border-bottom: 50px solid #01a9ac;
-    border-top: 50px solid #01a9ac;
+    border-bottom: 50px solid #F6A300;
+    border-top: 50px solid #F6A300;
     -webkit-animation: rotateColor 1000ms infinite;
     animation: rotateColor 1000ms infinite
 }
@@ -22889,8 +22889,8 @@ pre.line-numbers>code {
 
 .slider-handle {
     top: -5px;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#01a9ac), to(#01a9ac));
-    background-image: linear-gradient(to bottom, #01a9ac 0%, #01a9ac 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#F6A300), to(#F6A300));
+    background-image: linear-gradient(to bottom, #F6A300 0%, #F6A300 100%);
     -webkit-box-shadow: none;
     box-shadow: none
 }
@@ -22904,7 +22904,7 @@ pre.line-numbers>code {
 .slider-handle.custom::before {
     line-height: 15px;
     font-size: 35px;
-    color: #01a9ac
+    color: #F6A300
 }
 
 #slider12a .slider-track-high,
@@ -23017,27 +23017,27 @@ span.value {
 .br-theme-bars-reversed .br-widget a.br-selected,
 .br-theme-bars-horizontal .br-widget a.br-active,
 .br-theme-bars-horizontal .br-widget a.br-selected {
-    background-color: #01a9ac
+    background-color: #F6A300
 }
 
 .br-theme-bars-pill .br-widget a {
     background-color: #01d1d5;
-    color: #01a9ac
+    color: #F6A300
 }
 
 .br-theme-bars-pill .br-widget a.br-active,
 .br-theme-bars-pill .br-widget a.br-selected {
-    background-color: #01a9ac
+    background-color: #F6A300
 }
 
 .br-theme-fontawesome-stars .br-widget a.br-active:after,
 .br-theme-fontawesome-stars .br-widget a.br-selected:after {
-    color: #01a9ac
+    color: #F6A300
 }
 
 .br-theme-css-stars .br-widget a.br-active:after,
 .br-theme-css-stars .br-widget a.br-selected:after {
-    color: #01a9ac
+    color: #F6A300
 }
 
 .br-theme-bars-square .br-widget a {
@@ -23047,15 +23047,15 @@ span.value {
 
 .br-theme-bars-square .br-widget a.br-active,
 .br-theme-bars-square .br-widget a.br-selected {
-    border: 2px solid #01a9ac;
-    color: #01a9ac
+    border: 2px solid #F6A300;
+    color: #F6A300
 }
 
 .br-theme-fontawesome-stars-o .br-widget a.br-selected:after,
 .br-theme-fontawesome-stars-o .br-widget a:after,
 .br-theme-fontawesome-stars-o .br-widget a.br-active:after,
 .br-theme-fontawesome-stars-o .br-widget a.br-fractional:after {
-    color: #01a9ac
+    color: #F6A300
 }
 
 #task-container ul {
@@ -23099,7 +23099,7 @@ span.value {
     padding: 20px;
     border: 1px solid #CCC;
     color: #666;
-    border-top: 9px solid #01a9ac;
+    border-top: 9px solid #F6A300;
     cursor: pointer;
     margin-bottom: 20px;
     margin-right: 2%;
@@ -23474,7 +23474,9 @@ span.value {
         width: 100% !important
     }
     .header-navbar .navbar-wrapper .navbar-logo a img {
-        display: block
+        display: block;
+        max-width: 30vh;
+
     }
     .header-navbar .navbar-wrapper .navbar-logo .mobile-menu {
         display: block;
@@ -24452,7 +24454,7 @@ body.dark .header-navbar .navbar-wrapper .navbar-container .mega-menu-top .row.p
 body.dark .header-navbar .navbar-wrapper .navbar-container .mega-menu-top .show-notification.row li:hover .mega-menu-links>li:hover a,
 body.dark .header-navbar .navbar-wrapper .navbar-container .mega-menu-top .header-notification .row.profile-notification li:hover .mega-menu-links>li:hover a,
 body.dark .header-navbar .navbar-wrapper .navbar-container .header-notification .mega-menu-top .row.profile-notification li:hover .mega-menu-links>li:hover a {
-    color: #01a9ac
+    color: #F6A300
 }
 
 .pcoded[layout-type="dark"] .header-navbar .navbar-wrapper .navbar-container .header-notification .profile-notification li:hover,
@@ -24672,7 +24674,7 @@ body.dark .alert.background-default {
 
 .pcoded[layout-type="dark"] .alert.background-primary,
 body.dark .alert.background-primary {
-    background-color: #01a9ac;
+    background-color: #F6A300;
     color: #fff
 }
 
@@ -24722,14 +24724,14 @@ body.dark .md-tabs .nav-item a {
 body.dark .md-tabs .nav-item a.active,
 body.dark .md-tabs .nav-item a:focus,
 body.dark .md-tabs .nav-item a:hover {
-    color: #01a9ac
+    color: #F6A300
 }
 
 .pcoded[layout-type="dark"] .md-tabs .nav-item a.active:focus,
 .pcoded[layout-type="dark"] .md-tabs .nav-item a.active:hover,
 body.dark .md-tabs .nav-item a.active:focus,
 body.dark .md-tabs .nav-item a.active:hover {
-    color: #01a9ac
+    color: #F6A300
 }
 
 .pcoded[layout-type="dark"] .nav-tabs,
