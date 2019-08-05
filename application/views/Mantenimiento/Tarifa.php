@@ -51,27 +51,31 @@ $this->load->view('Layout/Nav');
                                     </ul>
                                     <!-- Tab panes -->
                                     <div class="tab-content card-block">
-                                        <div class="tab-pane active" id="home7" role="tabpanel">
-                                            <div class="row form-group align-items-center">
-                                                <div class="col-sm-4 col-md-4">
-                                                    <label class="col-form-label">Precio de Alquiler Base:</label>
-                                                    <input type="text" class="form-control validarPanel" name="TarifaPrecioBaseV" id="TarifaPrecioBaseV" value="" maxlength="7" onkeypress="return SoloNumerosModificado(event,7,this.id);">
-                                                </div>
-                                                <div class="col-sm-4 col-md-4">
-                                                    <label class="col-form-label">Precio de Venta Base:</label>
-                                                    <input type="text" class="form-control validarPanel" name="TarifaPrecioVentaV" id="TarifaPrecioVentaV" value="" maxlength="7" onkeypress="return SoloNumerosModificado(event,7,this.id);">
-                                                </div>
-                                                <div class="col-md-3 col-sm-3 mt-4">
-                                                        <button type="button" class="btn btn-grd-success btn-block btn-sm btn-round" onclick="NuevoTarifa();">Guardar</button>
-                                                    </div>
-                                            </div>
 
+                                        <div class="tab-pane active" id="home7" role="tabpanel">
+                                            <form id="FormularioTarifa" method="POST" autocomplete="off">
+                                                <div class="row form-group align-items-center">
+
+                                                    <div class="col-sm-4 col-md-4">
+                                                        <label class="col-form-label">Precio de Alquiler Base:</label>
+                                                        <input type="text" class="form-control validarPanel" name="TarifaPrecioBaseV" id="TarifaPrecioBaseV" value="" maxlength="7" onkeypress="return SoloNumerosModificado(event,7,this.id);">
+                                                    </div>
+                                                    <div class="col-sm-4 col-md-4">
+                                                        <label class="col-form-label">Precio de Venta Base:</label>
+                                                        <input type="text" class="form-control validarPanel" name="TarifaPrecioVentaV" id="TarifaPrecioVentaV" value="" maxlength="7" onkeypress="return SoloNumerosModificado(event,7,this.id);">
+                                                    </div>
+                                                    <div class="col-md-3 col-sm-3 mt-4">
+                                                        <button type="submit" class="btn btn-grd-success btn-block btn-sm btn-round">Guardar</button>
+                                                    </div>
+                                                </div>
+                                            </form>
                                         </div>
+
                                         <div class="tab-pane" id="profile7" role="tabpanel">
                                             <div class="card-block">
                                                 <div class="row">
                                                     <div class="col-md-3 ml-md-auto col-sm-6 ml-sm-auto">
-                                                        <button type="button" class="btn btn-grd-success btn-block btn-sm btn-round" onclick="NuevoTarifa();">Nuevo Tarifa de Delivery</button>
+                                                        <button type="button" class="btn btn-grd-success btn-block btn-sm btn-round" onclick="NuevoDelivery();">Nuevo Tarifa de Delivery</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -82,11 +86,12 @@ $this->load->view('Layout/Nav');
                                                             <table class="table table-sm  w-100 table-hover" id="tablaTarifa">
                                                                 <thead class="thead-light text-center">
                                                                     <tr>
-                                                                        <th>Lugar</th>
+                                                                        <th>Ubicación</th>
                                                                         <th>Tarifa</th>
                                                                         <th>Fecha de Reg.</th>
                                                                         <th>Ultima Act.</th>
-                                                                        <th>Estado</th>
+                                                                        <th>Accion</th>
+
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody> </tbody>
@@ -110,22 +115,42 @@ $this->load->view('Layout/Nav');
 <?php
    $this->load->view('Layout/Footer');
 ?>
-<div class="modal fade" id="ModalTarifa" role="dialog" aria-labelledby="myModalLabelLarge" aria-hidden="true">
+<div class="modal fade" id="ModalDelivery" role="dialog" aria-labelledby="myModalLabelLarge" aria-hidden="true" style="z-index:10001 !important;">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-body">
-                <form id="FormularioTarifa" method="POST" autocomplete="off">
-                    <input type="hidden" name="TarifaidTarifa" id="TarifaidTarifa">
+                <form id="FormularioTarifaDelivery" method="POST" autocomplete="off">
+                    <input type="hidden" name="Delivery_idDelivery" id="Delivery_idDelivery">
+                    <input type="hidden" name="DeliveryPrecioO" id="DeliveryPrecioO" value="0.00">
                     <div class="form-group row">
                         <div class="col-sm-12 center_element">
-                            <h4 id="tituloModalTarifa"></h4>
+                            <h4 id="tituloModalDelivery"></h4>
                             <hr>
                         </div>
                     </div>
-                    <div class="row form-group">
-                        <div class="col-sm-12 col-md-12">
-                            <label class="col-form-label">Titulo del Tarifa de Categoria:</label>
-                            <input type="text" class="form-control validarPanel" name="TarifaTitulo" id="TarifaTitulo" value="" maxlength="60"> </div>
+                   <div class="row form-group">
+                        <div class="col-sm-4 col-md-4">
+                            <label class="col-form-label">Precio de Delivery:</label>
+                            <input type="text" class="form-control validarPanel" name="DeliveryPrecio" id="DeliveryPrecio" value=""  onkeypress="return SoloNumerosModificado(event,7,this.id);">
+                        </div>
+
+                    </div>
+                      <div class="row form-group">
+                        <div class="col-sm-4 col-md-4">
+                            <label class="col-form-label">Departamento:</label>
+                            <select class="form-control" id="DeliveryDepartamento" name="DeliveryDepartamento" required>
+                             <option value="">--- SELECCIONE ---</option></select>
+                        </div>
+                         <div class="col-sm-4 col-md-4">
+                            <label class="col-form-label">Provincia:</label>
+                            <select class="form-control" id="DeliveryProvincia" name="DeliveryProvincia" required>
+                             <option value="">--- SELECCIONE ---</option></select>
+                        </div>
+                         <div class="col-sm-4 col-md-4">
+                            <label class="col-form-label">Distrito:</label>
+                            <select class="form-control" id="DeliveryDistrito" name="DeliveryDistrito" required>
+                             <option value="">--- SELECCIONE ---</option> </select>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col col-md-6 text-left">
@@ -138,4 +163,5 @@ $this->load->view('Layout/Nav');
         </div>
     </div>
 </div>
+
 <script type="text/javascript" src="<?php echo base_url();?>assets/js/Mantenimiento/Tarifa.js"></script>

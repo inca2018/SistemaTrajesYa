@@ -193,7 +193,7 @@ function InabilitarGrupo(idGrupo, Grupo) {
 }
 function LimpiarGrupo() {
     $('#FormularioGrupo')[0].reset();
-    $("#idGrupo").val("");
+    $("#Delivery_idDelivery").val("");
 }
 function Cancelar() {
     LimpiarGrupo();

@@ -127,6 +127,15 @@ class MProducto extends CI_Model
         $query = $this->db->get('producto');
         return $query->row();
     }
+    public function ObtenerProductoTarifa()
+    {
+        $this->db->select('p.idProducto,p.imagenPortada,p.NombreProducto,t.precioAlquiler,t.precioVenta');
+        $this->db->from('producto p');
+        $this->db->join('tarifa t', 't.Producto_idProducto=p.idProducto','left');
+        $this->db->where('p.idProducto', $_POST['idProducto']);
+        $query = $this->db->get('producto');
+        return $query->row();
+    }
     public function EliminarProducto()
     {
          /** Recuperar Datos para Historial **/

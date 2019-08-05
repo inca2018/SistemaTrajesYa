@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost:3306
--- Tiempo de generación: 20-06-2019 a las 12:26:16
--- Versión del servidor: 5.6.43-cll-lve
--- Versión de PHP: 7.2.7
+-- Servidor: 127.0.0.1:3306
+-- Tiempo de generación: 05-08-2019 a las 22:04:00
+-- Versión del servidor: 5.7.19
+-- Versión de PHP: 5.6.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -26,7 +26,31 @@ DELIMITER $$
 --
 -- Funciones
 --
-$$
+DROP FUNCTION IF EXISTS `FU_REGISTRO_HISTORIAL`$$
+CREATE DEFINER=`root`@`localhost` FUNCTION `FU_REGISTRO_HISTORIAL` (`tipo` INT(11), `Usuario` INT(11), `Mensaje` TEXT, `Fecha` DATETIME) RETURNS INT(11) NO SQL
+BEGIN
+DECLARE Operacion VARCHAR(100);
+
+IF(tipo=1)THEN
+SET Operacion="Registro:";
+ELSEIF(tipo=2)THEN
+SET Operacion="Actualización:";
+ELSEIF(tipo=3)THEN
+SET Operacion="Habilitación:";
+ELSEIF(tipo=4)THEN
+SET Operacion="Inhabilitación:";
+ELSEIF(tipo=5)THEN
+SET Operacion="Eliminar:";
+END IF;
+
+SET Mensaje=(CONCAT(Operacion,' ',Mensaje));
+
+INSERT INTO `historial`(`idHistorial`, `usuario_idUsuario`, `Mensaje`, `fechaRegistro`) VALUES (NULL,Usuario,Mensaje,Fecha);
+
+
+RETURN 1;
+
+END$$
 
 DELIMITER ;
 
@@ -36,16 +60,20 @@ DELIMITER ;
 -- Estructura de tabla para la tabla `categoria`
 --
 
-CREATE TABLE `categoria` (
-  `idCategoria` int(11) NOT NULL,
+DROP TABLE IF EXISTS `categoria`;
+CREATE TABLE IF NOT EXISTS `categoria` (
+  `idCategoria` int(11) NOT NULL AUTO_INCREMENT,
   `NombreCategoria` varchar(200) NOT NULL,
   `Descripcion` text NOT NULL,
   `imagenPortada` varchar(200) DEFAULT NULL,
   `fechaRegistro` datetime NOT NULL,
   `fechaUpdate` datetime DEFAULT NULL,
   `Grupo_idGrupo` int(11) NOT NULL,
-  `Estado_idEstado` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `Estado_idEstado` int(11) NOT NULL,
+  PRIMARY KEY (`idCategoria`),
+  KEY `FK_GrupoCategoria` (`Grupo_idGrupo`),
+  KEY `FK_EstadoCategoria` (`Estado_idEstado`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `categoria`
@@ -56,8 +84,7 @@ INSERT INTO `categoria` (`idCategoria`, `NombreCategoria`, `Descripcion`, `image
 (2, 'Trajes Tipicos Y Costumbristas', 'Trajes Tipicos y Costumbristas', 'Categoria/Trajes_Tipicos_y_Costumbristas.jpg', '2019-06-04 00:00:00', '2019-06-07 17:59:52', 1, 1),
 (3, 'Trajes de Lujo', 'Trajes de Lujo', NULL, '2019-06-04 00:00:00', NULL, 2, 1),
 (4, 'Trajes Eroticos', 'Trajes Eroticos', 'Categoria/Trajes_Eroticos.jpg', '2019-06-04 00:00:00', '2019-06-07 18:00:46', 2, 1),
-(5, 'Muñecos Y Disfraces', 'Muñecos Y Disfraces', 'Categoria/Munecos_Y_Disfraces.jpg', '2019-06-04 00:00:00', '2019-06-07 18:11:53', 2, 1),
-(7, 'Prueba Categoria', 'efwfwefwefwefwefwefwe', 'Categoria/Prueba_Categoria.jpg', '2019-06-19 16:13:53', NULL, 1, 1);
+(5, 'Muñecos Y Disfraces', 'Muñecos Y Disfraces', 'Categoria/Munecos_Y_Disfraces.jpg', '2019-06-04 00:00:00', '2019-06-07 18:11:53', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -65,15 +92,29 @@ INSERT INTO `categoria` (`idCategoria`, `NombreCategoria`, `Descripcion`, `image
 -- Estructura de tabla para la tabla `delivery`
 --
 
-CREATE TABLE `delivery` (
-  `idDelivery` int(11) NOT NULL,
+DROP TABLE IF EXISTS `delivery`;
+CREATE TABLE IF NOT EXISTS `delivery` (
+  `idDelivery` int(11) NOT NULL AUTO_INCREMENT,
   `Producto_idProducto` int(11) NOT NULL,
   `Departamento_idDepartamento` int(11) NOT NULL,
   `Provincia_idProvincia` int(11) NOT NULL,
   `Distrito_idDitrito` int(11) NOT NULL,
   `precioDelivery` decimal(20,2) NOT NULL,
-  `fechaRegistro` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `fechaRegistro` datetime NOT NULL,
+  `fechaUpdate` datetime DEFAULT NULL,
+  PRIMARY KEY (`idDelivery`),
+  KEY `FK_DeliveryProducto` (`Producto_idProducto`),
+  KEY `FK_DeliveryDepa` (`Departamento_idDepartamento`),
+  KEY `FK_DeliveryProv` (`Provincia_idProvincia`),
+  KEY `FK_DeliveryDist` (`Distrito_idDitrito`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `delivery`
+--
+
+INSERT INTO `delivery` (`idDelivery`, `Producto_idProducto`, `Departamento_idDepartamento`, `Provincia_idProvincia`, `Distrito_idDitrito`, `precioDelivery`, `fechaRegistro`, `fechaUpdate`) VALUES
+(2, 1, 15, 127, 1267, '10.00', '2019-08-05 16:41:59', NULL);
 
 -- --------------------------------------------------------
 
@@ -81,12 +122,14 @@ CREATE TABLE `delivery` (
 -- Estructura de tabla para la tabla `departamento`
 --
 
-CREATE TABLE `departamento` (
-  `idDepartamento` int(11) NOT NULL,
+DROP TABLE IF EXISTS `departamento`;
+CREATE TABLE IF NOT EXISTS `departamento` (
+  `idDepartamento` int(11) NOT NULL AUTO_INCREMENT,
   `departamento` varchar(150) DEFAULT NULL,
   `fechaRegistro` datetime DEFAULT NULL,
-  `fechaUpdate` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `fechaUpdate` datetime DEFAULT NULL,
+  PRIMARY KEY (`idDepartamento`)
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `departamento`
@@ -125,13 +168,16 @@ INSERT INTO `departamento` (`idDepartamento`, `departamento`, `fechaRegistro`, `
 -- Estructura de tabla para la tabla `distrito`
 --
 
-CREATE TABLE `distrito` (
-  `idDistrito` int(11) NOT NULL,
+DROP TABLE IF EXISTS `distrito`;
+CREATE TABLE IF NOT EXISTS `distrito` (
+  `idDistrito` int(11) NOT NULL AUTO_INCREMENT,
   `distrito` varchar(150) DEFAULT NULL,
   `fechaRegistro` datetime DEFAULT NULL,
   `fechaUpdate` datetime DEFAULT NULL,
-  `provincia_idprovincia` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `provincia_idprovincia` int(11) NOT NULL,
+  PRIMARY KEY (`idDistrito`),
+  KEY `fk_distrito_provincia1_idx` (`provincia_idprovincia`)
+) ENGINE=InnoDB AUTO_INCREMENT=1832 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `distrito`
@@ -1977,13 +2023,15 @@ INSERT INTO `distrito` (`idDistrito`, `distrito`, `fechaRegistro`, `fechaUpdate`
 -- Estructura de tabla para la tabla `estado`
 --
 
-CREATE TABLE `estado` (
-  `idEstado` int(11) NOT NULL,
+DROP TABLE IF EXISTS `estado`;
+CREATE TABLE IF NOT EXISTS `estado` (
+  `idEstado` int(11) NOT NULL AUTO_INCREMENT,
   `grupo` char(4) DEFAULT NULL,
   `DescripcionEstado` varchar(150) DEFAULT NULL,
   `fechaRegistro` datetime DEFAULT NULL,
-  `fechaUpdate` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `fechaUpdate` datetime DEFAULT NULL,
+  PRIMARY KEY (`idEstado`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `estado`
@@ -1999,15 +2047,27 @@ INSERT INTO `estado` (`idEstado`, `grupo`, `DescripcionEstado`, `fechaRegistro`,
 -- Estructura de tabla para la tabla `galeria`
 --
 
-CREATE TABLE `galeria` (
-  `idGaleria` int(11) NOT NULL,
+DROP TABLE IF EXISTS `galeria`;
+CREATE TABLE IF NOT EXISTS `galeria` (
+  `idGaleria` int(11) NOT NULL AUTO_INCREMENT,
   `NombreGaleria` varchar(150) NOT NULL,
   `imagenPortada` varchar(150) NOT NULL,
   `fechaRegistro` datetime NOT NULL,
   `fechaUpdate` datetime DEFAULT NULL,
   `Producto_idProducto` int(11) NOT NULL,
-  `Estado_idEstado` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `Estado_idEstado` int(11) NOT NULL,
+  PRIMARY KEY (`idGaleria`),
+  KEY `FK_galeriaProducto` (`Producto_idProducto`),
+  KEY `FK_GaleriaEstado` (`Estado_idEstado`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `galeria`
+--
+
+INSERT INTO `galeria` (`idGaleria`, `NombreGaleria`, `imagenPortada`, `fechaRegistro`, `fechaUpdate`, `Producto_idProducto`, `Estado_idEstado`) VALUES
+(1, 'Imagen1', 'Galeria/Imagen1.jpg', '2019-06-20 15:08:31', NULL, 1, 1),
+(2, 'Imagen2', 'Galeria/Imagen2.jpg', '2019-06-20 15:08:46', NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -2015,13 +2075,16 @@ CREATE TABLE `galeria` (
 -- Estructura de tabla para la tabla `grupo`
 --
 
-CREATE TABLE `grupo` (
-  `idGrupo` int(11) NOT NULL,
+DROP TABLE IF EXISTS `grupo`;
+CREATE TABLE IF NOT EXISTS `grupo` (
+  `idGrupo` int(11) NOT NULL AUTO_INCREMENT,
   `Descripcion` varchar(150) NOT NULL,
   `fechaRegistro` datetime NOT NULL,
   `fechaUpdate` datetime DEFAULT NULL,
-  `Estado_idEstado` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `Estado_idEstado` int(11) NOT NULL,
+  PRIMARY KEY (`idGrupo`),
+  KEY `FK_grupoEstado` (`Estado_idEstado`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `grupo`
@@ -2037,188 +2100,64 @@ INSERT INTO `grupo` (`idGrupo`, `Descripcion`, `fechaRegistro`, `fechaUpdate`, `
 -- Estructura de tabla para la tabla `historial`
 --
 
-CREATE TABLE `historial` (
-  `idHistorial` int(11) NOT NULL,
+DROP TABLE IF EXISTS `historial`;
+CREATE TABLE IF NOT EXISTS `historial` (
+  `idHistorial` int(11) NOT NULL AUTO_INCREMENT,
   `usuario_idUsuario` int(11) NOT NULL,
   `Mensaje` text NOT NULL,
-  `fechaRegistro` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `fechaRegistro` datetime NOT NULL,
+  PRIMARY KEY (`idHistorial`),
+  KEY `FK_Historial_u` (`usuario_idUsuario`)
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `historial`
 --
 
 INSERT INTO `historial` (`idHistorial`, `usuario_idUsuario`, `Mensaje`, `fechaRegistro`) VALUES
-(3, 17, 'Registro:  Se Registró nuevo Usuario: jincac - Nombres: Jesus Vicente Inca Cardenas.', '2019-05-30 12:47:43'),
-(4, 17, 'Inhabilitación:  Se Inhabilitó  Usuario: jincac - Nombres: Jesus Vicente Inca Cardenas.', '2019-05-30 12:47:46'),
-(5, 17, 'Habilitación:  Se Habilitó  Usuario: jincac - Nombres: Jesus Vicente Inca Cardenas.', '2019-05-30 12:47:48'),
-(6, 17, 'Actualización:  Se Actualizó  Usuario: jincac - Nombres: Jesus Vicente Inca Cardenas.', '2019-05-30 12:47:59'),
-(7, 17, 'Eliminar:  Se Eliminó  Usuario: jincac - Nombres: Jesus Vicente Inca Cardenas.', '2019-05-30 12:48:13'),
-(8, 17, 'Registro:  Se Registró nuevo Usuario: jincac - Nombres: Jesus Vicente Inca Cardenas.', '2019-06-04 15:22:23'),
-(9, 17, 'Actualización:  Se Actualizó  Usuario: jincac - Nombres: Jesus Vicente Inca Cardenas.', '2019-06-04 15:22:32'),
-(10, 17, 'Actualización:  Se Actualizó  Usuario: administrador - Nombres: Admin Admin.', '2019-06-04 15:30:43'),
-(11, 17, 'Registro:  Se Registró nuevo Perfil: prueba.', '2019-06-04 17:06:37'),
-(12, 17, 'Actualización:  Se Actualizó  Perfil: prueba123.', '2019-06-04 17:06:45'),
-(13, 17, 'Inhabilitación:  Se Inhabilitó  Perfil: prueba123.', '2019-06-04 17:06:47'),
-(14, 17, 'Habilitación:  Se Habilitó  Perfil: prueba123.', '2019-06-04 17:06:49'),
-(15, 17, 'Eliminar:  Se Eliminó  Perfil: prueba123.', '2019-06-04 17:06:51'),
-(16, 17, 'Registro:  Se Registró nuevo Medida: prueba', '2019-06-04 17:11:17'),
-(17, 17, 'Actualización:  Se Actualizó  Medida: prueba123', '2019-06-04 17:11:20'),
-(18, 17, 'Inhabilitación:  Se Inhabilitó  Medida: prueba123', '2019-06-04 17:11:22'),
-(19, 17, 'Habilitación:  Se Habilitó  Medida: prueba123', '2019-06-04 17:11:24'),
-(20, 17, 'Eliminar:  Se Eliminó  Medida: prueba123', '2019-06-04 17:11:29'),
-(21, 17, 'Registro:  Se Registró nuevo Grupo: 76k7k', '2019-06-04 17:47:19'),
-(22, 17, 'Actualización:  Se Actualizó  Grupo: 76k7kfefewfe', '2019-06-04 17:48:20'),
-(23, 17, 'Inhabilitación:  Se Inhabilitó  Grupo: 76k7kfefewfe', '2019-06-04 17:48:23'),
-(24, 17, 'Habilitación:  Se Habilitó  Grupo: 76k7kfefewfe', '2019-06-04 17:48:25'),
-(25, 17, 'Eliminar:  Se Eliminó  Grupo: 76k7kfefewfe', '2019-06-04 17:48:27'),
-(26, 17, 'Registro:  Se Registró nuevo Categoria: gergerg', '2019-06-05 15:39:23'),
-(27, 17, 'Registro:  Se Registró nuevo Categoria: prueba', '2019-06-05 15:45:29'),
-(28, 17, 'Registro:  Se Registró nuevo Categoria: prueba jesus inca', '2019-06-05 15:48:01'),
-(29, 17, 'Registro:  Se Registró nuevo Categoria: prueba jesus inca', '2019-06-05 15:50:16'),
-(30, 17, 'Registro:  Se Registró nuevo Categoria: erherh', '2019-06-05 15:50:51'),
-(31, 17, 'Registro:  Se Registró nuevo Categoria: werfwef wef wefwe wef', '2019-06-05 15:51:08'),
-(32, 17, 'Registro:  Se Registró nuevo Categoria: prueba jesus inca', '2019-06-05 15:53:30'),
-(33, 17, 'Registro:  Se Registró nuevo Categoria: prueba jesus inca 2', '2019-06-05 15:53:52'),
-(34, 17, 'Registro:  Se Registró nuevo Categoria: prueba jesus inca', '2019-06-05 15:55:09'),
-(35, 17, 'Registro:  Se Registró nuevo Categoria: 34y35y34', '2019-06-06 15:18:49'),
-(36, 17, 'Eliminar:  Se Eliminó  Categoria: ', '2019-06-06 17:07:17'),
-(37, 17, 'Registro:  Se Registró nuevo Categoria: wefwe', '2019-06-06 17:19:48'),
-(38, 17, 'Registro:  Se Registró nuevo Categoria: gerger', '2019-06-06 17:21:04'),
-(39, 17, 'Registro:  Se Registró nuevo Categoria: gwergwegfe', '2019-06-06 17:25:44'),
-(40, 17, 'Registro:  Se Registró nuevo Categoria: jesusssss', '2019-06-06 17:26:33'),
-(41, 17, 'Registro:  Se Registró nuevo Categoria: NuevoJesus', '2019-06-07 16:13:56'),
-(42, 17, 'Registro:  Se Registró nuevo Categoria: NuevoJesus', '2019-06-07 16:17:02'),
-(43, 17, 'Registro:  Se Registró nuevo Categoria: fefefefe', '2019-06-07 16:23:29'),
-(44, 17, 'Registro:  Se Registró nuevo Categoria: uuuuuu', '2019-06-07 16:25:25'),
-(45, 17, 'Registro:  Se Registró nuevo Categoria: yyyyy', '2019-06-07 16:28:03'),
-(46, 17, 'Registro:  Se Registró nuevo Categoria: wregfwefwe', '2019-06-07 16:29:41'),
-(47, 17, 'Registro:  Se Registró nuevo Categoria: efwefwefefefef', '2019-06-07 16:31:07'),
-(48, 17, 'Registro:  Se Registró nuevo Categoria: prueba jesus inca', '2019-06-07 16:32:24'),
-(49, 17, 'Registro:  Se Registró nuevo Categoria: wergfwef', '2019-06-07 16:41:09'),
-(50, 17, 'Registro:  Se Registró nuevo Categoria: prueba2', '2019-06-07 17:28:20'),
-(51, 17, 'Actualización:  Se Actualizó  Categoria: prueba3', '2019-06-07 17:28:59'),
-(52, 17, 'Actualización:  Se Actualizó  Categoria: prueba4', '2019-06-07 17:29:37'),
-(53, 17, 'Registro:  Se Registró nuevo Categoria: prueba5', '2019-06-07 17:31:46'),
-(54, 17, 'Actualización:  Se Actualizó  Categoria: Prueba5', '2019-06-07 17:31:55'),
-(55, 17, 'Actualización:  Se Actualizó  Categoria: Prueba5', '2019-06-07 17:33:39'),
-(56, 17, 'Actualización:  Se Actualizó  Categoria: Prueba5', '2019-06-07 17:35:10'),
-(57, 17, 'Actualización:  Se Actualizó  Categoria: Prueba5', '2019-06-07 17:35:43'),
-(58, 17, 'Eliminar:  Se Eliminó  Categoria: ', '2019-06-07 17:36:07'),
-(59, 17, 'Inhabilitación:  Se Inhabilitó  Categoria: ', '2019-06-07 17:36:10'),
-(60, 17, 'Actualización:  Se Actualizó  Categoria: prueba4', '2019-06-07 17:37:36'),
-(61, 17, 'Actualización:  Se Actualizó  Categoria: prueba4', '2019-06-07 17:37:48'),
-(62, 17, 'Actualización:  Se Actualizó  Categoria: prueba4', '2019-06-07 17:38:07'),
-(63, 17, 'Actualización:  Se Actualizó  Categoria: Muñecos y Disfraces', '2019-06-07 17:41:04'),
-(64, 17, 'Registro:  Se Registró nuevo Categoria: prueba jesus', '2019-06-07 17:56:17'),
-(65, 17, 'Actualización:  Se Actualizó  Categoria: Prueba Jesus', '2019-06-07 17:56:37'),
-(66, 17, 'Actualización:  Se Actualizó  Categoria: Trajes de Luces', '2019-06-07 17:57:06'),
-(67, 17, 'Actualización:  Se Actualizó  Categoria: Trajes de Luces', '2019-06-07 17:59:42'),
-(68, 17, 'Actualización:  Se Actualizó  Categoria: Trajes Tipicos y Costumbristas', '2019-06-07 17:59:52'),
-(69, 17, 'Actualización:  Se Actualizó  Categoria: Trajes Eroticos', '2019-06-07 18:00:46'),
-(70, 17, 'Actualización:  Se Actualizó  Categoria: Muñecos y Disfraces', '2019-06-07 18:00:54'),
-(71, 17, 'Actualización:  Se Actualizó  Categoria: Muñecos Y Disfraces', '2019-06-07 18:02:06'),
-(72, 17, 'Actualización:  Se Actualizó  Categoria: Muñecos Y Disfraces', '2019-06-07 18:07:57'),
-(73, 17, 'Actualización:  Se Actualizó  Categoria: Muñecos Y Disfraces', '2019-06-07 18:08:10'),
-(74, 17, 'Actualización:  Se Actualizó  Categoria: Muñecos Y Disfraces', '2019-06-07 18:09:03'),
-(75, 17, 'Actualización:  Se Actualizó  Categoria: Muñecos y disfraces', '2019-06-07 18:11:32'),
-(76, 17, 'Actualización:  Se Actualizó  Categoria: Muñecos Y Disfraces', '2019-06-07 18:11:44'),
-(77, 17, 'Actualización:  Se Actualizó  Categoria: Muñecos Y Disfraces', '2019-06-07 18:11:53'),
-(78, 17, 'Registro:  Se Registró nuevo SubCategoria: prueba1', '2019-06-10 12:27:25'),
-(79, 17, 'Registro:  Se Registró nuevo SubCategoria: prueba2', '2019-06-10 12:27:43'),
-(80, 17, 'Registro:  Se Registró nuevo Producto: rghe', '2019-06-10 14:35:18'),
-(81, 17, 'Registro:  Se Registró nuevo SubCategoria: prueba34', '2019-06-10 15:04:17'),
-(82, 17, 'Registro:  Se Registró nuevo Producto: prueba producto', '2019-06-10 15:04:51'),
-(83, 17, 'Registro:  Se Registró nuevo Producto: efwe', '2019-06-10 15:24:55'),
-(84, 17, 'Registro:  Se Registró nuevo Producto: wef', '2019-06-10 15:26:07'),
-(85, 17, 'Actualización:  Se Actualizó  Producto: Wef222', '2019-06-10 17:36:27'),
-(86, 17, 'Registro:  Se Registró nuevo Producto: fwefwef', '2019-06-10 17:40:08'),
-(87, 17, 'Actualización:  Se Actualizó  Producto: Wef222', '2019-06-11 10:48:28'),
-(88, 17, 'Inhabilitación:  Se Inhabilitó  Producto: Wef222', '2019-06-11 11:35:23'),
-(89, 17, 'Inhabilitación:  Se Inhabilitó  Producto: Fwefwef', '2019-06-11 11:35:28'),
-(90, 17, 'Habilitación:  Se Habilitó  Producto: Wef222', '2019-06-11 11:54:58'),
-(91, 17, 'Inhabilitación:  Se Inhabilitó  Producto: Wef222', '2019-06-11 11:55:06'),
-(92, 17, 'Habilitación:  Se Habilitó  Producto: Wef222', '2019-06-11 11:55:09'),
-(93, 17, 'Eliminar:  Se Eliminó  Producto: Fwefwef', '2019-06-11 11:55:15'),
-(94, 17, 'Eliminar:  Se Eliminó  Producto: Wef222', '2019-06-11 11:55:23'),
-(95, 17, 'Registro:  Se Registró nuevo Producto: yjytjtyj', '2019-06-11 14:33:31'),
-(96, 17, 'Registro:  Se Registró nuevo Local: prueba', '2019-06-15 22:52:27'),
-(97, 17, 'Inhabilitación:  Se Inhabilitó  Local: Prueba', '2019-06-15 22:53:51'),
-(98, 17, 'Habilitación:  Se Habilitó  Local: Prueba', '2019-06-15 22:53:55'),
-(99, 17, 'Eliminar:  Se Eliminó  Local: Prueba', '2019-06-15 22:53:58'),
-(100, 17, 'Inhabilitación:  Se Inhabilitó  Producto: Yjytjtyj', '2019-06-15 22:58:54'),
-(101, 17, 'Habilitación:  Se Habilitó  Producto: Yjytjtyj', '2019-06-15 22:59:03'),
-(102, 17, 'Registro:  Se Registró nuevo Local: prueba', '2019-06-15 23:04:23'),
-(103, 17, 'Actualización:  Se Actualizó  Local: Prueba', '2019-06-15 23:06:27'),
-(104, 17, 'Actualización:  Se Actualizó  Local: Prueba2', '2019-06-15 23:10:48'),
-(105, 17, 'Registro:  Se Registró nuevo Galeria: mjk, ', '2019-06-15 23:53:00'),
-(106, 17, 'Registro:  Se Registró nuevo Galeria: dtbhet', '2019-06-15 23:56:55'),
-(107, 17, 'Inhabilitación:  Se Inhabilitó  Galeria: Dtbhet', '2019-06-15 23:57:24'),
-(108, 17, 'Habilitación:  Se Habilitó  Galeria: Dtbhet', '2019-06-15 23:57:28'),
-(109, 17, 'Inhabilitación:  Se Inhabilitó  Galeria: Mjk, ', '2019-06-15 23:57:31'),
-(110, 17, 'Habilitación:  Se Habilitó  Galeria: Mjk, ', '2019-06-15 23:57:35'),
-(111, 17, 'Inhabilitación:  Se Inhabilitó  Galeria: Dtbhet', '2019-06-16 00:02:35'),
-(112, 17, 'Habilitación:  Se Habilitó  Galeria: Dtbhet', '2019-06-16 00:02:39'),
-(113, 17, 'Eliminar:  Se Eliminó  Galeria: Dtbhet', '2019-06-16 00:02:42'),
-(114, 17, 'Eliminar:  Se Eliminó  Galeria: Mjk, ', '2019-06-16 00:02:45'),
-(115, 17, 'Registro:  Se Registró nuevo Galeria: prueba', '2019-06-16 00:03:27'),
-(116, 17, 'Actualización:  Se Actualizó  Galeria: Prueba', '2019-06-16 00:06:52'),
-(117, 17, 'Actualización:  Se Actualizó  Galeria: Prueba', '2019-06-16 00:07:14'),
-(118, 17, 'Actualización:  Se Actualizó  Galeria: Prueba', '2019-06-16 00:09:47'),
-(119, 17, 'Actualización:  Se Actualizó  Galeria: Prueba', '2019-06-16 00:09:56'),
-(120, 17, 'Actualización:  Se Actualizó  Galeria: Prueba', '2019-06-16 00:12:48'),
-(121, 17, 'Actualización:  Se Actualizó  Galeria: Prueba', '2019-06-16 00:13:28'),
-(122, 17, 'Actualización:  Se Actualizó  Galeria: Prueba123', '2019-06-16 00:14:37'),
-(123, 17, 'Actualización:  Se Actualizó  Galeria: Prueba123456', '2019-06-16 00:14:52'),
-(124, 17, 'Registro:  Se Registró nuevo Categoria: fwef', '2019-06-16 21:42:28'),
-(125, 17, 'Eliminar:  Se Eliminó  Categoria: Fwef', '2019-06-17 11:02:43'),
-(126, 17, 'Registro:  Se Registró nuevo Categoria: wefew', '2019-06-17 11:02:56'),
-(127, 17, 'Eliminar:  Se Eliminó  Categoria: Wefew', '2019-06-17 11:03:18'),
-(128, 17, 'Eliminar:  Se Eliminó  Local: Prueba2', '2019-06-17 11:03:23'),
-(129, 17, 'Registro:  Se Registró nuevo Local: defwe', '2019-06-17 11:03:33'),
-(130, 17, 'Eliminar:  Se Eliminó  Galeria: Prueba123456', '2019-06-17 11:04:11'),
-(131, 17, 'Eliminar:  Se Eliminó  Producto: Yjytjtyj', '2019-06-17 11:04:35'),
-(132, 17, 'Eliminar:  Se Eliminó  Local: Defwe', '2019-06-17 11:04:41'),
-(133, 17, 'Registro:  Se Registró nuevo Producto: lando', '2019-06-17 18:10:14'),
-(134, 17, 'Eliminar:  Se Eliminó  Producto: Lando', '2019-06-17 18:14:42'),
-(135, 17, 'Registro:  Se Registró nuevo Usuario: efefefef - Nombres: Prueba Inca.', '2019-06-19 16:03:36'),
-(136, 17, 'Actualización:  Se Actualizó  Usuario: efefefef - Nombres: Prueba2 Inca.', '2019-06-19 16:04:25'),
-(137, 17, 'Inhabilitación:  Se Inhabilitó  Usuario: efefefef - Nombres: Prueba2 Inca.', '2019-06-19 16:04:29'),
-(138, 17, 'Habilitación:  Se Habilitó  Usuario: efefefef - Nombres: Prueba2 Inca.', '2019-06-19 16:04:32'),
-(139, 17, 'Eliminar:  Se Eliminó  Usuario: efefefef - Nombres: Prueba2 Inca.', '2019-06-19 16:04:34'),
-(140, 17, 'Registro:  Se Registró nuevo Perfil: gergergerg', '2019-06-19 16:05:19'),
-(141, 17, 'Actualización:  Se Actualizó  Perfil: Gergergerg222', '2019-06-19 16:05:24'),
-(142, 17, 'Inhabilitación:  Se Inhabilitó  Perfil: Gergergerg222', '2019-06-19 16:05:26'),
-(143, 17, 'Habilitación:  Se Habilitó  Perfil: Gergergerg222', '2019-06-19 16:05:29'),
-(144, 17, 'Eliminar:  Se Eliminó  Perfil: Gergergerg222', '2019-06-19 16:05:31'),
-(145, 17, 'Registro:  Se Registró nuevo Medida: prueba', '2019-06-19 16:05:50'),
-(146, 17, 'Actualización:  Se Actualizó  Medida: Prueba222', '2019-06-19 16:05:53'),
-(147, 17, 'Inhabilitación:  Se Inhabilitó  Medida: Prueba222', '2019-06-19 16:05:55'),
-(148, 17, 'Habilitación:  Se Habilitó  Medida: Prueba222', '2019-06-19 16:05:58'),
-(149, 17, 'Eliminar:  Se Eliminó  Medida: Prueba222', '2019-06-19 16:06:05'),
-(150, 17, 'Registro:  Se Registró nuevo Grupo: efefe', '2019-06-19 16:06:13'),
-(151, 17, 'Actualización:  Se Actualizó  Grupo: Efefe222', '2019-06-19 16:06:16'),
-(152, 17, 'Inhabilitación:  Se Inhabilitó  Grupo: Efefe222', '2019-06-19 16:06:18'),
-(153, 17, 'Habilitación:  Se Habilitó  Grupo: Efefe222', '2019-06-19 16:06:21'),
-(154, 17, 'Eliminar:  Se Eliminó  Grupo: Efefe222', '2019-06-19 16:06:23'),
-(155, 17, 'Registro:  Se Registró nuevo Categoria: categoria prueba', '2019-06-19 16:12:22'),
-(156, 17, 'Actualización:  Se Actualizó  Categoria: Categoria Prueba22', '2019-06-19 16:13:12'),
-(157, 17, 'Inhabilitación:  Se Inhabilitó  Categoria: Categoria Prueba22', '2019-06-19 16:13:28'),
-(158, 17, 'Habilitación:  Se Habilitó  Categoria: Categoria Prueba22', '2019-06-19 16:13:32'),
-(159, 17, 'Eliminar:  Se Eliminó  Categoria: Categoria Prueba22', '2019-06-19 16:13:36'),
-(160, 17, 'Registro:  Se Registró nuevo Categoria: prueba categoria', '2019-06-19 16:13:53'),
-(161, 17, 'Registro:  Se Registró nuevo SubCategoria: weffwef', '2019-06-19 16:23:11'),
-(162, 17, 'Actualización:  Se Actualizó  SubCategoria: Weffwef2222', '2019-06-19 16:23:23'),
-(163, 17, 'Inhabilitación:  Se Inhabilitó  SubCategoria: Weffwef2222', '2019-06-19 16:23:36'),
-(164, 17, 'Habilitación:  Se Habilitó  SubCategoria: Weffwef2222', '2019-06-19 16:23:39'),
-(165, 17, 'Eliminar:  Se Eliminó  SubCategoria: Weffwef2222', '2019-06-19 16:23:59'),
-(166, 17, 'Registro:  Se Registró nuevo SubCategoria: gerg', '2019-06-19 18:02:07'),
-(167, 17, 'Eliminar:  Se Eliminó  SubCategoria: Gerg', '2019-06-19 18:02:15'),
-(168, 17, 'Registro:  Se Registró nuevo Local: PRUEBA', '2019-06-20 11:05:56'),
-(169, 17, 'Actualización:  Se Actualizó  Local: Prueba12', '2019-06-20 11:06:33'),
-(170, 17, 'Inhabilitación:  Se Inhabilitó  Local: Prueba12', '2019-06-20 11:06:45'),
-(171, 17, 'Habilitación:  Se Habilitó  Local: Prueba12', '2019-06-20 11:06:48'),
-(172, 17, 'Eliminar:  Se Eliminó  Local: Prueba12', '2019-06-20 11:06:56');
+(1, 17, 'Registro:  Se Registró nuevo Usuario: ocarrasco - Nombres: Orlando Carrasco.', '2019-08-05 14:16:26'),
+(2, 17, 'Actualización:  Se Actualizó  Usuario: ocarrasco - Nombres: Orlando2 Carrasco2.', '2019-08-05 14:16:39'),
+(3, 17, 'Actualización:  Se Actualizó  Usuario: ocarrasco - Nombres: Orlando Carrasco.', '2019-08-05 14:16:47'),
+(4, 17, 'Inhabilitación:  Se Inhabilitó  Usuario: ocarrasco - Nombres: Orlando Carrasco.', '2019-08-05 14:16:53'),
+(5, 17, 'Habilitación:  Se Habilitó  Usuario: ocarrasco - Nombres: Orlando Carrasco.', '2019-08-05 14:16:57'),
+(6, 17, 'Eliminar:  Se Eliminó  Usuario: ocarrasco - Nombres: Orlando Carrasco.', '2019-08-05 14:17:24'),
+(7, 17, 'Registro:  Se Registró nuevo Perfil: Operador', '2019-08-05 14:17:47'),
+(8, 17, 'Actualización:  Se Actualizó  Perfil: Operador2', '2019-08-05 14:17:51'),
+(9, 17, 'Inhabilitación:  Se Inhabilitó  Perfil: Operador2', '2019-08-05 14:17:53'),
+(10, 17, 'Habilitación:  Se Habilitó  Perfil: Operador2', '2019-08-05 14:17:56'),
+(11, 17, 'Eliminar:  Se Eliminó  Perfil: Operador2', '2019-08-05 14:17:58'),
+(12, 17, 'Registro:  Se Registró nuevo Medida: Nuevo', '2019-08-05 14:18:12'),
+(13, 17, 'Actualización:  Se Actualizó  Medida: Nuevo2', '2019-08-05 14:18:17'),
+(14, 17, 'Inhabilitación:  Se Inhabilitó  Medida: Nuevo2', '2019-08-05 14:18:19'),
+(15, 17, 'Habilitación:  Se Habilitó  Medida: Nuevo2', '2019-08-05 14:18:22'),
+(16, 17, 'Eliminar:  Se Eliminó  Medida: Nuevo2', '2019-08-05 14:18:25'),
+(17, 17, 'Registro:  Se Registró nuevo Grupo: nuevo', '2019-08-05 14:18:49'),
+(18, 17, 'Actualización:  Se Actualizó  Grupo: Nuevo2', '2019-08-05 14:18:57'),
+(19, 17, 'Inhabilitación:  Se Inhabilitó  Grupo: Nuevo2', '2019-08-05 14:19:00'),
+(20, 17, 'Habilitación:  Se Habilitó  Grupo: Nuevo2', '2019-08-05 14:19:02'),
+(21, 17, 'Eliminar:  Se Eliminó  Grupo: Nuevo2', '2019-08-05 14:19:13'),
+(22, 17, 'Registro:  Se Registró nuevo Categoria: prueba categoria', '2019-08-05 14:21:43'),
+(23, 17, 'Actualización:  Se Actualizó  Categoria: Prueba Categoria2', '2019-08-05 14:21:52'),
+(24, 17, 'Inhabilitación:  Se Inhabilitó  Categoria: Prueba Categoria2', '2019-08-05 14:21:55'),
+(25, 17, 'Habilitación:  Se Habilitó  Categoria: Prueba Categoria2', '2019-08-05 14:21:58'),
+(26, 17, 'Eliminar:  Se Eliminó  Categoria: Prueba Categoria2', '2019-08-05 14:22:02'),
+(27, 17, 'Registro:  Se Registró nuevo SubCategoria: prueba323', '2019-08-05 14:22:49'),
+(28, 17, 'Inhabilitación:  Se Inhabilitó  SubCategoria: Prueba323', '2019-08-05 14:23:04'),
+(29, 17, 'Habilitación:  Se Habilitó  SubCategoria: Prueba323', '2019-08-05 14:23:06'),
+(30, 17, 'Actualización:  Se Actualizó  SubCategoria: Prueba32312334124', '2019-08-05 14:23:09'),
+(31, 17, 'Eliminar:  Se Eliminó  SubCategoria: Prueba32312334124', '2019-08-05 14:23:12'),
+(32, 17, 'Registro:  Se Registró nuevo Tarifa:', '2019-08-05 15:11:41'),
+(33, 17, 'Actualización:  Se Actualizó  Tarifa:', '2019-08-05 15:12:10'),
+(34, 17, 'Actualización:  Se Actualizó  Tarifa:', '2019-08-05 15:21:33'),
+(35, 17, 'Actualización:  Se Actualizó  Tarifa:', '2019-08-05 15:21:38'),
+(36, 17, 'Registro:  Se Registró nuevo Delivery:', '2019-08-05 16:31:48'),
+(37, 17, 'Eliminar:  Se Eliminó  Delivery: LIMA/LIMA/LOS OLIVOS', '2019-08-05 16:39:41'),
+(38, 17, 'Eliminar:  Se Eliminó  Delivery: LIMA/LIMA/LOS OLIVOS', '2019-08-05 16:40:35'),
+(39, 17, 'Registro:  Se Registró nuevo Delivery:', '2019-08-05 16:41:59'),
+(40, 17, 'Actualización:  Se Actualizó  Tarifa:', '2019-08-05 16:42:34'),
+(41, 17, 'Actualización:  Se Actualizó  Tarifa:', '2019-08-05 16:42:55'),
+(42, 17, 'Registro:  Se Registró nuevo Delivery:', '2019-08-05 16:43:28'),
+(43, 17, 'Eliminar:  Se Eliminó  Delivery: LIMA/LIMA/LA VICTORIA', '2019-08-05 16:43:34');
 
 -- --------------------------------------------------------
 
@@ -2226,17 +2165,31 @@ INSERT INTO `historial` (`idHistorial`, `usuario_idUsuario`, `Mensaje`, `fechaRe
 -- Estructura de tabla para la tabla `local`
 --
 
-CREATE TABLE `local` (
-  `idLocal` int(11) NOT NULL,
+DROP TABLE IF EXISTS `local`;
+CREATE TABLE IF NOT EXISTS `local` (
+  `idLocal` int(11) NOT NULL AUTO_INCREMENT,
   `NombreLocal` varchar(150) NOT NULL,
-  `Direccion` text NOT NULL,
-  `Encargado` varchar(150) NOT NULL,
-  `HorarioAtencion` varchar(100) NOT NULL,
-  `imagenPortada` text NOT NULL,
+  `Direccion` text,
+  `Encargado` varchar(150) DEFAULT NULL,
+  `HorarioAtencion` varchar(100) DEFAULT NULL,
+  `TelefonoFijo` int(7) DEFAULT NULL,
+  `TelefonoCelular` int(9) DEFAULT NULL,
+  `imagenPortada` text,
   `fechaRegistro` datetime NOT NULL,
-  `fechaUpdate` datetime NOT NULL,
-  `Estado_idEstado` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `fechaUpdate` datetime DEFAULT NULL,
+  `Estado_idEstado` int(11) NOT NULL,
+  PRIMARY KEY (`idLocal`),
+  KEY `FK_LOcal_Estado` (`Estado_idEstado`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `local`
+--
+
+INSERT INTO `local` (`idLocal`, `NombreLocal`, `Direccion`, `Encargado`, `HorarioAtencion`, `TelefonoFijo`, `TelefonoCelular`, `imagenPortada`, `fechaRegistro`, `fechaUpdate`, `Estado_idEstado`) VALUES
+(2, 'Chaska', '', 'Chaska', '09:00 am - 12:00 pm', NULL, NULL, NULL, '2019-06-20 14:41:42', '2019-06-20 14:59:07', 1),
+(3, 'Casa De Vestuario Juanita', '', 'Juana', '', 5555555, 999999999, NULL, '2019-06-20 15:06:39', NULL, 1),
+(4, 'Casa De Vestuarios Apurimac', '', '', '', NULL, NULL, 'Local/Casa_De_Vestuarios_Apurimac.jpg', '2019-06-20 15:07:05', '2019-06-20 15:07:23', 1);
 
 -- --------------------------------------------------------
 
@@ -2244,13 +2197,16 @@ CREATE TABLE `local` (
 -- Estructura de tabla para la tabla `medida`
 --
 
-CREATE TABLE `medida` (
-  `idMedida` int(11) NOT NULL,
+DROP TABLE IF EXISTS `medida`;
+CREATE TABLE IF NOT EXISTS `medida` (
+  `idMedida` int(11) NOT NULL AUTO_INCREMENT,
   `NombreMedida` varchar(150) NOT NULL,
   `fechaRegistro` datetime NOT NULL,
   `fechaUpdate` datetime DEFAULT NULL,
-  `Estado_idEstado` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `Estado_idEstado` int(11) NOT NULL,
+  PRIMARY KEY (`idMedida`),
+  KEY `FK_medidaEstado` (`Estado_idEstado`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `medida`
@@ -2271,8 +2227,9 @@ INSERT INTO `medida` (`idMedida`, `NombreMedida`, `fechaRegistro`, `fechaUpdate`
 -- Estructura de tabla para la tabla `pedido`
 --
 
-CREATE TABLE `pedido` (
-  `idPedido` int(11) NOT NULL,
+DROP TABLE IF EXISTS `pedido`;
+CREATE TABLE IF NOT EXISTS `pedido` (
+  `idPedido` int(11) NOT NULL AUTO_INCREMENT,
   `Usuario_idUsuario` int(11) NOT NULL,
   `Producto_idProducto` int(11) NOT NULL,
   `cantidad` int(11) NOT NULL,
@@ -2280,7 +2237,11 @@ CREATE TABLE `pedido` (
   `Estado_idEstado` int(11) NOT NULL,
   `fechaRegistro` datetime NOT NULL,
   `fechaEntrega` date NOT NULL,
-  `fechaAnulacion` datetime NOT NULL
+  `fechaAnulacion` datetime NOT NULL,
+  PRIMARY KEY (`idPedido`),
+  KEY `FK_PedidoUsuario` (`Usuario_idUsuario`),
+  KEY `FK_PedidoProducto` (`Producto_idProducto`),
+  KEY `FK_PedidoEstado` (`Estado_idEstado`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -2289,14 +2250,17 @@ CREATE TABLE `pedido` (
 -- Estructura de tabla para la tabla `perfil`
 --
 
-CREATE TABLE `perfil` (
-  `idPerfil` int(11) NOT NULL,
+DROP TABLE IF EXISTS `perfil`;
+CREATE TABLE IF NOT EXISTS `perfil` (
+  `idPerfil` int(11) NOT NULL AUTO_INCREMENT,
   `DescripcionPerfil` varchar(150) DEFAULT NULL,
   `permisos` text,
   `fechaRegistro` datetime DEFAULT NULL,
   `fechaUpdate` datetime DEFAULT NULL,
-  `estado_idEstado` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `estado_idEstado` int(11) NOT NULL,
+  PRIMARY KEY (`idPerfil`),
+  KEY `fk_perfil_estado1_idx` (`estado_idEstado`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `perfil`
@@ -2312,8 +2276,9 @@ INSERT INTO `perfil` (`idPerfil`, `DescripcionPerfil`, `permisos`, `fechaRegistr
 -- Estructura de tabla para la tabla `producto`
 --
 
-CREATE TABLE `producto` (
-  `idProducto` int(11) NOT NULL,
+DROP TABLE IF EXISTS `producto`;
+CREATE TABLE IF NOT EXISTS `producto` (
+  `idProducto` int(11) NOT NULL AUTO_INCREMENT,
   `NombreProducto` varchar(150) NOT NULL,
   `DescripcionProducto` text,
   `imagenPortada` text,
@@ -2324,8 +2289,22 @@ CREATE TABLE `producto` (
   `Departamento_idDepartamento` int(11) DEFAULT NULL,
   `Provincia_idProvincia` int(11) DEFAULT NULL,
   `Distrito_idDistrito` int(11) DEFAULT NULL,
-  `Estado_idEstado` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `Estado_idEstado` int(11) NOT NULL,
+  PRIMARY KEY (`idProducto`),
+  KEY `FK_productoDepa` (`Departamento_idDepartamento`),
+  KEY `FK_productoProv` (`Provincia_idProvincia`),
+  KEY `FK_productoDist` (`Distrito_idDistrito`),
+  KEY `FK_productoEstado` (`Estado_idEstado`),
+  KEY `FK_ProductoCategoria` (`Categoria_idCategoria`),
+  KEY `FK_ProductoSubCategoria` (`SubCategoria_idSubCategoria`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `producto`
+--
+
+INSERT INTO `producto` (`idProducto`, `NombreProducto`, `DescripcionProducto`, `imagenPortada`, `fechaRegistro`, `fechaUpdate`, `Categoria_idCategoria`, `SubCategoria_idSubCategoria`, `Departamento_idDepartamento`, `Provincia_idProvincia`, `Distrito_idDistrito`, `Estado_idEstado`) VALUES
+(1, 'Son De Los Diablos', 'gregergr', 'Producto/Son_De_Los_Diablos.jpg', '2019-06-20 14:34:07', NULL, 1, 3, 15, 127, 679, 1);
 
 -- --------------------------------------------------------
 
@@ -2333,12 +2312,24 @@ CREATE TABLE `producto` (
 -- Estructura de tabla para la tabla `producto_medida`
 --
 
-CREATE TABLE `producto_medida` (
-  `idProductoMedida` int(11) NOT NULL,
+DROP TABLE IF EXISTS `producto_medida`;
+CREATE TABLE IF NOT EXISTS `producto_medida` (
+  `idProductoMedida` int(11) NOT NULL AUTO_INCREMENT,
   `Producto_idProducto` int(11) NOT NULL,
   `Medida_idMedida` int(11) NOT NULL,
-  `fechaRegistro` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `fechaRegistro` datetime NOT NULL,
+  PRIMARY KEY (`idProductoMedida`),
+  KEY `FK_productoMedidaProducto` (`Producto_idProducto`),
+  KEY `FK_productoMedidaMedida` (`Medida_idMedida`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `producto_medida`
+--
+
+INSERT INTO `producto_medida` (`idProductoMedida`, `Producto_idProducto`, `Medida_idMedida`, `fechaRegistro`) VALUES
+(1, 1, 7, '2019-08-05 14:27:54'),
+(2, 1, 6, '2019-08-05 14:27:54');
 
 -- --------------------------------------------------------
 
@@ -2346,13 +2337,16 @@ CREATE TABLE `producto_medida` (
 -- Estructura de tabla para la tabla `provincia`
 --
 
-CREATE TABLE `provincia` (
-  `idProvincia` int(11) NOT NULL,
+DROP TABLE IF EXISTS `provincia`;
+CREATE TABLE IF NOT EXISTS `provincia` (
+  `idProvincia` int(11) NOT NULL AUTO_INCREMENT,
   `provincia` varchar(150) DEFAULT NULL,
   `fechaRegistro` datetime DEFAULT NULL,
   `fechaUpdate` datetime DEFAULT NULL,
-  `departamento_idDepartamento` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `departamento_idDepartamento` int(11) NOT NULL,
+  PRIMARY KEY (`idProvincia`),
+  KEY `fk_provincia_departamento_idx` (`departamento_idDepartamento`)
+) ENGINE=InnoDB AUTO_INCREMENT=194 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `provincia`
@@ -2559,16 +2553,20 @@ INSERT INTO `provincia` (`idProvincia`, `provincia`, `fechaRegistro`, `fechaUpda
 -- Estructura de tabla para la tabla `subcategoria`
 --
 
-CREATE TABLE `subcategoria` (
-  `idSubCategoria` int(11) NOT NULL,
+DROP TABLE IF EXISTS `subcategoria`;
+CREATE TABLE IF NOT EXISTS `subcategoria` (
+  `idSubCategoria` int(11) NOT NULL AUTO_INCREMENT,
   `NombreSubCategoria` varchar(150) NOT NULL,
   `Descripcion` text NOT NULL,
   `imagenPortada` varchar(200) NOT NULL,
   `fechaRegistro` datetime NOT NULL,
   `fechaUpdate` datetime NOT NULL,
   `Categoria_idCategoria` int(11) NOT NULL,
-  `Estado_idEstado` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `Estado_idEstado` int(11) NOT NULL,
+  PRIMARY KEY (`idSubCategoria`),
+  KEY `FK_SubcategoriaCategoria` (`Categoria_idCategoria`),
+  KEY `FK_SubcategoriaEstado` (`Estado_idEstado`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `subcategoria`
@@ -2585,13 +2583,23 @@ INSERT INTO `subcategoria` (`idSubCategoria`, `NombreSubCategoria`, `Descripcion
 -- Estructura de tabla para la tabla `tarifa`
 --
 
-CREATE TABLE `tarifa` (
-  `idTarifa` int(11) NOT NULL,
+DROP TABLE IF EXISTS `tarifa`;
+CREATE TABLE IF NOT EXISTS `tarifa` (
+  `idTarifa` int(11) NOT NULL AUTO_INCREMENT,
   `precioAlquiler` decimal(12,2) NOT NULL,
   `precioVenta` decimal(12,2) NOT NULL,
   `fechaRegistro` datetime NOT NULL,
-  `Producto_idProducto` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `Producto_idProducto` int(11) NOT NULL,
+  PRIMARY KEY (`idTarifa`),
+  KEY `FK_TarifaProducto` (`Producto_idProducto`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `tarifa`
+--
+
+INSERT INTO `tarifa` (`idTarifa`, `precioAlquiler`, `precioVenta`, `fechaRegistro`, `Producto_idProducto`) VALUES
+(1, '15.00', '65.00', '2019-08-05 15:11:41', 1);
 
 -- --------------------------------------------------------
 
@@ -2599,8 +2607,9 @@ CREATE TABLE `tarifa` (
 -- Estructura de tabla para la tabla `usuario`
 --
 
-CREATE TABLE `usuario` (
-  `idUsuario` int(11) NOT NULL,
+DROP TABLE IF EXISTS `usuario`;
+CREATE TABLE IF NOT EXISTS `usuario` (
+  `idUsuario` int(11) NOT NULL AUTO_INCREMENT,
   `usuario` varchar(50) DEFAULT NULL,
   `password` varchar(45) DEFAULT NULL,
   `NombreUsuario` varchar(50) DEFAULT NULL,
@@ -2613,8 +2622,11 @@ CREATE TABLE `usuario` (
   `fechaUpdate` datetime DEFAULT NULL,
   `imagen` text,
   `perfil_idPerfil` int(11) NOT NULL,
-  `estado_idEstado` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `estado_idEstado` int(11) NOT NULL,
+  PRIMARY KEY (`idUsuario`),
+  KEY `fk_usuario_perfil1_idx` (`perfil_idPerfil`),
+  KEY `fk_usuario_estado1_idx` (`estado_idEstado`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `usuario`
@@ -2623,261 +2635,6 @@ CREATE TABLE `usuario` (
 INSERT INTO `usuario` (`idUsuario`, `usuario`, `password`, `NombreUsuario`, `ApellidosUsuario`, `Dni`, `Correo`, `keyFacebook`, `keyGoogle`, `fechaRegistro`, `fechaUpdate`, `imagen`, `perfil_idPerfil`, `estado_idEstado`) VALUES
 (17, 'administrador', '4e472baf48aab08cec24ca2f3626912d', 'Admin', 'Admin', '44444444', '', NULL, NULL, '2019-05-29 17:20:53', '2019-06-04 15:30:43', 'Usuarios/44444444.jpg', 1, 1),
 (18, 'jincac', '4e472baf48aab08cec24ca2f3626912d', 'Jesus Vicente', 'Inca Cardenas', '47040087', '', NULL, NULL, '2019-06-04 15:22:23', '2019-06-04 15:22:32', 'Usuarios/47040087.jpg', 1, 1);
-
---
--- Índices para tablas volcadas
---
-
---
--- Indices de la tabla `categoria`
---
-ALTER TABLE `categoria`
-  ADD PRIMARY KEY (`idCategoria`),
-  ADD KEY `FK_GrupoCategoria` (`Grupo_idGrupo`),
-  ADD KEY `FK_EstadoCategoria` (`Estado_idEstado`);
-
---
--- Indices de la tabla `delivery`
---
-ALTER TABLE `delivery`
-  ADD PRIMARY KEY (`idDelivery`),
-  ADD KEY `FK_DeliveryProducto` (`Producto_idProducto`),
-  ADD KEY `FK_DeliveryDepa` (`Departamento_idDepartamento`),
-  ADD KEY `FK_DeliveryProv` (`Provincia_idProvincia`),
-  ADD KEY `FK_DeliveryDist` (`Distrito_idDitrito`);
-
---
--- Indices de la tabla `departamento`
---
-ALTER TABLE `departamento`
-  ADD PRIMARY KEY (`idDepartamento`);
-
---
--- Indices de la tabla `distrito`
---
-ALTER TABLE `distrito`
-  ADD PRIMARY KEY (`idDistrito`),
-  ADD KEY `fk_distrito_provincia1_idx` (`provincia_idprovincia`);
-
---
--- Indices de la tabla `estado`
---
-ALTER TABLE `estado`
-  ADD PRIMARY KEY (`idEstado`);
-
---
--- Indices de la tabla `galeria`
---
-ALTER TABLE `galeria`
-  ADD PRIMARY KEY (`idGaleria`),
-  ADD KEY `FK_galeriaProducto` (`Producto_idProducto`),
-  ADD KEY `FK_GaleriaEstado` (`Estado_idEstado`);
-
---
--- Indices de la tabla `grupo`
---
-ALTER TABLE `grupo`
-  ADD PRIMARY KEY (`idGrupo`),
-  ADD KEY `FK_grupoEstado` (`Estado_idEstado`);
-
---
--- Indices de la tabla `historial`
---
-ALTER TABLE `historial`
-  ADD PRIMARY KEY (`idHistorial`),
-  ADD KEY `FK_Historial_u` (`usuario_idUsuario`);
-
---
--- Indices de la tabla `local`
---
-ALTER TABLE `local`
-  ADD PRIMARY KEY (`idLocal`),
-  ADD KEY `FK_LOcal_Estado` (`Estado_idEstado`);
-
---
--- Indices de la tabla `medida`
---
-ALTER TABLE `medida`
-  ADD PRIMARY KEY (`idMedida`),
-  ADD KEY `FK_medidaEstado` (`Estado_idEstado`);
-
---
--- Indices de la tabla `pedido`
---
-ALTER TABLE `pedido`
-  ADD PRIMARY KEY (`idPedido`),
-  ADD KEY `FK_PedidoUsuario` (`Usuario_idUsuario`),
-  ADD KEY `FK_PedidoProducto` (`Producto_idProducto`),
-  ADD KEY `FK_PedidoEstado` (`Estado_idEstado`);
-
---
--- Indices de la tabla `perfil`
---
-ALTER TABLE `perfil`
-  ADD PRIMARY KEY (`idPerfil`),
-  ADD KEY `fk_perfil_estado1_idx` (`estado_idEstado`);
-
---
--- Indices de la tabla `producto`
---
-ALTER TABLE `producto`
-  ADD PRIMARY KEY (`idProducto`),
-  ADD KEY `FK_productoDepa` (`Departamento_idDepartamento`),
-  ADD KEY `FK_productoProv` (`Provincia_idProvincia`),
-  ADD KEY `FK_productoDist` (`Distrito_idDistrito`),
-  ADD KEY `FK_productoEstado` (`Estado_idEstado`),
-  ADD KEY `FK_ProductoCategoria` (`Categoria_idCategoria`),
-  ADD KEY `FK_ProductoSubCategoria` (`SubCategoria_idSubCategoria`);
-
---
--- Indices de la tabla `producto_medida`
---
-ALTER TABLE `producto_medida`
-  ADD PRIMARY KEY (`idProductoMedida`),
-  ADD KEY `FK_productoMedidaProducto` (`Producto_idProducto`),
-  ADD KEY `FK_productoMedidaMedida` (`Medida_idMedida`);
-
---
--- Indices de la tabla `provincia`
---
-ALTER TABLE `provincia`
-  ADD PRIMARY KEY (`idProvincia`),
-  ADD KEY `fk_provincia_departamento_idx` (`departamento_idDepartamento`);
-
---
--- Indices de la tabla `subcategoria`
---
-ALTER TABLE `subcategoria`
-  ADD PRIMARY KEY (`idSubCategoria`),
-  ADD KEY `FK_SubcategoriaCategoria` (`Categoria_idCategoria`),
-  ADD KEY `FK_SubcategoriaEstado` (`Estado_idEstado`);
-
---
--- Indices de la tabla `tarifa`
---
-ALTER TABLE `tarifa`
-  ADD PRIMARY KEY (`idTarifa`),
-  ADD KEY `FK_TarifaProducto` (`Producto_idProducto`);
-
---
--- Indices de la tabla `usuario`
---
-ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`idUsuario`),
-  ADD KEY `fk_usuario_perfil1_idx` (`perfil_idPerfil`),
-  ADD KEY `fk_usuario_estado1_idx` (`estado_idEstado`);
-
---
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `categoria`
---
-ALTER TABLE `categoria`
-  MODIFY `idCategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT de la tabla `delivery`
---
-ALTER TABLE `delivery`
-  MODIFY `idDelivery` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `departamento`
---
-ALTER TABLE `departamento`
-  MODIFY `idDepartamento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
-
---
--- AUTO_INCREMENT de la tabla `distrito`
---
-ALTER TABLE `distrito`
-  MODIFY `idDistrito` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1832;
-
---
--- AUTO_INCREMENT de la tabla `estado`
---
-ALTER TABLE `estado`
-  MODIFY `idEstado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT de la tabla `galeria`
---
-ALTER TABLE `galeria`
-  MODIFY `idGaleria` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `grupo`
---
-ALTER TABLE `grupo`
-  MODIFY `idGrupo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT de la tabla `historial`
---
-ALTER TABLE `historial`
-  MODIFY `idHistorial` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=173;
-
---
--- AUTO_INCREMENT de la tabla `local`
---
-ALTER TABLE `local`
-  MODIFY `idLocal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT de la tabla `medida`
---
-ALTER TABLE `medida`
-  MODIFY `idMedida` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT de la tabla `pedido`
---
-ALTER TABLE `pedido`
-  MODIFY `idPedido` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `perfil`
---
-ALTER TABLE `perfil`
-  MODIFY `idPerfil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT de la tabla `producto`
---
-ALTER TABLE `producto`
-  MODIFY `idProducto` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `producto_medida`
---
-ALTER TABLE `producto_medida`
-  MODIFY `idProductoMedida` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `provincia`
---
-ALTER TABLE `provincia`
-  MODIFY `idProvincia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=194;
-
---
--- AUTO_INCREMENT de la tabla `subcategoria`
---
-ALTER TABLE `subcategoria`
-  MODIFY `idSubCategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT de la tabla `tarifa`
---
-ALTER TABLE `tarifa`
-  MODIFY `idTarifa` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `usuario`
---
-ALTER TABLE `usuario`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- Restricciones para tablas volcadas

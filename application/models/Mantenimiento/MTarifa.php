@@ -20,15 +20,16 @@ class MTarifa extends CI_Model
     public function RegistroTarifa()
     {
         $data= array(
-            'Descripcion' => mb_convert_case(mb_strtolower($this->input->post('TarifaTitulo')), MB_CASE_TITLE, "UTF-8"),
-            'Estado_idEstado' => 1,
+            'precioAlquiler' =>$this->input->post('tarifaAlquiler'),
+            'precioVenta' =>$this->input->post('tarifaVenta'),
+            'Producto_idProducto' => $this->input->post('idProducto'),
             'fechaRegistro' => $this->glob['FechaAhora']
         );
-        $insert_data["Registro"] = $this->db->insert('Tarifa', $data);
+        $insert_data["Registro"] = $this->db->insert('tarifa', $data);
         $insert_data["errDB"]    = $this->db->error();
 
          /** Registro de Historial **/
-        $Mensaje=" Se Registró nuevo Tarifa: ".$this->input->post('TarifaTitulo')."";
+        $Mensaje=" Se Registró nuevo Tarifa:";
         $this->db->select("FU_REGISTRO_HISTORIAL(1,".$this->glob['idUsuario'].",'".$Mensaje."','".$this->glob['FechaAhora']."') AS Respuesta");
         $func["Historial"] = $this->db->get();
 
@@ -37,16 +38,16 @@ class MTarifa extends CI_Model
     public function UpdateTarifa()
     {
         $data= array(
-            'Descripcion' =>mb_convert_case(mb_strtolower($this->input->post('TarifaTitulo')), MB_CASE_TITLE, "UTF-8"),
-            'fechaUpdate' => $this->glob['FechaAhora']
+            'precioAlquiler' =>$this->input->post('tarifaAlquiler'),
+            'precioVenta' =>$this->input->post('tarifaVenta'),
         );
-        $this->db->where('idTarifa', $_POST['TarifaidTarifa']);
-        $insert_data["Registro"] = $this->db->update('Tarifa', $data);
+        $this->db->where('Producto_idProducto', $_POST['idProducto']);
+        $insert_data["Registro"] = $this->db->update('tarifa', $data);
         $insert_data["errDB"]    = $this->db->error();
 
 
          /** Registro de Historial **/
-        $Mensaje=" Se Actualizó  Tarifa: ".$this->input->post('TarifaTitulo')."";
+        $Mensaje=" Se Actualizó  Tarifa:";
         $this->db->select("FU_REGISTRO_HISTORIAL(2,".$this->glob['idUsuario'].",'".$Mensaje."','".$this->glob['FechaAhora']."') AS Respuesta");
         $func["Historial"] = $this->db->get();
 
@@ -55,10 +56,13 @@ class MTarifa extends CI_Model
     public function ListarTarifa()
     {
 
-        $this->db->select('p.idTarifa,p.Descripcion as Titulo,DATE_FORMAT(p.fechaRegistro,"%d/%m/%Y") as fechaRegistro,DATE_FORMAT(p.fechaUpdate,"%d/%m/%Y") as fechaUpdate,p.estado_idEstado,e.DescripcionEstado as nombreEstado ');
-        $this->db->from('Tarifa p');
-        $this->db->join('estado e', 'e.idEstado=p.estado_idEstado');
-        $this->db->order_by('p.idTarifa', 'desc');
+        $this->db->select("del.idDelivery,del.precioDelivery,del.fechaRegistro,del.fechaUpdate,CONCAT(dep.departamento,'/',pro.provincia,'/',dis.distrito) as Ubicacion ");
+        $this->db->from('delivery del');
+        $this->db->join('departamento dep', 'dep.idDepartamento=del.Departamento_idDepartamento');
+        $this->db->join('provincia pro', 'pro.idProvincia=del.Provincia_idProvincia');
+        $this->db->join('distrito dis', 'dis.idDistrito=del.Distrito_idDitrito');
+        $this->db->where('del.Producto_idProducto', $_POST['idProducto']);
+        $this->db->order_by('del.idDelivery', 'desc');
         return $this->db->get();
     }
     public function ObtenerTarifa()
@@ -67,54 +71,75 @@ class MTarifa extends CI_Model
         $query = $this->db->get('Tarifa');
         return $query->row();
     }
-    public function EliminarTarifa()
+    public function EliminarDelivery()
     {
 
-         /** Recuperar Datos para Historial **/
-        $this->db->where('idTarifa', $_POST['idTarifa']);
-        $row = $this->db->get('Tarifa');
-        $query=$row->row();
-
          /** Registro de Historial **/
-        $Mensaje=" Se Eliminó  Tarifa: ".$query->Descripcion."";
+        $Mensaje=" Se Eliminó  Delivery: ".$_POST['Descripcion']."";
         $this->db->select("FU_REGISTRO_HISTORIAL(5,".$this->glob['idUsuario'].",'".$Mensaje."','".$this->glob['FechaAhora']."') AS Respuesta");
         $func["Historial"] = $this->db->get();
 
-
-
-        $this->db->where('idTarifa', $_POST['idTarifa']);
-        $delete_data["Delete"] = $this->db->delete('Tarifa');
+        $this->db->where('idDelivery', $_POST['idDelivery']);
+        $delete_data["Delete"] = $this->db->delete('delivery');
         $delete_data["errDB"]  = $this->db->error();
 
         return $delete_data;
 
     }
-    public function EstadoTarifa($codigo)
+
+
+    public function ValidacionUbigeo(){
+
+      $this->db->where('Departamento_idDepartamento', $_POST['DeliveryDepartamento']);
+      $this->db->where('Provincia_idProvincia', $_POST['DeliveryProvincia']);
+      $this->db->where('Distrito_idDitrito', $_POST['DeliveryDistrito']);
+      $this->db->where('Producto_idProducto', $_POST['idProducto']);
+      $query = $this->db->get('delivery');
+
+      return $query->num_rows();
+    }
+
+
+    public function RegistroDelivery()
     {
-        $data = array(
-            'Estado_idEstado' => $codigo
+
+        $data= array(
+            'Producto_idProducto' =>$this->input->post('idProducto'),
+            'Departamento_idDepartamento' => $this->input->post('DeliveryDepartamento'),
+            'Provincia_idProvincia' => $this->input->post('DeliveryProvincia'),
+            'Distrito_idDitrito' => $this->input->post('DeliveryDistrito'),
+            'precioDelivery' =>$this->input->post('tarifaDelivery'),
+            'fechaRegistro' => $this->glob['FechaAhora']
         );
+        $insert_data["Registro"] = $this->db->insert('delivery', $data);
+        $insert_data["errDB"]    = $this->db->error();
 
-         /** Recuperar Datos para Historial **/
-        $this->db->where('idTarifa', $_POST['idTarifa']);
-        $row = $this->db->get('Tarifa');
-        $query=$row->row();
+         /** Registro de Historial **/
+        $Mensaje=" Se Registró nuevo Delivery:";
+        $this->db->select("FU_REGISTRO_HISTORIAL(1,".$this->glob['idUsuario'].",'".$Mensaje."','".$this->glob['FechaAhora']."') AS Respuesta");
+        $func["Historial"] = $this->db->get();
 
-        /** Registro de Historial **/
-        $Mensaje="";
-        if($codigo==1){
-             $Mensaje=" Se Habilitó  Tarifa: ".$query->Descripcion."";
-             $this->db->select("FU_REGISTRO_HISTORIAL(3,".$this->glob['idUsuario'].",'".$Mensaje."','".$this->glob['FechaAhora']."') AS Respuesta");
-             $func["Historial"] = $this->db->get();
-        }else{
-             $Mensaje=" Se Inhabilitó  Tarifa: ".$query->Descripcion."";
-             $this->db->select("FU_REGISTRO_HISTORIAL(4,".$this->glob['idUsuario'].",'".$Mensaje."','".$this->glob['FechaAhora']."') AS Respuesta");
-             $func["Historial"] = $this->db->get();
-        }
+        return $insert_data;
+    }
+    public function UpdateDelivery()
+    {
+        $data= array(
+            'precioDelivery' =>$this->input->post('tarifaDelivery'),
+            'fechaUpdate' => $this->glob['FechaAhora']
+        );
+        $this->db->where('Producto_idProducto', $_POST['idProducto']);
+        $this->db->where('Departamento_idDepartamento', $_POST['DeliveryDepartamento']);
+        $this->db->where('Provincia_idProvincia', $_POST['DeliveryProvincia']);
+        $this->db->where('Distrito_idDitrito', $_POST['DeliveryDistrito']);
+        $insert_data["Registro"] = $this->db->update('delivery', $data);
+        $insert_data["errDB"]    = $this->db->error();
 
-        $this->db->where('idTarifa', $_POST['idTarifa']);
-        $insert_data["accion"] = $this->db->update('Tarifa', $data);
-        $insert_data["errDB"]  = $this->db->error();
+
+         /** Registro de Historial **/
+        $Mensaje=" Se Actualizó  Delivery:";
+        $this->db->select("FU_REGISTRO_HISTORIAL(2,".$this->glob['idUsuario'].",'".$Mensaje."','".$this->glob['FechaAhora']."') AS Respuesta");
+        $func["Historial"] = $this->db->get();
+
         return $insert_data;
     }
 

@@ -26,18 +26,12 @@ class Tarifa extends CI_Controller
 
     public function BuscarAccion($reg)
     {
-        if ($reg->estado_idEstado == 1) {
+
             return '
-
-            <button type="button" title="Editar" class="btn btn-grd-warning btn-mini btn-round" onclick="EditarTarifa(' . $reg->idTarifa . ')"><i class="fa fa-edit"></i></button>
-            <button type="button"  title="Inabilitar" class="btn btn-grd-primary btn-mini btn-round" onclick="InabilitarTarifa(' . $reg->idTarifa . ",'" . $reg->Titulo . "'" . ')"><i class="fa fa-arrow-circle-down"></i></button>
-            <button type="button"  title="Eliminar" class="btn btn-grd-danger btn-mini btn-round" onclick="EliminarTarifa(' . $reg->idTarifa . ",'" . $reg->Titulo . "'" . ')"><i class="fa fa-trash"></i></button>
+            <button type="button"  title="Eliminar" class="btn btn-grd-danger btn-mini btn-round" onclick="EliminarDelivery(' . $reg->idDelivery . ",'" . $reg->Ubicacion . "'" . ')"><i class="fa fa-trash"></i></button>
                ';
-        } elseif ($reg->estado_idEstado == 2) {
-            return '<button type="button"  title="Habilitar" class="btn btn-grd-info btn-mini btn-round" onclick="HabilitarTarifa(' . $reg->idTarifa . ",'" . $reg->Titulo . "'" . ')"><i class="fa fa-arrow-circle-up"></i></button> <button type="button"  title="Eliminar" class="btn btn-grd-danger btn-mini btn-round" onclick="EliminarTarifa(' . $reg->idTarifa . ')"><i class="fa fa-trash"></i></button> ';
-        }
-    }
 
+    }
 
 
     public function ListarTarifa()
@@ -47,12 +41,11 @@ class Tarifa extends CI_Controller
 
         foreach ($rspta->result() as $reg) {
             $data[] = array(
-
-                "0" => $reg->Titulo,
-                "1" => $this->BuscarAccion($reg),
+                "0" => $reg->Ubicacion,
+                "1" => "S/. ".$reg->precioDelivery,
                 "2" => $reg->fechaRegistro,
                 "3" => $reg->fechaUpdate,
-                "4" => $this->BuscarEstado($reg)
+                "4" => $this->BuscarAccion($reg)
             );
         }
 
@@ -73,24 +66,32 @@ class Tarifa extends CI_Controller
             'Mensaje' => '',
             'Tipo' => 'success'
         );
-        $this->form_validation->set_rules('TarifaTitulo', 'Titulo del Tarifa', 'trim|required|min_length[3]|max_length[120]');
+
+
+        $this->form_validation->set_rules('TarifaPrecioBaseV', 'Precio de Alquiler', 'trim|required|min_length[3]|max_length[12]');
+        $this->form_validation->set_rules('TarifaPrecioVentaV', 'Precio de Venta', 'trim|required|min_length[3]|max_length[12]');
 
         if ($this->form_validation->run() == true) {
-            /* Registras Tarifa */
-            if (empty($_POST['TarifaidTarifa'])) {
-                /* valida Tarifa */
-                $VRuc = $this->Recurso->Validaciones('Tarifa', 'Descripcion', $_POST['TarifaTitulo']);
-                if ($VRuc > 0) {
-                    $data['Error'] = true;
-                    $data['Mensaje'] .= 'Tarifa:  "' . $_POST['TarifaTitulo'] . '" , ya se encuentra registrado ';
-                }
 
-                if ($data['Error']) {
-                    $data['Tipo'] = 'warning';
-                    $data['Mensaje'] .= 'Corregir los datos ingresados';
-                } else {
 
-                    $registro = $this->MTarifa->RegistroTarifa();
+            $VerificarRegistro=$this->Recurso->Validaciones('tarifa','Producto_idProducto',$_POST["idProducto"]);
+
+            if($VerificarRegistro>0){
+                //Actualizar
+                $registro = $this->MTarifa->UpdateTarifa();
+                    if ($registro['Registro']) {
+                        $data['Mensaje'] .= 'Tarifa Modificado con exito.';
+                    } else {
+                        $data = array(
+                            'Error' => true,
+                            'Tipo' => 'danger',
+                            'Mensaje' => 'Error al Registrar en base de datos Error:' . $registro["errDB"]["code"] . ':' . $registro["errDB"]["message"] . ', Comuniquese con el area de sistemas'
+                        );
+                    }
+            }else{
+                //Registrar
+
+                 $registro = $this->MTarifa->RegistroTarifa();
                     if ($registro['Registro']) {
                         $data['Mensaje'] .= 'Tarifa Registrado con exito.';
                     } else {
@@ -100,22 +101,80 @@ class Tarifa extends CI_Controller
                             'Mensaje' => 'Error al Registrar en base de datos Error:' . $registro["errDB"]["code"] . ':' . $registro["errDB"]["message"] . ', Comuniquese con el area de sistemas'
                         );
                     }
-                }
-            } else {
-                /* modificar Tarifa */
-                /* valida Tarifa */
-                $VRuc = $this->Recurso->Validaciones('Tarifa', 'Descripcion', $_POST['TarifaTitulo'], 'idTarifa', $_POST['TarifaidTarifa']);
-                if ($VRuc > 0) {
+            }
+
+
+        } else {
+            $data = array(
+                'Error' => true,
+                'Tipo' => 'warning',
+                'Mensaje' => validation_errors('<li>', '</li>')
+            );
+        }
+        echo json_encode($data);
+    }
+
+    public function InsertUpdateDelivery()
+    {
+
+        $data = array(
+            'Error' => false,
+            'Mensaje' => '',
+            'Tipo' => 'success'
+        );
+        $this->form_validation->set_rules('DeliveryPrecio', 'Delivery Precio', 'trim|required|min_length[3]|max_length[12]');
+
+        if ($this->form_validation->run() == true) {
+            /* Registras Grupo */
+            if (empty($_POST['Delivery_idDelivery'])) {
+
+
+
+                /* valida Delivery */
+                $Validacion=$this->MTarifa->ValidacionUbigeo();
+
+                if ($Validacion > 0) {
                     $data['Error'] = true;
-                    $data['Mensaje'] .= 'Tarifa:' . $_POST['TarifaTitulo'] . ' ya se encuentra registrado <br>';
+                    $data['Mensaje'] .= 'Delivery para la Ubicación, ya se encuentra registrado ';
                 }
+                if($_POST["tarifaDelivery"]==0){
+                    $data['Error'] = true;
+                    $data['Mensaje'] .= 'Debe ingresar un moneto Válido.';
+                }
+
                 if ($data['Error']) {
                     $data['Tipo'] = 'warning';
                     $data['Mensaje'] .= 'Corregir los datos ingresados';
                 } else {
-                    $registro = $this->MTarifa->UpdateTarifa();
+
+                    $registro = $this->MTarifa->RegistroDelivery();
                     if ($registro['Registro']) {
-                        $data['Mensaje'] .= 'Tarifa Modificado con exito.';
+                        $data['Mensaje'] .= 'Delivery Registrado con exito.';
+                    } else {
+                        $data = array(
+                            'Error' => true,
+                            'Tipo' => 'danger',
+                            'Mensaje' => 'Error al Registrar en base de datos Error:' . $registro["errDB"]["code"] . ':' . $registro["errDB"]["message"] . ', Comuniquese con el area de sistemas'
+                        );
+                    }
+                }
+            } else {
+                /* modificar Grupo */
+               /* valida Delivery */
+                $Validacion=$this->MTarifa->ValidacionUbigeo();
+
+                if ($Validacion > 0) {
+                    $data['Error'] = true;
+                    $data['Mensaje'] .= 'Delivery para la Ubicación, ya se encuentra registrado ';
+                }
+
+                if ($data['Error']) {
+                    $data['Tipo'] = 'warning';
+                    $data['Mensaje'] .= 'Corregir los datos ingresados';
+                } else {
+                    $registro = $this->MTarifa->UpdateDelivery();
+                    if ($registro['Registro']) {
+                        $data['Mensaje'] .= 'Delivery Modificado con exito.';
                     } else {
                         $data = array(
                             'Error' => true,
@@ -140,7 +199,7 @@ class Tarifa extends CI_Controller
         $data = $this->MTarifa->ObtenerTarifa();
         echo json_encode($data);
     }
-    public function EliminarTarifa()
+    public function EliminarDelivery()
     {
         $data = array(
             'Error' => false,
@@ -148,9 +207,9 @@ class Tarifa extends CI_Controller
             'Tipo' => 'success'
         );
 
-        $delete = $this->MTarifa->EliminarTarifa();
+        $delete = $this->MTarifa->EliminarDelivery();
         if ($delete['Delete']) {
-            $data['Mensaje'] .= 'Tarifa Eliminado con exito';
+            $data['Mensaje'] .= 'Delivery Eliminado con exito';
         } else {
             $data = array(
                 'Error' => true,
@@ -161,54 +220,7 @@ class Tarifa extends CI_Controller
 
         echo json_encode($data);
     }
-    public function HabilitarTarifa()
-    {
-        $data = array(
-            'Error' => false,
-            'Mensaje' => '',
-            'Tipo' => 'success'
-        );
 
-        $enable = $this->MTarifa->EstadoTarifa(1);
-        if ($enable['accion']) {
-            $data['Mensaje'] .= 'Tarifa Habilitado con exito';
-        } else {
-            $data = array(
-                'Error' => true,
-                'Tipo' => 'danger',
-                'Mensaje' => 'Error al Habilitar en base de datos Error:' . $enable["errDB"]["code"] . ':' . $enable["errDB"]["message"] . ', Comuniquese con el area de sistemas.'
-            );
-        }
 
-        echo json_encode($data);
-    }
-    public function InhabilitarTarifa()
-    {
-        $data = array(
-            'Error' => false,
-            'Mensaje' => '',
-            'Tipo' => 'success'
-        );
-
-        $disable = $this->MTarifa->EstadoTarifa(2);
-        if ($disable['accion']) {
-            $data['Mensaje'] .= 'Tarifa Inhabilitado con exito';
-        } else {
-            $data = array(
-                'Error' => true,
-                'Tipo' => 'danger',
-                'Mensaje' => 'Error al Inhabilitar en base de datos Error:' . $disable["errDB"]["code"] . ':' . $disable["errDB"]["message"] . ', Comuniquese con el area de sistemas.'
-            );
-        }
-
-        echo json_encode($data);
-    }
-    public function ListarPrioridad(){
-         echo '<option value="0"> --- SELECCIONE --- </option>';
-      		 $rspta = $this->MTarifa->ListarPrioridad();
-            foreach ($rspta->result() as $reg) {
-             	echo '<option   value=' . $reg->idPrioridad . '>' . $reg->Descripcion . '</option>';
-            }
-    }
 }
 /* End of file MenuPhp.php */

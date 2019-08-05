@@ -235,6 +235,19 @@ class Producto extends CI_Controller
         }
         echo json_encode($data);
     }
+     public function ObtenerProductoTarifa()
+    {
+        $data = $this->MProducto->ObtenerProductoTarifa();
+        if($data->imagenPortada!=null){
+            $ruta="assets/images/".$data->imagenPortada;
+            // Cargando la imagen
+            $archivo = file_get_contents($ruta);
+            // Decodificando la imagen en base64
+            $base64 = 'data:image/jpg;base64,' . base64_encode($archivo);
+            $data->imagenPortada=$base64;
+        }
+        echo json_encode($data);
+    }
     public function EliminarProducto()
     {
         $data = array(
