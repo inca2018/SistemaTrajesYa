@@ -124,6 +124,11 @@
                                             <span class="pcoded-mtext">Locales(Proveedores)</span>
                                         </a>
                                     </li>
+                                    <li class="Option">
+                                        <a href="/Mantenimiento/Promocion" id="Promocion">
+                                            <span class="pcoded-mtext">Promociones</span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
                         </ul>
