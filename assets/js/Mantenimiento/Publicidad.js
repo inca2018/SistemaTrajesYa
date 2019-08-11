@@ -1,11 +1,11 @@
-var tablaPromocion;
+var tablaPublicidad;
 var Filter;
 var Cantidad = 1
 
 function init() {
     uploadImage();
     Iniciar_Componentes();
-    Listar_Promocion();
+    Listar_Publicidad();
 
 }
 
@@ -39,23 +39,23 @@ function uploadImage() {
 
 function Iniciar_Componentes() {
 
-    $("#FormularioPromocion").on("submit", function (e) {
-        RegistroPromocion(e);
+    $("#FormularioPublicidad").on("submit", function (e) {
+        RegistroPublicidad(e);
     });
 
 }
 
 
-function RegistroPromocion(event) {
+function RegistroPublicidad(event) {
     event.preventDefault();
 
     var imagenes = RecuperarImagenes();
     var imagenesBr = imagenes.join("|");
-    var formData = new FormData($("#FormularioPromocion")[0]);
+    var formData = new FormData($("#FormularioPublicidad")[0]);
     formData.append("Imagenes", imagenesBr);
     console.log(formData);
     $.ajax({
-        url: "/Mantenimiento/Promocion/InsertUpdatePromocion",
+        url: "/Mantenimiento/Publicidad/InsertUpdatePublicidad",
         type: "POST",
         data: formData,
         contentType: false,
@@ -68,10 +68,10 @@ function RegistroPromocion(event) {
             if (Error) {
                 mensaje_warning(Mensaje);
             } else {
-                $('#ModalPromocion').modal('hide');
+                $('#ModalPublicidad').modal('hide');
                 mensaje_success(Mensaje)
-                LimpiarPromocion();
-                tablaPromocion.ajax.reload();
+                LimpiarPublicidad();
+                tablaPublicidad.ajax.reload();
             }
         },
         error: function (e) {
@@ -83,8 +83,8 @@ function RegistroPromocion(event) {
     });
 }
 
-function Listar_Promocion() {
-    tablaPromocion = $('#tablaPromocion').dataTable({
+function Listar_Publicidad() {
+    tablaPublicidad = $('#tablaPublicidad').dataTable({
         "aProcessing": true,
         "aServerSide": true,
         "processing": true,
@@ -112,7 +112,7 @@ function Listar_Promocion() {
             }
          , ],
         "ajax": { //Solicitud Ajax Servidor
-            url: '/Mantenimiento/Promocion/ListarPromocion',
+            url: '/Mantenimiento/Publicidad/ListarPublicidad',
             type: "POST",
             dataType: "JSON",
             error: function (e) {
@@ -123,131 +123,131 @@ function Listar_Promocion() {
     }).DataTable();
 }
 
-function NuevoPromocion() {
-    $("#ModalPromocion").modal({
+function NuevoPublicidad() {
+    $("#ModalPublicidad").modal({
         backdrop: 'static',
         keyboard: false
     });
-    $("#ModalPromocion").modal("show");
-    $("#tituloModalPromocion").empty();
-    $("#tituloModalPromocion").append("Registro de Promocion");
+    $("#ModalPublicidad").modal("show");
+    $("#tituloModalPublicidad").empty();
+    $("#tituloModalPublicidad").append("Registro de Publicidad");
 
 }
 
-function EditarPromocion(idPromocion) {
-    $("#ModalPromocion").modal({
+function EditarPublicidad(idPublicidad) {
+    $("#ModalPublicidad").modal({
         backdrop: 'static',
         keyboard: false
     });
-    $("#ModalPromocion").modal("show");
-    $("#tituloModalPromocion").empty();
-    $("#tituloModalPromocion").append("Edición de Promocion");
+    $("#ModalPublicidad").modal("show");
+    $("#tituloModalPublicidad").empty();
+    $("#tituloModalPublicidad").append("Edición de Publicidad");
 
-    RecuperarPromocion(idPromocion);
+    RecuperarPublicidad(idPublicidad);
 }
 
-function RecuperarPromocion(idPromocion) {
+function RecuperarPublicidad(idPublicidad) {
     //solicitud de recuperar Proveedor
-    $.post("/Mantenimiento/Promocion/ObtenerPromocion", {
-        "idPromocion": idPromocion
+    $.post("/Mantenimiento/Publicidad/ObtenerPublicidad", {
+        "idPublicidad": idPublicidad
     }, function (data, status) {
         data = JSON.parse(data);
         console.log(data);
-        $("#PromocionidPromocion").val(data.idPromocion);
-        $("#PromocionTitulo").val(data.NombrePromocion);
-        $("#PromocionLink").val(data.linkPromocion);
+        $("#PublicidadidPublicidad").val(data.idPublicidad);
+        $("#PublicidadTitulo").val(data.NombrePublicidad);
+        $("#PublicidadLink").val(data.linkPublicidad);
 
-        if (data.imagenPromocion != null && data.imagenPromocion != "") {
+        if (data.imagenPublicidad != null && data.imagenPublicidad != "") {
             //Recuperando 1 Imagen
             var images = $('.images');
-            images.prepend('<div class="img" style="background-image: url(\'' + data.imagenPromocion + '\');" rel="' + data.imagenPromocion + '"><span>remove</span></div>');
+            images.prepend('<div class="img" style="background-image: url(\'' + data.imagenPublicidad + '\');" rel="' + data.imagenPublicidad + '"><span>remove</span></div>');
         }
 
     });
 }
 
-function EliminarPromocion(idPromocion, Promocion) {
+function EliminarPublicidad(idPublicidad, Publicidad) {
     swal({
-        title: "Eliminar Promocion?",
-        text: "Esta seguro de eliminar al Promocion: " + Promocion,
+        title: "Eliminar Publicidad?",
+        text: "Esta seguro de eliminar al Publicidad: " + Publicidad,
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#DD6B55",
         confirmButtonText: "Eliminar!",
         closeOnConfirm: false
     }, function () {
-        $.post("/Mantenimiento/Promocion/EliminarPromocion", {
-            'idPromocion': idPromocion
+        $.post("/Mantenimiento/Publicidad/EliminarPublicidad", {
+            'idPublicidad': idPublicidad
         }, function (data, e) {
             data = JSON.parse(data);
             if (data.Error) {
                 swal("Error", data.Mensaje, "error");
             } else {
                 swal("Eliminado!", data.Mensaje, "success");
-                tablaPromocion.ajax.reload();
+                tablaPublicidad.ajax.reload();
             }
         });
     });
 }
 
-function HabilitarPromocion(idPromocion, Promocion) {
+function HabilitarPublicidad(idPublicidad, Publicidad) {
     swal({
-        title: "Habilitar Promocion?",
-        text: "Esta seguro de habilitar al Promocion: " + Promocion,
+        title: "Habilitar Publicidad?",
+        text: "Esta seguro de habilitar al Publicidad: " + Publicidad,
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#DD6B55",
         confirmButtonText: "Habilitar!",
         closeOnConfirm: false
     }, function () {
-        $.post("/Mantenimiento/Promocion/HabilitarPromocion", {
-            'idPromocion': idPromocion
+        $.post("/Mantenimiento/Publicidad/HabilitarPublicidad", {
+            'idPublicidad': idPublicidad
         }, function (data, e) {
             data = JSON.parse(data);
             if (data.Error) {
                 swal("Error", data.Mensaje, "error");
             } else {
                 swal("Habilitado!", data.Mensaje, "success");
-                tablaPromocion.ajax.reload();
+                tablaPublicidad.ajax.reload();
             }
         });
     });
 }
 
-function InabilitarPromocion(idPromocion, Promocion) {
+function InabilitarPublicidad(idPublicidad, Publicidad) {
     swal({
-        title: "Inhabilitar Promocion?",
-        text: "Esta seguro de inhabilitar al Promocion: " + Promocion,
+        title: "Inhabilitar Publicidad?",
+        text: "Esta seguro de inhabilitar al Publicidad: " + Publicidad,
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#DD6B55",
         confirmButtonText: "Inhabilitar!",
         closeOnConfirm: false
     }, function () {
-        $.post("/Mantenimiento/Promocion/InhabilitarPromocion", {
-            'idPromocion': idPromocion
+        $.post("/Mantenimiento/Publicidad/InhabilitarPublicidad", {
+            'idPublicidad': idPublicidad
         }, function (data, e) {
             data = JSON.parse(data);
             if (data.Error) {
                 swal("Error", data.Mensaje, "error");
             } else {
                 swal("Inhabilitado!", data.Mensaje, "success");
-                tablaPromocion.ajax.reload();
+                tablaPublicidad.ajax.reload();
             }
         });
     });
 }
 
-function LimpiarPromocion() {
-    $('#FormularioPromocion')[0].reset();
-    $("#PromocionidPromocion").val("");
+function LimpiarPublicidad() {
+    $('#FormularioPublicidad')[0].reset();
+    $("#PublicidadidPublicidad").val("");
     $('#Archivos').empty();
     resetUpload();
 }
 
 function Cancelar() {
-    LimpiarPromocion();
-    $("#ModalPromocion").modal("hide");
+    LimpiarPublicidad();
+    $("#ModalPublicidad").modal("hide");
     resetUpload();
 }
 

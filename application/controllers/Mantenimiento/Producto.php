@@ -53,6 +53,15 @@ class Producto extends CI_Controller
             }
         }
     }
+    public function CorrelativoProducto($reg){
+        $num=($reg->idProducto);
+        $len=strlen($num);
+        $numCeros=5-$len;
+        $ceros=str_repeat("0",$numCeros);
+        $re="PTY-".$ceros.$num;
+        return $re;
+
+    }
 
     public function BuscarAccion($reg)
     {
@@ -67,6 +76,17 @@ class Producto extends CI_Controller
             return '<button type="button"  title="Habilitar" class="btn btn-grd-info btn-mini btn-round" onclick="HabilitarProducto(' . $reg->idProducto . ",'" . $reg->Titulo . "'" . ')"><i class="fa fa-arrow-circle-up"></i></button> <button type="button"  title="Eliminar" class="btn btn-grd-danger btn-mini btn-round" onclick="EliminarProducto(' . $reg->idProducto . ')"><i class="fa fa-trash"></i></button> ';
         }
     }
+    public function VerificarTama($str){
+        if(strlen($str)>120){
+            $str_e="";
+            $str_e=substr($str,0,100);
+            $str_e=$str_e."...";
+            return $str_e;
+
+        }else{
+            return $str;
+        }
+    }
 
 
 
@@ -77,19 +97,20 @@ class Producto extends CI_Controller
 
         foreach ($rspta->result() as $reg) {
             $data[] = array(
-
-                "0" => $reg->Titulo,
-                "1" => $reg->DescripcionProducto,
-                "2" => $this->BuscarImagen($reg),
-                "3" => $reg->categoria." / ".$reg->NombreSubCategoria,
-                "4" => $this->BuscarUbicacion($reg),
-                "5" => $this->BuscarAccion($reg),
-                "6" => ' <button type="button" title="Ver Galeria de Fotos" class="btn btn-grd-inverse  btn-mini btn-round" onclick="Galeria(' . $reg->idProducto . ')">Ver Galeria de Fotos</button>',
-                "7" =>  ' <button type="button" title="Ver Tarifa Disponibles" class="btn btn-grd-primary btn-mini btn-round" onclick="Tarifa(' . $reg->idProducto . ')">Ver Tarifas Disponibles </button>',
-                "8" =>  ' <button type="button" title="Ver Medidas Disponibles" class="btn btn-grd-info btn-mini btn-round" onclick="AsignacionMedida(' . $reg->idProducto . ')">Ver Medidas Disponibles</button>',
-                "9" => $reg->fechaRegistro,
-                "10" => $reg->fechaUpdate,
-                "11" => $this->BuscarEstado($reg)
+                "0" => $this->CorrelativoProducto($reg),
+                "1" => $reg->Titulo,
+                "2" => $reg->verificado,
+                "3" => $this->BuscarImagen($reg),
+                "4" => $reg->categoria." / ".$reg->NombreSubCategoria,
+                "5" => $this->BuscarUbicacion($reg),
+                "6" => $this->VerificarTama($reg->DescripcionProducto),
+                "7" => $this->BuscarAccion($reg),
+                "8" => ' <button type="button" title="Ver Galeria de Fotos" class="btn btn-grd-inverse  btn-mini btn-round" onclick="Galeria(' . $reg->idProducto . ')">Ver Galeria de Fotos</button>',
+                "9" =>  ' <button type="button" title="Ver Tarifa Disponibles" class="btn btn-grd-primary btn-mini btn-round" onclick="Tarifa(' . $reg->idProducto . ')">Ver Tarifas Disponibles </button>',
+                "10" =>  ' <button type="button" title="Ver Medidas Disponibles" class="btn btn-grd-info btn-mini btn-round" onclick="AsignacionMedida(' . $reg->idProducto . ')">Ver Medidas Disponibles</button>',
+                "11" => $reg->fechaRegistro,
+                "12" => $reg->fechaUpdate,
+                "13" => $this->BuscarEstado($reg)
             );
         }
 

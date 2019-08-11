@@ -129,6 +129,16 @@
                                             <span class="pcoded-mtext">Promociones</span>
                                         </a>
                                     </li>
+                                    <li class="Option">
+                                        <a href="/Mantenimiento/Publicidad" id="Publicidad">
+                                            <span class="pcoded-mtext">Publicidad</span>
+                                        </a>
+                                    </li>
+                                    <li class="Option">
+                                        <a href="/Mantenimiento/Delivery" id="Delivery">
+                                            <span class="pcoded-mtext">Precio de Delivery</span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
                         </ul>

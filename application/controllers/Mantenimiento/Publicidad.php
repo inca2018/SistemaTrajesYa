@@ -1,17 +1,17 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Local extends CI_Controller
+class Publicidad extends CI_Controller
 {
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('Mantenimiento/MLocal');
+        $this->load->model('Mantenimiento/MPublicidad');
         $this->load->model('Recurso');
     }
     public function index()
     {
-        $this->load->view('Mantenimiento/Local');
+        $this->load->view('Mantenimiento/Publicidad');
     }
      public function BuscarImagen($reg){
         if($reg->imagen==null){
@@ -34,63 +34,34 @@ class Local extends CI_Controller
         }
     }
 
-    public function BuscarContacto($reg){
-        if($reg->TelefonoFijo==null){
-            if($reg->TelefonoCelular==null){
-                 return ' Sin Contacto Registrado';
-            }else{
-                 return $reg->TelefonoCelular;
-            }
-        }else{
-            if($reg->TelefonoCelular==null){
-                return $reg->TelefonoFijo;
-            }else{
-                return $reg->TelefonoFijo.' / '.$reg->TelefonoCelular;
-            }
-        }
-    }
-
-     public function CorrelativoLocal($reg){
-        $num=($reg->idLocal);
-        $len=strlen($num);
-        $numCeros=5-$len;
-        $ceros=str_repeat("0",$numCeros);
-        $re="LTY-".$ceros.$num;
-        return $re;
-
-    }
-
     public function BuscarAccion($reg)
     {
         if ($reg->Estado_idEstado == 1) {
             return '
-            <button type="button" title="Editar" class="btn btn-grd-warning btn-mini btn-round" onclick="EditarLocal(' . $reg->idLocal . ')"><i class="fa fa-edit"></i></button>
-            <button type="button"  title="Inabilitar" class="btn btn-grd-primary btn-mini btn-round" onclick="InabilitarLocal(' . $reg->idLocal . ",'" . $reg->Titulo . "'" . ')"><i class="fa fa-arrow-circle-down"></i></button>
-            <button type="button"  title="Eliminar" class="btn btn-grd-danger btn-mini btn-round" onclick="EliminarLocal(' . $reg->idLocal . ",'" . $reg->Titulo . "'" . ')"><i class="fa fa-trash"></i></button>
+            <button type="button" title="Editar" class="btn btn-grd-warning btn-mini btn-round" onclick="EditarPublicidad(' . $reg->idPublicidad . ')"><i class="fa fa-edit"></i></button>
+            <button type="button"  title="Inabilitar" class="btn btn-grd-primary btn-mini btn-round" onclick="InabilitarPublicidad(' . $reg->idPublicidad . ",'" . $reg->Titulo . "'" . ')"><i class="fa fa-arrow-circle-down"></i></button>
+            <button type="button"  title="Eliminar" class="btn btn-grd-danger btn-mini btn-round" onclick="EliminarPublicidad(' . $reg->idPublicidad . ",'" . $reg->Titulo . "'" . ')"><i class="fa fa-trash"></i></button>
                ';
         } elseif ($reg->Estado_idEstado == 2) {
-            return '<button type="button"  title="Habilitar" class="btn btn-grd-info btn-mini btn-round" onclick="HabilitarLocal(' . $reg->idLocal . ",'" . $reg->Titulo . "'" . ')"><i class="fa fa-arrow-circle-up"></i></button> <button type="button"  title="Eliminar" class="btn btn-grd-danger btn-mini btn-round" onclick="EliminarLocal(' . $reg->idLocal . ')"><i class="fa fa-trash"></i></button> ';
+            return '<button type="button"  title="Habilitar" class="btn btn-grd-info btn-mini btn-round" onclick="HabilitarPublicidad(' . $reg->idPublicidad . ",'" . $reg->Titulo . "'" . ')"><i class="fa fa-arrow-circle-up"></i></button> <button type="button"  title="Eliminar" class="btn btn-grd-danger btn-mini btn-round" onclick="EliminarPublicidad(' . $reg->idPublicidad . ')"><i class="fa fa-trash"></i></button> ';
         }
     }
 
-    public function ListarLocal()
+    public function ListarPublicidad()
     {
-        $rspta = $this->MLocal->ListarLocal();
+        $rspta = $this->MPublicidad->ListarPublicidad();
         $data  = array();
 
         foreach ($rspta->result() as $reg) {
             $data[] = array(
-                "0" => $this->CorrelativoLocal($reg),
-                "1" => $reg->Titulo,
+
+                "0" => $reg->Titulo,
+                "1" => $reg->linkPublicidad,
                 "2" => $this->BuscarImagen($reg),
-                "3" => $reg->Direccion,
-                "4" => $reg->Encargado,
-                "5" => $reg->HorarioAtencion,
-                "6" => $this->BuscarContacto($reg),
-                "7" => $this->BuscarAccion($reg),
-                "8" => $reg->fechaRegistro,
-                "9" => $reg->fechaUpdate,
-                "10" => $this->BuscarEstado($reg)
+                "3" => $this->BuscarAccion($reg),
+                "4" => $reg->fechaRegistro,
+                "5" => $reg->fechaUpdate,
+                "6" => $this->BuscarEstado($reg)
             );
         }
 
@@ -103,12 +74,8 @@ class Local extends CI_Controller
         echo json_encode($results);
     }
 
-      function check_default($post_string)
-    {
-      return $post_string == '0' ? FALSE : TRUE;
-    }
 
-    public function InsertUpdateLocal()
+    public function InsertUpdatePublicidad()
     {
 
         $data = array(
@@ -117,26 +84,26 @@ class Local extends CI_Controller
             'Tipo' => 'success'
         );
 
-        $this->form_validation->set_rules('LocalTitulo', 'Titulo del Local', 'trim|required|min_length[3]|max_length[120]');
+        $this->form_validation->set_rules('PublicidadTitulo', 'Titulo del Promoción', 'trim|required|min_length[3]|max_length[150]');
+        $this->form_validation->set_rules('PublicidadLink', 'Link de Promoción', 'trim|required|min_length[3]|max_length[120]');
 
-        $this->form_validation->set_rules('LocalFijo', 'Teléfono Fijo del Local', 'trim|min_length[7]|max_length[7]');
-        $this->form_validation->set_rules('LocalCelular', 'Teléfono Celular del Local', 'trim|min_length[9]|max_length[9]');
+
 
         if ($this->form_validation->run() == true) {
-            /* Registras Local */
-            if (empty($_POST['LocalidLocal'])) {
-                /* valida Local */
-                $validacion = $this->Recurso->Validaciones('local', 'NombreLocal', $_POST['LocalTitulo']);
+            /* Registras Publicidad */
+            if (empty($_POST['PublicidadidPublicidad'])) {
+                /* valida Publicidad */
+                $validacion = $this->Recurso->Validaciones('publicidad', 'NombrePublicidad', $_POST['PublicidadTitulo']);
                 if ($validacion > 0) {
                     $data['Error'] = true;
-                    $data['Mensaje'] .= 'Local:  "' . $_POST['LocalTitulo'] . '" , ya se encuentra registrado ';
+                    $data['Mensaje'] .= 'Publicidad:  "' . $_POST['PublicidadTitulo'] . '" , ya se encuentra registrado ';
                 }
 
 
                 if ($_POST['Imagenes']!= '') {
-                     $nombre=str_replace(" ","_",$_POST['LocalTitulo']);
+                     $nombre=str_replace(" ","_",$_POST['PublicidadTitulo']);
                      $nombre=mb_convert_case(mb_strtolower($nombre), MB_CASE_TITLE, "UTF-8");
-                     $Documento = "Local/".$nombre.".jpg";
+                     $Documento = "Publicidad/".$nombre.".jpg";
                 } else {
                     $Documento = null;
                 }
@@ -147,17 +114,17 @@ class Local extends CI_Controller
                     $data['Mensaje'] .= 'Corregir los datos ingresados';
                 } else {
 
-                    $registro =$this->MLocal->RegistroLocal($Documento);
+                    $registro =$this->MPublicidad->RegistroPublicidad($Documento);
 
                     if($Documento!=null || $Documento!=''){
 
-                       $nombre=str_replace(" ","_",$_POST['LocalTitulo']);
+                       $nombre=str_replace(" ","_",$_POST['PublicidadTitulo']);
                      $nombre=mb_convert_case(mb_strtolower($nombre), MB_CASE_TITLE, "UTF-8");
-                        $Subida=$this->Recurso->GuardarImagenes($_POST['Imagenes'],"Local",1,$nombre.".jpg");
+                        $Subida=$this->Recurso->GuardarImagenes($_POST['Imagenes'],"Publicidad",1,$nombre.".jpg");
                     }
 
                     if ($registro['Registro']) {
-                        $data['Mensaje'] .= 'Local Registrado con exito.';
+                        $data['Mensaje'] .= 'Publicidad Registrado con exito.';
                     } else {
                         $data = array(
                             'Error' => true,
@@ -167,16 +134,16 @@ class Local extends CI_Controller
                     }
                 }
             } else {
-                $validacion = $this->Recurso->Validaciones('local', 'NombreLocal', $_POST['LocalTitulo'], 'idLocal', $_POST['LocalidLocal']);
+                $validacion = $this->Recurso->Validaciones('publicidad', 'NombrePublicidad', $_POST['PublicidadTitulo'], 'idPublicidad', $_POST['PublicidadidPublicidad']);
                 if ($validacion > 0) {
                     $data['Error'] = true;
-                    $data['Mensaje'] .= 'Local:' . $_POST['LocalTitulo'] . ' ya se encuentra registrado <br>';
+                    $data['Mensaje'] .= 'Publicidad:' . $_POST['PublicidadTitulo'] . ' ya se encuentra registrado <br>';
                 }
 
                  if ($_POST['Imagenes']!= '') {
-                     $nombre=str_replace(" ","_",$_POST['LocalTitulo']);
+                     $nombre=str_replace(" ","_",$_POST['PublicidadTitulo']);
                      $nombre=mb_convert_case(mb_strtolower($nombre), MB_CASE_TITLE, "UTF-8");
-                     $Documento = "Local/".$nombre.".jpg";
+                     $Documento = "Publicidad/".$nombre.".jpg";
                 } else {
                     $Documento = null;
                 }
@@ -185,17 +152,17 @@ class Local extends CI_Controller
                     $data['Tipo'] = 'warning';
                     $data['Mensaje'] .= 'Corregir los datos ingresados';
                 } else {
-                    $registro = $this->MLocal->UpdateLocal($Documento);
+                    $registro = $this->MPublicidad->UpdatePublicidad($Documento);
 
                     if($Documento!=null || $Documento!=''){
 
-                        $nombre=str_replace(" ","_",$_POST['LocalTitulo']);
+                        $nombre=str_replace(" ","_",$_POST['PublicidadTitulo']);
                         $nombre=mb_convert_case(mb_strtolower($nombre), MB_CASE_TITLE, "UTF-8");
-                        $Subida=$this->Recurso->GuardarImagenes($_POST['Imagenes'],"Local",1,$nombre.".jpg");
+                        $Subida=$this->Recurso->GuardarImagenes($_POST['Imagenes'],"Publicidad",1,$nombre.".jpg");
                     }
 
                     if ($registro['Registro']) {
-                        $data['Mensaje'] .= 'Local Modificado con exito.';
+                        $data['Mensaje'] .= 'Publicidad Modificado con exito.';
                     } else {
                         $data = array(
                             'Error' => true,
@@ -215,20 +182,20 @@ class Local extends CI_Controller
         echo json_encode($data);
     }
 
-    public function ObtenerLocal()
+    public function ObtenerPublicidad()
     {
-        $data = $this->MLocal->ObtenerLocal();
-        if($data->imagenPortada!=null){
-            $ruta="assets/images/".$data->imagenPortada;
+        $data = $this->MPublicidad->ObtenerPublicidad();
+        if($data->imagenPublicidad!=null){
+            $ruta="assets/images/".$data->imagenPublicidad;
             // Cargando la imagen
             $archivo = file_get_contents($ruta);
             // Decodificando la imagen en base64
             $base64 = 'data:image/jpg;base64,' . base64_encode($archivo);
-            $data->imagenPortada=$base64;
+            $data->imagenPublicidad=$base64;
         }
         echo json_encode($data);
     }
-    public function EliminarLocal()
+    public function EliminarPublicidad()
     {
         $data = array(
             'Error' => false,
@@ -236,17 +203,17 @@ class Local extends CI_Controller
             'Tipo' => 'success'
         );
 
-         $respta = $this->MLocal->ObtenerLocal();
-            if($respta->imagenPortada!=null){
-               $linkEliminar='assets/images/'.$respta->imagenPortada;
+         $respta = $this->MPublicidad->ObtenerPublicidad();
+            if($respta->imagenPublicidad!=null){
+               $linkEliminar='assets/images/'.$respta->imagenPublicidad;
                 if(file_exists($linkEliminar)){
                      unlink($linkEliminar);
                   }
             }
 
-        $delete = $this->MLocal->EliminarLocal();
+        $delete = $this->MPublicidad->EliminarPublicidad();
         if ($delete['Delete']) {
-            $data['Mensaje'] .= 'Local Eliminado con exito';
+            $data['Mensaje'] .= 'Publicidad Eliminado con exito';
         } else {
             $data = array(
                 'Error' => true,
@@ -257,7 +224,7 @@ class Local extends CI_Controller
 
         echo json_encode($data);
     }
-    public function HabilitarLocal()
+    public function HabilitarPublicidad()
     {
         $data = array(
             'Error' => false,
@@ -265,9 +232,9 @@ class Local extends CI_Controller
             'Tipo' => 'success'
         );
 
-        $enable = $this->MLocal->EstadoLocal(1);
+        $enable = $this->MPublicidad->EstadoPublicidad(1);
         if ($enable['accion']) {
-            $data['Mensaje'] .= 'Local Habilitado con exito';
+            $data['Mensaje'] .= 'Publicidad Habilitado con exito';
         } else {
             $data = array(
                 'Error' => true,
@@ -278,7 +245,7 @@ class Local extends CI_Controller
 
         echo json_encode($data);
     }
-    public function InhabilitarLocal()
+    public function InhabilitarPublicidad()
     {
         $data = array(
             'Error' => false,
@@ -286,9 +253,9 @@ class Local extends CI_Controller
             'Tipo' => 'success'
         );
 
-        $disable = $this->MLocal->EstadoLocal(2);
+        $disable = $this->MPublicidad->EstadoPublicidad(2);
         if ($disable['accion']) {
-            $data['Mensaje'] .= 'Local Inhabilitado con exito';
+            $data['Mensaje'] .= 'Publicidad Inhabilitado con exito';
         } else {
             $data = array(
                 'Error' => true,
@@ -299,4 +266,5 @@ class Local extends CI_Controller
 
         echo json_encode($data);
     }
+
 }

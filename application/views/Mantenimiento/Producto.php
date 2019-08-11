@@ -41,11 +41,13 @@ $this->load->view('Layout/Nav');
                                     <table class="table table-sm  w-100 table-hover" id="tablaProducto">
                                         <thead class="thead-light text-center">
                                             <tr>
+                                                <th>Codigo de Producto</th>
                                                 <th>Titulo de Producto</th>
-                                                <th>Descripción</th>
+                                                <th>Verificado Por</th>
                                                 <th>Portada</th>
                                                 <th>Categoria/SubCategoria</th>
                                                 <th>Origen</th>
+                                                 <th>Descripción</th>
                                                 <th>Acción</th>
                                                 <th>Galeria</th>
                                                 <th>Tarifa</th>
@@ -92,7 +94,11 @@ $this->load->view('Layout/Nav');
                         </div>
                         <div class="col-sm-12 col-md-12">
                             <label class="col-form-label">Descripción de Categoria:</label>
-                            <textarea name="ProductoDescripcion" id="ProductoDescripcion" class="form textarea form-control" rows="3" maxlength="200"></textarea>
+                            <textarea name="ProductoDescripcion" id="ProductoDescripcion" class="form textarea form-control" rows="3" ></textarea>
+                        </div>
+                         <div class="col-sm-12 col-md-12">
+                            <label class="col-form-label">Verificado Por:</label>
+                            <input type="text" class="form-control validarPanel" name="ProductoVerificado" id="ProductoVerificado" value=""  maxlength="150">
                         </div>
                         <div class="col-sm-6 col-md-6">
                             <label class="col-form-label">Categoria:</label>

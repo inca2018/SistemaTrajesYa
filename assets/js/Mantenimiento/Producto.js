@@ -151,7 +151,7 @@ function Listar_Producto() {
         "info": true, // Informacion de cabecera tabla
         "responsive": true, // Accion de responsive
         "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-        "order": [[1, "asc"]],
+        "order": [[3, "desc"]],
         "bDestroy": true,
         "columnDefs": [
             {
@@ -192,6 +192,7 @@ function Listar_Producto() {
 
 function NuevoProducto() {
     resetUpload();
+    LimpiarProducto();
     $("#AreaUbicacion").hide();
     $("#ModalProducto").modal({
         backdrop: 'static',
@@ -212,7 +213,7 @@ function EditarProducto(idProducto) {
     $("#ModalProducto").modal("show");
     $("#tituloModalProducto").empty();
     $("#tituloModalProducto").append("Edición de Producto");
-
+    LimpiarProducto();
     RecuperarProducto(idProducto);
 }
 
@@ -226,6 +227,7 @@ function RecuperarProducto(idProducto) {
         $("#ProductoidProducto").val(data.idProducto);
         $("#ProductoTitulo").val(data.NombreProducto);
         $("#ProductoDescripcion").val(data.DescripcionProducto);
+         $("#ProductoVerificado").val(data.verificado);
         if (data.imagenPortada != null && data.imagenPortada!="") {
             //Recuperando 1 Imagen
             var images = $('.images');
@@ -350,7 +352,7 @@ function InabilitarProducto(idProducto, Producto) {
 
 function LimpiarProducto() {
     $('#FormularioProducto')[0].reset();
-    $("#idProducto").val("");
+    $("#ProductoidProducto").val("");
     resetUpload();
 }
 

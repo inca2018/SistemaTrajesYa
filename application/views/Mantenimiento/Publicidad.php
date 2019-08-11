@@ -20,17 +20,17 @@ $this->load->view('Layout/Nav');
                                         <a href="/Menu"> <i class="feather icon-home"></i> </a>
                                     </li>
                                     <li class="breadcrumb-item"><a href="#">Mantenimiento</a> </li>
-                                    <li class="breadcrumb-item"><a href="/Mantenimiento/Local">Local</a> </li>
+                                    <li class="breadcrumb-item"><a href="/Mantenimiento/Publicidad">Publicidad</a> </li>
                                 </ul>
                             </div>
 
                         </div>
 
                         <div class="card-block">
-                            <h5 class="col-md-12 sub-title">Lista de Locales</h5>
+                            <h5 class="col-md-12 sub-title">Lista de Publicidad</h5>
                             <div class="row">
                                 <div class="col-md-3 ml-md-auto col-sm-6 ml-sm-auto">
-                                    <button type="button" class="btn btn-grd-success btn-block btn-sm btn-round" onclick="NuevoLocal();">Nuevo Local</button>
+                                    <button type="button" class="btn btn-grd-success btn-block btn-sm btn-round" onclick="NuevoPublicidad();">Nueva Publicidad</button>
                                 </div>
                             </div>
                         </div>
@@ -38,16 +38,12 @@ $this->load->view('Layout/Nav');
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="dt-responsive">
-                                        <table class="table table-sm  w-100 table-hover" id="tablaLocal">
+                                        <table class="table table-sm  w-100 table-hover" id="tablaPublicidad">
                                             <thead class="thead-light text-center">
                                                 <tr>
-                                                    <th>Codigo de Local</th>
-                                                    <th>Titulo de Local</th>
+                                                    <th>Titulo Portada</th>
+                                                    <th>Link de Publicidad</th>
                                                     <th>Imagen Portada</th>
-                                                    <th>Dirección</th>
-                                                    <th>Encargado</th>
-                                                    <th>Horario de Atención</th>
-                                                    <th>Teléfonos de Contacto</th>
                                                     <th>Acciones</th>
                                                     <th>Fecha de Reg.</th>
                                                     <th>Ultima Act.</th>
@@ -72,42 +68,26 @@ $this->load->view('Layout/Nav');
 <?php
    $this->load->view('Layout/Footer');
 ?>
-<div class="modal fade" id="ModalLocal" role="dialog" aria-labelledby="myModalLabelLarge" aria-hidden="true" style="z-index:10001 !important;">
+<div class="modal fade" id="ModalPublicidad" role="dialog" aria-labelledby="myModalLabelLarge" aria-hidden="true" style="z-index:10001 !important;">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-body">
-                <form id="FormularioLocal" method="POST" autocomplete="off">
-                    <input type="hidden" name="LocalidLocal" id="LocalidLocal">
+                <form id="FormularioPublicidad" method="POST" autocomplete="off">
+                    <input type="hidden" name="PublicidadidPublicidad" id="PublicidadidPublicidad">
                     <div class="form-group row">
                         <div class="col-sm-12 center_element">
-                            <h4 id="tituloModalLocal"></h4>
+                            <h4 id="tituloModalPublicidad"></h4>
                             <hr>
                         </div>
                     </div>
                     <div class="row form-group">
                         <div class="col-sm-12 col-md-12">
-                            <label class="col-form-label">Titulo de Local:</label>
-                            <input type="text" class="form-control  " name="LocalTitulo" id="LocalTitulo" value="" maxlength="60">
+                            <label class="col-form-label">Titulo de Publicidad:</label>
+                            <input type="text" class="form-control validarPanel" name="PublicidadTitulo" id="PublicidadTitulo" value="" maxlength="150">
                         </div>
                         <div class="col-sm-12 col-md-12">
-                            <label class="col-form-label">Dirección de Local:</label>
-                            <textarea name="LocalDireccion" id="LocalDireccion" class="form textarea form-control" rows="3" maxlength="200"></textarea>
-                        </div>
-                         <div class="col-sm-12 col-md-12">
-                            <label class="col-form-label">Encargado de Local:</label>
-                            <input type="text" class="form-control  " name="LocalEncargado" id="LocalEncargado" value="" maxlength="60">
-                        </div>
-                        <div class="col-sm-6 col-md-6">
-                            <label class="col-form-label">Horario de Atención:</label>
-                            <input type="text" class="form-control  " name="LocalHorarioAtencion" id="LocalHorarioAtencion" value="" maxlength="100">
-                        </div>
-                        <div class="col-sm-3 col-md-3">
-                            <label class="col-form-label">Teléfono Fijo:</label>
-                            <input type="text" class="form-control  " name="LocalFijo" id="LocalFijo" value=""  onkeypress="return SoloNumerosModificado(event,7,this.id);">
-                        </div>
-                        <div class="col-sm-3 col-md-3">
-                            <label class="col-form-label">Teléfono Celular:</label>
-                            <input type="text" class="form-control  " name="LocalCelular" id="LocalCelular" value="" onkeypress="return SoloNumerosModificado(event,9,this.id);">
+                            <label class="col-form-label">Link de Publicidad:</label>
+                            <textarea name="PublicidadLink" id="PublicidadLink" class="form textarea form-control" rows="3" maxlength="200"></textarea>
                         </div>
                     </div>
                     <div class="row">
@@ -134,4 +114,4 @@ $this->load->view('Layout/Nav');
         </div>
     </div>
 </div>
-<script type="text/javascript" src="<?php echo base_url();?>assets/js/Mantenimiento/Local.js"></script>
+<script type="text/javascript" src="<?php echo base_url();?>assets/js/Mantenimiento/Publicidad.js"></script>

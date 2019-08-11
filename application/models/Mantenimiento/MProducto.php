@@ -43,6 +43,7 @@ class MProducto extends CI_Model
         $data= array(
             'NombreProducto' =>mb_convert_case(mb_strtolower($this->input->post('ProductoTitulo')), MB_CASE_TITLE, "UTF-8"),
             'DescripcionProducto' =>$this->input->post('ProductoDescripcion'),
+            'verificado' =>$this->input->post('ProductoVerificado'),
             'imagenPortada' =>$Documento,
             'Categoria_idCategoria' =>$this->input->post('ProductoCategoria'),
             'SubCategoria_idSubCategoria' =>$this->input->post('ProductoSubCategoria'),
@@ -89,6 +90,7 @@ class MProducto extends CI_Model
         $data= array(
             'NombreProducto' =>mb_convert_case(mb_strtolower($this->input->post('ProductoTitulo')), MB_CASE_TITLE, "UTF-8"),
             'DescripcionProducto' =>$this->input->post('ProductoDescripcion'),
+            'verificado' =>$this->input->post('ProductoVerificado'),
             'imagenPortada' =>$Documento,
             'Categoria_idCategoria' =>$this->input->post('ProductoCategoria'),
             'SubCategoria_idSubCategoria' =>$this->input->post('ProductoSubCategoria'),
@@ -110,7 +112,7 @@ class MProducto extends CI_Model
     }
     public function ListarProducto()
     {
-        $this->db->select('p.idProducto,p.NombreProducto as Titulo,p.DescripcionProducto,p.imagenPortada as imagen,DATE_FORMAT(p.fechaRegistro,"%d/%m/%Y") as fechaRegistro,DATE_FORMAT(p.fechaUpdate,"%d/%m/%Y") as fechaUpdate,p.Estado_idEstado,e.DescripcionEstado as nombreEstado,cat.Grupo_idGrupo as tipo,cat.idCategoria,cat.NombreCategoria as categoria,sub.idSubCategoria as subcategoria,sub.NombreSubCategoria,dep.departamento,pro.provincia,dis.distrito ');
+        $this->db->select('p.idProducto,p.NombreProducto as Titulo,p.DescripcionProducto,p.verificado,p.imagenPortada as imagen,DATE_FORMAT(p.fechaRegistro,"%d/%m/%Y") as fechaRegistro,DATE_FORMAT(p.fechaUpdate,"%d/%m/%Y") as fechaUpdate,p.Estado_idEstado,e.DescripcionEstado as nombreEstado,cat.Grupo_idGrupo as tipo,cat.idCategoria,cat.NombreCategoria as categoria,sub.idSubCategoria as subcategoria,sub.NombreSubCategoria,dep.departamento,pro.provincia,dis.distrito ');
         $this->db->from('producto p');
         $this->db->join('categoria cat', 'cat.idCategoria=p.Categoria_idCategoria');
         $this->db->join('subcategoria sub', 'sub.idSubCategoria=p.SubCategoria_idSubCategoria');
