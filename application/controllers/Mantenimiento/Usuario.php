@@ -26,23 +26,35 @@ class Usuario extends CI_Controller
     }
      public function BuscarPerfil($reg)
     {
+           //Administrador
         if ($reg->idPerfil == '1' || $reg->idPerfil == 1) {
-            return '<div class="badge badge-primary">' . $reg->Perfil . '</div>';
+            return '<div class="badge badge-inverse-success">' . $reg->Perfil . '</div>';
+              //Usuario
         } elseif ($reg->idPerfil == '2' || $reg->idPerfil == 2) {
-            return '<div class="badge badge-secondary">' . $reg->Perfil . '</div>';
+            return '<div class="badge badge-inverse-info">' . $reg->Perfil . '</div>';
+              //Operador
+        } elseif ($reg->idPerfil == '3' || $reg->idPerfil == 3) {
+            return '<div class="badge badge-inverse-primary">' . $reg->Perfil . '</div>';
+              //Soporte
         } else{
-             return '<div class="badge badge-info">' . $reg->Perfil . '</div>';
+             return '<div class="badge badge-inverse-danger">' . $reg->Perfil . '</div>';
         }
     }
     public function BuscarImagen($reg){
-        if($reg->imagen==null){
-            return 'Sin Imagen';
-        }else{
-           return  ' <a href="../../assets/images/'.$reg->imagen.'" data-lightbox="1" data-title="'.$reg->NombreUsuario.'">
-                                                                            <img src="../../assets/images/'.$reg->imagen.'" class="img-fluid rounded img-30">
-                                                                        </a>';
-        }
+        if($reg->idPerfil=='2' || $reg->idPerfil==2){
+            if($reg->imagen==null){
+                return 'Sin Imagen';
+            }else{
+                return  ' <a href="'.$reg->imagen.'" data-lightbox="1" data-title="'.$reg->NombreUsuario.'"><img src="'.$reg->imagen.'" class="img-fluid rounded img-30"></a>';
+            }
 
+        }else{
+             if($reg->imagen==null){
+                    return 'Sin Imagen';
+                }else{
+                   return  ' <a href="../../assets/images/'.$reg->imagen.'" data-lightbox="1" data-title="'.$reg->NombreUsuario.'"><img src="../../assets/images/'.$reg->imagen.'" class="img-fluid rounded img-30"></a>';
+                }
+        }
     }
 
     public function BuscarAccion($reg)

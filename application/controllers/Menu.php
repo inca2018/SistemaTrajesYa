@@ -9,10 +9,9 @@ class Menu extends CI_Controller {
 
    function CerrarSession(){
       $this->session->sess_destroy();      
-      $this->load->view('login');      
+      $this->load->view('Login');
    }
 
 }
 
 /* End of file MenuPhp.php */
- 
