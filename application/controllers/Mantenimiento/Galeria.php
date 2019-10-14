@@ -195,7 +195,7 @@ class Galeria extends CI_Controller
         if($data->imagenPortada!=null){
             $ruta="assets/images/".$data->imagenPortada;
             // Cargando la imagen
-            $archivo = file_get_contents($ruta);
+           $archivo = file_get_contents($ruta);
             // Decodificando la imagen en base64
             $base64 = 'data:image/jpg;base64,' . base64_encode($archivo);
             $data->imagenPortada=$base64;

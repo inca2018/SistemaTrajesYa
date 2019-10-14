@@ -49,10 +49,11 @@ class Medida extends CI_Controller
             $data[] = array(
 
                 "0" => $reg->Titulo,
-                "1" => $this->BuscarAccion($reg),
-                "2" => $reg->fechaRegistro,
-                "3" => $reg->fechaUpdate,
-                "4" => $this->BuscarEstado($reg)
+                "1" => $reg->simbolo,
+                "2" => $this->BuscarAccion($reg),
+                "3" => $reg->fechaRegistro,
+                "4" => $reg->fechaUpdate,
+                "5" => $this->BuscarEstado($reg)
             );
         }
 
@@ -74,6 +75,7 @@ class Medida extends CI_Controller
             'Tipo' => 'success'
         );
         $this->form_validation->set_rules('MedidaTitulo', 'Titulo del Medida', 'trim|required|min_length[3]|max_length[120]');
+        $this->form_validation->set_rules('MedidaSimbolo', 'Simbolos de la Medida', 'trim|required|min_length[1]|max_length[3]');
 
         if ($this->form_validation->run() == true) {
             /* Registras Medida */

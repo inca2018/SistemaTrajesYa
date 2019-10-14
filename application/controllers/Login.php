@@ -32,24 +32,33 @@ class Login extends CI_Controller {
                 $passwordDesencriptado=$this->Descrypto->Desencriptar($obtenerUsuario->password);
 
                 if($passwordDesencriptado===$L_Password){
-                    // grabar usuario
-                    $user_data = array(
-                    'idLogin' => $obtenerUsuario->idUsuario, 
-                    'idUsuario' => $obtenerUsuario->idUsuario,
-                    'usuario' => $obtenerUsuario->usuario,
-                    'NombreUsuario'=>$obtenerUsuario->usuarioNombres,
-                    'DniUsuario'=>$obtenerUsuario->Dni,
-                    'Correo'=>$obtenerUsuario->Correo,
-                    'idPerfil' => $obtenerUsuario->idPerfil,
-                    'Perfil' => $obtenerUsuario->perfilUsuario,
-                    'idEstado' => $obtenerUsuario->idEstado,    
-                    'Estado' => $obtenerUsuario->estadoUsuario,
-                    'FechaRegistro' => $obtenerUsuario->fechaRegistro,
-                    'Imagen' => $obtenerUsuario->imagen,
-                    'logged_in' => true  
-                    );            
-                    $this->session->set_userdata($user_data);
-                    redirect('Menu');
+                    if($obtenerUsuario->idPerfil==2){
+                          $data = array(
+                            'errors' => 'Usuario no tiene Permisos para entrar a la plataforma.'
+                            );
+                            $this->session->set_flashdata($data);
+                            redirect('Login');
+                    }else{
+                       // grabar usuario
+                        $user_data = array(
+                        'idLogin' => $obtenerUsuario->idUsuario,
+                        'idUsuario' => $obtenerUsuario->idUsuario,
+                        'usuario' => $obtenerUsuario->usuario,
+                        'NombreUsuario'=>$obtenerUsuario->usuarioNombres,
+                        'DniUsuario'=>$obtenerUsuario->Dni,
+                        'Correo'=>$obtenerUsuario->Correo,
+                        'idPerfil' => $obtenerUsuario->idPerfil,
+                        'Perfil' => $obtenerUsuario->perfilUsuario,
+                        'idEstado' => $obtenerUsuario->idEstado,
+                        'Estado' => $obtenerUsuario->estadoUsuario,
+                        'FechaRegistro' => $obtenerUsuario->fechaRegistro,
+                        'Imagen' => $obtenerUsuario->imagen,
+                        'logged_in' => true
+                        );
+                        $this->session->set_userdata($user_data);
+                        redirect('Menu');
+                    }
+
                 }else{
                     $data = array(
                     'errors' => 'Contraseña invalido.'
