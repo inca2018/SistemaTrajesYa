@@ -45,6 +45,7 @@ class MProducto extends CI_Model
             'DescripcionProducto' =>$this->input->post('ProductoDescripcion'),
             'verificado' =>$this->input->post('ProductoVerificado'),
             'imagenPortada' =>$Documento,
+            'Tendencia' =>$_POST["Tendencia"],
             'Categoria_idCategoria' =>$this->input->post('ProductoCategoria'),
             'SubCategoria_idSubCategoria' =>$this->input->post('ProductoSubCategoria'),
             'Departamento_idDepartamento' =>$departamento,
@@ -92,6 +93,7 @@ class MProducto extends CI_Model
             'DescripcionProducto' =>$this->input->post('ProductoDescripcion'),
             'verificado' =>$this->input->post('ProductoVerificado'),
             'imagenPortada' =>$Documento,
+            'Tendencia' =>$_POST["Tendencia"],
             'Categoria_idCategoria' =>$this->input->post('ProductoCategoria'),
             'SubCategoria_idSubCategoria' =>$this->input->post('ProductoSubCategoria'),
             'Departamento_idDepartamento' =>$departamento,
@@ -112,7 +114,7 @@ class MProducto extends CI_Model
     }
     public function ListarProducto()
     {
-        $this->db->select('p.idProducto,p.NombreProducto as Titulo,p.DescripcionProducto,p.verificado,p.imagenPortada as imagen,DATE_FORMAT(p.fechaRegistro,"%d/%m/%Y") as fechaRegistro,DATE_FORMAT(p.fechaUpdate,"%d/%m/%Y") as fechaUpdate,p.Estado_idEstado,e.DescripcionEstado as nombreEstado,cat.Grupo_idGrupo as tipo,cat.idCategoria,cat.NombreCategoria as categoria,sub.idSubCategoria as subcategoria,sub.NombreSubCategoria,dep.departamento,pro.provincia,dis.distrito ');
+        $this->db->select('p.idProducto,p.NombreProducto as Titulo,p.DescripcionProducto,p.Tendencia,p.verificado,p.imagenPortada as imagen,DATE_FORMAT(p.fechaRegistro,"%d/%m/%Y") as fechaRegistro,DATE_FORMAT(p.fechaUpdate,"%d/%m/%Y") as fechaUpdate,p.Estado_idEstado,e.DescripcionEstado as nombreEstado,cat.Grupo_idGrupo as tipo,cat.idCategoria,cat.NombreCategoria as categoria,sub.idSubCategoria as subcategoria,sub.NombreSubCategoria,dep.departamento,pro.provincia,dis.distrito ');
         $this->db->from('producto p');
         $this->db->join('categoria cat', 'cat.idCategoria=p.Categoria_idCategoria');
         $this->db->join('subcategoria sub', 'sub.idSubCategoria=p.SubCategoria_idSubCategoria');
@@ -204,6 +206,25 @@ class MProducto extends CI_Model
           $this->db->where('Categoria_idCategoria', $_POST['idCategoria']);
           return $this->db->get();
     }
+
+      public function ListarProductosSelect()
+    {
+          $query=$this->db->select("*");
+          $this->db->from('producto');
+          $this->db->where('Estado_idEstado','1');
+          $this->db->where('SubCategoria_idSubCategoria', $_POST['idSubCategoria']);
+          return $this->db->get();
+    }
+       public function ListarMedidasSelect()
+    {
+
+          $query=$this->db->select("me.idMedida,me.NombreMedida");
+          $this->db->from('producto_medida pm');
+          $this->db->join('medida me', 'me.idMedida=pm.Medida_idMedida','inner');
+          $this->db->where('pm.Producto_idProducto', $_POST['idProducto']);
+          return $this->db->get();
+    }
+
      public function ListarDepartamento()
     {
           $query=$this->db->select("*");

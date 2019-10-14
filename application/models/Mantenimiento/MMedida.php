@@ -21,6 +21,7 @@ class MMedida extends CI_Model
     {
         $data= array(
             'NombreMedida' =>mb_convert_case(mb_strtolower($this->input->post('MedidaTitulo')), MB_CASE_TITLE, "UTF-8"),
+            'simbolo' =>mb_strtoupper($this->input->post('MedidaSimbolo')),
             'Estado_idEstado' => 1,
             'fechaRegistro' => $this->glob['FechaAhora']
         );
@@ -39,6 +40,7 @@ class MMedida extends CI_Model
     {
         $data= array(
             'NombreMedida' => mb_convert_case(mb_strtolower($this->input->post('MedidaTitulo')), MB_CASE_TITLE, "UTF-8"),
+            'simbolo' =>mb_strtoupper($this->input->post('MedidaSimbolo')),
             'fechaUpdate' => $this->glob['FechaAhora']
         );
         $this->db->where('idMedida', $_POST['MedidaidMedida']);
@@ -55,7 +57,7 @@ class MMedida extends CI_Model
     public function ListarMedida()
     {
 
-        $this->db->select('m.idMedida,m.NombreMedida as Titulo,DATE_FORMAT(m.fechaRegistro,"%d/%m/%Y") as fechaRegistro,DATE_FORMAT(m.fechaUpdate,"%d/%m/%Y") as fechaUpdate,m.estado_idEstado,e.DescripcionEstado as nombreEstado ');
+        $this->db->select('m.idMedida,m.simbolo,m.NombreMedida as Titulo,DATE_FORMAT(m.fechaRegistro,"%d/%m/%Y") as fechaRegistro,DATE_FORMAT(m.fechaUpdate,"%d/%m/%Y") as fechaUpdate,m.estado_idEstado,e.DescripcionEstado as nombreEstado ');
         $this->db->from('medida m');
         $this->db->join('estado e', 'e.idEstado=m.estado_idEstado');
         $this->db->order_by('m.idMedida', 'desc');

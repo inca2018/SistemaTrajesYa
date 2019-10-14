@@ -120,5 +120,49 @@ class MPromocion extends CI_Model
 
 
 
+    public function ListarProductos()
+    {
+        $this->db->select('p.idProducto,p.NombreProducto as Titulo,pp.Descuento ');
+        $this->db->from('producto p');
+         $this->db->join('producto_promocion pp', 'p.idProducto=pp.Producto_idProducto','left');
+        $this->db->where('p.Estado_idEstado',1);
+        $this->db->order_by('p.NombreProducto', 'asc');
+        return $this->db->get();
+    }
+
+    public function ObtenerPromociones()
+    {
+
+        $this->db->select('pp.Producto_idProducto as idProducto,pp.Descuento');
+        $this->db->from('producto_promocion pp');
+        return $this->db->get();
+    }
+
+     public function AgregarPromocionProducto(){
+         $data= array(
+            'Descuento' => $_POST['Descuento'],
+            'Producto_idProducto' => $_POST['idProducto'],
+            'fechaRegistro' => $this->glob['FechaAhora']
+        );
+        $insert_data["Registro"] = $this->db->insert('producto_promocion', $data);
+        $insert_data["errDB"]    = $this->db->error();
+        return $insert_data;
+    }
+
+     public function QuitarPromoDescuentos(){
+        $where= array(
+            'Producto_idProducto' => $_POST['idProducto']
+        );
+
+        $this->db->where($where);
+
+        $delete_data["Delete"] = $this->db->delete('producto_promocion');
+        $delete_data["errDB"]  = $this->db->error();
+        return $delete_data;
+    }
+
+
+
+
 }
 /* End of file MPromocion.php */
