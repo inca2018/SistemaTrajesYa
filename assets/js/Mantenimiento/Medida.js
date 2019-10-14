@@ -119,6 +119,7 @@ function RecuperarMedida(idMedida) {
         console.log(data);
         $("#MedidaidMedida").val(data.idMedida);
         $("#MedidaTitulo").val(data.NombreMedida);
+        $("#MedidaSimbolo").val(data.simbolo);
 
     });
 }

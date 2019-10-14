@@ -1,6 +1,7 @@
 var tablaProducto;
 var Filter;
-var Cantidad = 1
+var Cantidad = 1;
+var TendenciaOpcion=false;
 
 function init() {
     uploadImage();
@@ -13,6 +14,14 @@ function init() {
 function Iniciar_Componentes() {
     $("#FormularioProducto").on("submit", function (e) {
         RegistroProducto(e);
+    });
+
+    $("#ProductoTendencia").change(function() {
+        if(this.checked) {
+            TendenciaOpcion=true;
+        }else{
+            TendenciaOpcion=false;
+        }
     });
 }
 
@@ -108,11 +117,21 @@ function ListarDistrito(idProvincia) {
 }
 
 function RegistroProducto(event) {
+
+    var Tendencia=0;
+    if(TendenciaOpcion){
+        Tendencia=1;
+    }else{
+        Tendencia=0;
+    }
+
+
     event.preventDefault();
     var imagenes = RecuperarImagenes();
     var imagenesBr = imagenes.join("|");
     var formData = new FormData($("#FormularioProducto")[0]);
     formData.append("Imagenes", imagenesBr);
+    formData.append("Tendencia", Tendencia);
     console.log(formData);
     $.ajax({
         url: "/Mantenimiento/Producto/InsertUpdateProducto",
@@ -227,7 +246,18 @@ function RecuperarProducto(idProducto) {
         $("#ProductoidProducto").val(data.idProducto);
         $("#ProductoTitulo").val(data.NombreProducto);
         $("#ProductoDescripcion").val(data.DescripcionProducto);
-         $("#ProductoVerificado").val(data.verificado);
+        $("#ProductoVerificado").val(data.verificado);
+
+        if(data.Tendencia==1 || data.Tendencia=="1"){
+            //Tendencia = 1
+            $('#ProductoTendencia').prop('checked', true);
+            TendenciaOpcion=true;
+        }else{
+            //Tendencia = 2
+             $('#ProductoTendencia').prop('checked', false);
+            TendenciaOpcion=false;
+        }
+
         if (data.imagenPortada != null && data.imagenPortada!="") {
             //Recuperando 1 Imagen
             var images = $('.images');
@@ -274,7 +304,6 @@ function RecuperarProducto(idProducto) {
                 });
             });
         });
-
     });
 }
 
@@ -354,6 +383,8 @@ function LimpiarProducto() {
     $('#FormularioProducto')[0].reset();
     $("#ProductoidProducto").val("");
     resetUpload();
+    TendenciaOpcion=false;
+    $('#ProductoTendencia').prop('checked', false);
 }
 
 function Cancelar() {
@@ -386,11 +417,13 @@ function Galeria(idProducto){
         'idProducto': idProducto
     });
 }
+
 function AsignacionMedida(idProducto){
      $.redirect('/Mantenimiento/AsignacionMedida/', {
         'idProducto': idProducto
     });
 }
+
 function Tarifa(idProducto){
      $.redirect('/Mantenimiento/Tarifa/', {
         'idProducto': idProducto

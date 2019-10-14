@@ -1,12 +1,148 @@
 var tablaPromocion;
 var Filter;
-var Cantidad = 1
+var Cantidad = 1;
+
+var Accion = false;
 
 function init() {
     uploadImage();
     Iniciar_Componentes();
     Listar_Promocion();
 
+    Listar_Productos();
+}
+
+function Listar_Productos() {
+    $.post("/Mantenimiento/Promocion/ListarProductos", function (ts) {
+        $("#selectPromocion").empty();
+        $("#selectPromocion").append(ts);
+        FuncionSelecMultiple();
+        ObtenerPromociones();
+    });
+}
+
+function FuncionSelecMultiple() {
+    $('.buscadoPromocion').multiSelect({
+        selectableHeader: "<input type='text' class='form-control' autocomplete='off' placeholder='Buscar Producto'>",
+        selectionHeader: "<input type='text' class='form-control' autocomplete='off' placeholder='Buscar Producto'>",
+        afterInit: function (ms) {
+            var that = this,
+                $selectableSearch = that.$selectableUl.prev(),
+                $selectionSearch = that.$selectionUl.prev(),
+                selectableSearchString = '#' + that.$container.attr('id') + ' .ms-elem-selectable:not(.ms-selected)',
+                selectionSearchString = '#' + that.$container.attr('id') + ' .ms-elem-selection.ms-selected';
+
+            that.qs1 = $selectableSearch.quicksearch(selectableSearchString)
+                .on('keydown', function (e) {
+                    if (e.which === 40) {
+                        that.$selectableUl.focus();
+                        return false;
+                    }
+                });
+
+            that.qs2 = $selectionSearch.quicksearch(selectionSearchString)
+                .on('keydown', function (e) {
+                    if (e.which == 40) {
+                        that.$selectionUl.focus();
+                        return false;
+                    }
+                });
+        },
+        afterSelect: function (values) {
+            this.qs1.cache();
+            this.qs2.cache();
+            if (!Accion) {
+                AgregarPromocionProducto(values);
+            }
+
+        },
+        afterDeselect: function (values) {
+            this.qs1.cache();
+            this.qs2.cache();
+            if (!Accion) {
+                QuitarPromocionProducto(values);
+            }
+
+        }
+    });
+}
+
+function ObtenerPromociones() {
+    $.post("/Mantenimiento/Promocion/ObtenerPromociones", function (data, status) {
+        data = JSON.parse(data);
+        console.log(data);
+        Accion = true;
+        for (var x = 0; x < data.length; x++) {
+            $('#selectPromocion').multiSelect('select', data[x]);
+        }
+        Accion = false;
+    });
+}
+
+function AgregarPromocionProducto(ArregloId) {
+
+    $("#ModalDescuento").modal({
+        backdrop: 'static',
+        keyboard: false
+    });
+    $("#ModalDescuento").modal("show");
+
+    $("#idProductoProm").val(ArregloId);
+}
+
+function CancelarDescuento() {
+    var idProdRecu = $("#idProductoProm").val();
+    $('#selectPromocion').multiSelect('deselect', [idProdRecu]);
+    $("#idProductoProm").val(0);
+    $("#Descuento").val("0 %");
+    $("#DescuentoO").val(0);
+    $("#ModalDescuento").modal("hide");
+    return false;
+}
+
+function Limpiar() {
+    $("#ModalDescuento").modal("hide");
+    $("#idProductoProm").val(0);
+    $("#Descuento").val("0 %");
+    $("#DescuentoO").val(0);
+}
+
+function GuardarDescuento() {
+
+    var Descuento = $("#DescuentoO").val();
+    var IdProducto = $("#idProductoProm").val();
+    if(Descuento==0){
+         mensaje_warning("Ingrese un Descuento Valido.");
+    }else{
+       AjaxAgregarPromocionProducto(Descuento, IdProducto);
+    }
+
+}
+
+function AjaxAgregarPromocionProducto(Descuento, idProducto) {
+
+    $.post("/Mantenimiento/Promocion/AgregarPromocionProducto", {
+        "idProducto": idProducto,
+        "Descuento": Descuento
+    }, function (data, status) {
+        data = JSON.parse(data);
+        console.log(data);
+        Limpiar();
+    });
+}
+
+function QuitarPromocionProducto(ArregloId) {
+    AjaxQuitarPromocionProducto(ArregloId[0]);
+}
+
+function AjaxQuitarPromocionProducto(idProducto) {
+
+    $.post("/Mantenimiento/Promocion/QuitarPromoDescuentos", {
+        "idProducto": idProducto
+    }, function (data, status) {
+        data = JSON.parse(data);
+        console.log(data);
+    });
 }
 
 function uploadImage() {
@@ -38,6 +174,38 @@ function uploadImage() {
 }
 
 function Iniciar_Componentes() {
+    $("#Descuento").change(function () {
+        var desc = $("#Descuento").val();
+        if (desc != '') {
+            $("#DescuentoO").val(parseFloat(desc));
+            $("#Descuento").val(Formato_Moneda(parseFloat(desc), 2) + " %");
+        } else {
+            $("#DescuentoO").val(0);
+            $("#Descuento").val("0 %");
+        }
+    });
+
+    $("#Descuento").click(function () {
+        $("#Descuento").val($("#DescuentoO").val());
+    });
+
+    $("#Descuento").blur(function () {
+        $("#Descuento").val(Formato_Moneda(parseFloat($("#DescuentoO").val()), 2) + " %");
+    });
+
+
+
+
+
+
+    $('#SeleccionarTodo').on('click', function () {
+        $('#selectMedidas').multiSelect('select_all');
+        return false;
+    });
+    $('#QuitarTodo').on('click', function () {
+        $('#selectMedidas').multiSelect('deselect_all');
+        return false;
+    });
 
     $("#FormularioPromocion").on("submit", function (e) {
         RegistroPromocion(e);
