@@ -34,6 +34,7 @@ $this->load->view('Layout/Nav');
                                 </div>
                             </div>
                         </div>
+
                         <div class="card-block">
                             <div class="row">
                                 <div class="col-md-12">
@@ -96,10 +97,20 @@ $this->load->view('Layout/Nav');
                             <label class="col-form-label">Descripción de Categoria:</label>
                             <textarea name="ProductoDescripcion" id="ProductoDescripcion" class="form textarea form-control" rows="3" ></textarea>
                         </div>
-                         <div class="col-sm-12 col-md-12">
+
+                         <div class="col-sm-9 col-md-9">
                             <label class="col-form-label">Verificado Por:</label>
                             <input type="text" class="form-control validarPanel" name="ProductoVerificado" id="ProductoVerificado" value=""  maxlength="150">
                         </div>
+                          <div class="col-sm-3 col-md-3 mt-4">
+                             <div class="checkbox-color checkbox-warning mt-3">
+                                <input id="ProductoTendencia" type="checkbox">
+                                <label for="ProductoTendencia">
+                                    Tendencia
+                                </label>
+                            </div>
+                        </div>
+
                         <div class="col-sm-6 col-md-6">
                             <label class="col-form-label">Categoria:</label>
                             <select class="form-control" id="ProductoCategoria" name="ProductoCategoria"> </select>

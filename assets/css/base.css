@@ -206,3 +206,7 @@
     background: linear-gradient(135deg, #FEDA3B 0%, #F6A300 100%) !important;
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FEDA3B', endColorstr='#F6A300', GradientType=1) !important;
 }
+
+.modal-xl{
+    max-width: 1140px !important;
+}

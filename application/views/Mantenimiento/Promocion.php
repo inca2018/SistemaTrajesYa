@@ -56,6 +56,34 @@ $this->load->view('Layout/Nav');
                                 </div>
                             </div>
                         </div>
+
+
+                         <div class="card-block">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Productos con Promoción:</h6>
+                                </div>
+                                <div class="col-sm-6 offset-6 text-right">
+                                    <!--<button title="Seleccionar Todo" type="button" class="btn btn-grd-success btn-sm btn-round waves-effect waves-light m-b-10" id='SeleccionarTodo' ><i class="fa fa-plus mr-1"></i>
+                                    </button>-->
+                                    <button title="Quitar Todo" type="button" class="btn btn-grd-danger btn-sm btn-round waves-effect waves-light m-b-10" id='QuitarTodo'><i class="fa fa-trash mr-1"></i>
+                                    </button>
+                                </div>
+
+                                <div class="col-6 text-center">
+                                    <h4 class="">Productos sin Promción</h4>
+                                </div>
+                                <div class="col-6 text-center">
+                                    <h4 class="">Productos con Promoción</h4>
+                                </div>
+                                <div class="col-12">
+                                    <select id='selectPromocion' class="buscadoPromocion" multiple='multiple'>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br>
                     </div>
                 </div>
             </div>
@@ -110,6 +138,37 @@ $this->load->view('Layout/Nav');
                             <input type="submit" value="GUARDAR" class="btn btn-grd-primary btn-round btn-sm"> </div>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ModalDescuento" role="dialog" aria-labelledby="myModalLabelLarge" aria-hidden="true" style="z-index:10001 !important;">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-body">
+                    <div class="form-group row">
+                        <div class="col-sm-12 center_element">
+                            <h4 id="">Ingrese Descuento de Promoción (%)</h4>
+                            <hr>
+                        </div>
+                    </div>
+                    <input type="hidden" id="DescuentoO" value="0 %">
+                    <input type="hidden" id="idProductoProm" value="0">
+                    <div class="row form-group">
+                        <div class="col-sm-12 col-md-12">
+                            <label class="col-form-label">Descuento:</label>
+                            <input type="text" class="form-control validarPanel" name="Descuento" id="Descuento" value="0 %"  onkeypress="return SoloNumerosModificado(event,2,this.id);" >
+                        </div>
+                    </div>
+
+                    <hr>
+                    <div class="row">
+                        <div class="col col-md-6 text-left">
+                            <input type="button" class="btn btn-grd-danger btn-round btn-sm"  value="CANCELAR" onclick="CancelarDescuento();"> </div>
+                        <div class="col col-md-6 text-right">
+                            <input type="button" value="GUARDAR" class="btn btn-grd-primary btn-round btn-sm" onclick="GuardarDescuento()"> </div>
+                    </div>
+
             </div>
         </div>
     </div>
