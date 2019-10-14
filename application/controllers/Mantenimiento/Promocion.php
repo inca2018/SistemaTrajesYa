@@ -267,4 +267,42 @@ class Promocion extends CI_Controller
         echo json_encode($data);
     }
 
+
+     public function ListarProductos(){
+         $rspta = $this->MPromocion->ListarProductos();
+            foreach ($rspta->result() as $reg) {
+                $temp="";
+                if($reg->Descuento!=""){
+                    $temp=" - Descuento : ".$reg->Descuento." %";
+                }
+
+             	echo '<option class="opcionProducto"   value=' . $reg->idProducto . '>' . $reg->Titulo. ''.$temp.'</option>';
+            }
+    }
+
+    public function ObtenerPromociones(){
+
+        $rspta = $this->MPromocion->ObtenerPromociones();
+        $data  = array();
+
+        foreach ($rspta->result() as $reg) {
+            $data[] = array(
+                "0" => $reg->idProducto,
+                "1" => $reg->Descuento
+            );
+        }
+
+        echo json_encode($data);
+    }
+
+    public function AgregarPromocionProducto(){
+        $data = $this->MPromocion->AgregarPromocionProducto();
+        echo json_encode($data);
+    }
+    public function QuitarPromoDescuentos(){
+        $data = $this->MPromocion->QuitarPromoDescuentos();
+        echo json_encode($data);
+    }
+
+
 }
