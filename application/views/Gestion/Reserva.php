@@ -31,7 +31,7 @@ $this->load->view('Layout/Nav');
                                             <div class="row align-items-center">
                                                 <div class="col">
                                                     <p class="m-b-5">Usuarios APP</p>
-                                                    <h4 class="m-b-0">0</h4>
+                                                    <h4 class="m-b-0" id="Indicador1">0</h4>
                                                 </div>
                                                 <div class="col col-auto text-right">
                                                     <i class="feather icon-user f-50 text-c-yellow"></i>
@@ -46,7 +46,7 @@ $this->load->view('Layout/Nav');
                                             <div class="row align-items-center">
                                                 <div class="col">
                                                     <p class="m-b-5">Ventas del Dia</p>
-                                                    <h4 class="m-b-0">$0.00</h4>
+                                                    <h5 class="m-b-0" id="Indicador2">S/ 0.00</h5>
                                                 </div>
                                                 <div class="col col-auto text-right">
                                                     <i class="feather icon-shopping-cart f-50 text-c-blue"></i>
@@ -61,7 +61,7 @@ $this->load->view('Layout/Nav');
                                             <div class="row align-items-center">
                                                 <div class="col">
                                                     <p class="m-b-5">Reserva Nueva</p>
-                                                    <h4 class="m-b-0">0</h4>
+                                                    <h4 class="m-b-0" id="Indicador3">0</h4>
                                                 </div>
                                                 <div class="col col-auto text-right">
                                                     <i class="feather icon-book f-50 text-c-green"></i>
@@ -76,7 +76,7 @@ $this->load->view('Layout/Nav');
                                             <div class="row align-items-center">
                                                 <div class="col">
                                                     <p class="m-b-5">Reserva Cerrada</p>
-                                                    <h4 class="m-b-0">0</h4>
+                                                    <h4 class="m-b-0" id="Indicador4">0</h4>
                                                 </div>
                                                 <div class="col col-auto text-right">
                                                     <i class="feather icon-book f-50 text-c-pink"></i>
@@ -99,14 +99,15 @@ $this->load->view('Layout/Nav');
                                             <thead class="thead-light text-center">
                                                 <tr>
                                                     <th>Codigo</th>
-                                                    <th>Acciones</th>
+                                                    <th>Estado</th>
                                                     <th>Fecha Reserva</th>
                                                     <th>Tipo</th>
                                                     <th>Solicitante</th>
                                                     <th>Monto Total</th>
-                                                    <th>Estado</th>
+                                                    <th>Acciones</th>
                                                     <th>Fecha Asignación</th>
                                                     <th>Usuario Asignado</th>
+                                                    <th>Local Asignado</th>
                                                     <th>Fecha de Reg.</th>
                                                 </tr>
                                             </thead>
@@ -133,7 +134,7 @@ $this->load->view('Layout/Nav');
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-body">
-
+                <input type="hidden" name="idReservaBase" id="idReservaBase">
                 <div class="card-block">
                     <div class="row form-group">
                         <h5 class="col-md-12 sub-title">Información General</h5>
@@ -324,7 +325,7 @@ $this->load->view('Layout/Nav');
                                         <th>Descuento</th>
                                         <th>Precio Unitario</th>
                                         <th>Precio Total</th>
-                                          <th>Medida</th>
+                                        <th>Medida</th>
                                         <th>Grupo/Categoria/SubCategoria</th>
                                     </tr>
                                 </thead>
@@ -334,54 +335,70 @@ $this->load->view('Layout/Nav');
                         <div id="idFormulario" class="col-md-4 bl" style="display:none !important;">
                             <div class="row">
                                 <div class="col-md-12">
-                                        <form id="FormularioReservaDetalle" method="POST" autocomplete="off">
-                                            <input type="hidden" name="idReservaOculta" id="idReservaOculta">
-                                            <input type="hidden" name="idReservaProductoItem" id="idReservaProductoItem">
-                                            <div class="form-group row">
-                                                <div class="col-sm-12">
-                                                    <h4 id="tituloModalDetalleItemProducto" class="center_element"></h4>
-                                                    <hr>
-                                                </div>
+                                    <form id="FormularioReservaDetalle" method="POST" autocomplete="off">
+                                        <input type="hidden" name="idReservaOculta" id="idReservaOculta">
+                                        <input type="hidden" name="idReservaProductoItem" id="idReservaProductoItem">
+                                        <div class="form-group row">
+                                            <div class="col-sm-12">
+                                                <h4 id="tituloModalDetalleItemProducto" class="center_element"></h4>
+                                                <hr>
                                             </div>
-                                            <div class="row form-group">
-                                                <div class="col-sm-12 col-md-12">
-                                                    <label class="col-form-label">Categoria:</label>
-                                                    <select class="form-control" id="ReservaDetalleCategoria" name="ReservaDetalleCategoria"> </select>
-                                                </div>
-                                                <div class="col-sm-12 col-md-12">
-                                                    <label class="col-form-label">SubCategoria:</label>
-                                                    <select class="form-control" id="ReservaDetalleSubCategoria" name="ReservaDetalleSubCategoria">
-                                                        <option value="0">--- SELECCIONE ---</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-sm-12 col-md-12">
-                                                    <label class="col-form-label">Producto:</label>
-                                                    <select class="form-control" id="ReservaDetalleProducto" name="ReservaDetalleProducto">
-                                                        <option value="0">--- SELECCIONE ---</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-sm-12 col-md-12">
-                                                    <label class="col-form-label">Medida:</label>
-                                                    <select class="form-control" id="ReservaDetalleMedida" name="ReservaDetalleMedida">
-                                                        <option value="0">--- SELECCIONE ---</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-sm-12 col-md-12">
-                                                    <label class="col-form-label">Cantidad:</label>
-                                                    <input type="text" class="form-control" name="ReservaDetalleCantidad" id="ReservaDetalleCantidad" onkeypress="return SoloNumerosModificado(event,2,this.id);">
-                                                </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <div class="col-sm-12 col-md-12">
+                                                <label class="col-form-label">Categoria:</label>
+                                                <select class="form-control" id="ReservaDetalleCategoria" name="ReservaDetalleCategoria"> </select>
                                             </div>
-                                            <hr>
-                                            <div class="row">
-                                                <div class="col col-md-6 text-left">
-                                                    <input type="button" class="btn btn-grd-danger btn-round btn-sm" value="CANCELAR" onclick="CancelarNuevo();"> </div>
-                                                <div class="col col-md-6 text-right">
-                                                    <input type="submit" value="GUARDAR" class="btn btn-grd-primary btn-round btn-sm">
-                                                </div>
+                                            <div class="col-sm-12 col-md-12">
+                                                <label class="col-form-label">SubCategoria:</label>
+                                                <select class="form-control" id="ReservaDetalleSubCategoria" name="ReservaDetalleSubCategoria">
+                                                    <option value="0">--- SELECCIONE ---</option>
+                                                </select>
                                             </div>
-                                        </form>
+                                            <div class="col-sm-12 col-md-12">
+                                                <label class="col-form-label">Producto:</label>
+                                                <select class="form-control" id="ReservaDetalleProducto" name="ReservaDetalleProducto">
+                                                    <option value="0">--- SELECCIONE ---</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-12 col-md-12">
+                                                <label class="col-form-label">Medida:</label>
+                                                <select class="form-control" id="ReservaDetalleMedida" name="ReservaDetalleMedida">
+                                                    <option value="0">--- SELECCIONE ---</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-12 col-md-12">
+                                                <label class="col-form-label">Cantidad:</label>
+                                                <input type="text" class="form-control" name="ReservaDetalleCantidad" id="ReservaDetalleCantidad" onkeypress="return SoloNumerosModificado(event,2,this.id);">
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col col-md-6 text-left">
+                                                <input type="button" class="btn btn-grd-danger btn-round btn-sm" value="CANCELAR" onclick="CancelarNuevo();"> </div>
+                                            <div class="col col-md-6 text-right">
+                                                <input type="submit" value="GUARDAR" class="btn btn-grd-primary btn-round btn-sm">
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row form-group" id="AreaObservacion" style="display:none !important;">
+                        <div class="col-sm-6 col-md-6">
+                            <label class="col-form-label">Asignación de Local:</label>
+                            <select class="form-control" id="ReservaDetalleLocal" name="ReservaDetalleLocal"> </select>
+                        </div>
+                        <div class="col-sm-12 col-md-12">
+                            <label class="col-form-label">Observaciones:</label>
+                            <textarea name="ReservaObservaciones" id="ReservaObservaciones" class="form textarea form-control" rows="5"></textarea>
+                        </div>
+                    </div>
+                    <div class="row form-group" id="AreaBotonObservacion" style="display:none !important;">
+                        <div class="col-sm-3 col-md-3">
+                            <button id="botonObservaciones" type="button" class="btn btn-grd-success btn-block" onclick="GuardarObservaciones();">GUARDAR</button>
                         </div>
                     </div>
                 </div>
@@ -398,7 +415,7 @@ $this->load->view('Layout/Nav');
 </div>
 
 <div class="modal fade" id="ModalAsignarReserva" role="dialog" aria-labelledby="myModalLabelLarge" aria-hidden="true" style="z-index:10001 !important;">
-     <div class="modal-dialog modal-sm">
+    <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-body">
                 <div class="card-block">
@@ -406,17 +423,90 @@ $this->load->view('Layout/Nav');
                         <h5 class="col-md-12 sub-title">Asignación de Reserva</h5>
                         <input type="hidden" id="idReservaAsignacion" name="idReservaAsignacion">
                         <div class="col-sm-12 col-md-12">
-                              <div class="row form-group">
-                                    <div class="col-sm-12 col-md-12">
-                                        <label class="col-form-label">Seleccionar Usuario:</label>
-                                        <select class="form-control" id="AsignacionUsuarios" name="AsignacionUsuarios"> </select>
-                                    </div>
-                              </div>
-                              <div class="row form-group">
-                                     <div class="col-sm-12 col-md-12">
-                                         <button  type="button" class="btn btn-grd-success btn-block" onclick="AsignarReservaAccion();">GUARDAR</button>
-                                     </div>
-                              </div>
+                            <div class="row form-group">
+                                <div class="col-sm-12 col-md-12">
+                                    <label class="col-form-label">Seleccionar Usuario:</label>
+                                    <select class="form-control" id="AsignacionUsuarios" name="AsignacionUsuarios"> </select>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-sm-12 col-md-12">
+                                    <button type="button" class="btn btn-grd-success btn-block" onclick="AsignarReservaAccion();">GUARDAR</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="ModalAnulacionReserva" role="dialog" aria-labelledby="myModalLabelLarge" aria-hidden="true" style="z-index:10001 !important;">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="card-block">
+                    <div class="row form-group">
+                        <h5 class="col-md-12 sub-title">Anulación de Reserva</h5>
+                        <input type="hidden" id="idReservaAnulacion" name="idReservaAnulacion">
+                        <div class="col-sm-12 col-md-12">
+                            <div class="row" id="AreaFechaAnulacion" style="display:none;">
+                                <div class="col-md-6">
+                                    <p class="text-muted m-b-5">Fecha de Anulación:</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p id="FechaAnulacionReserva" class="m-b-5 f-w-400"></p>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-sm-12 col-md-12">
+                                    <label class="col-form-label">Motivo Anulación:</label>
+                                    <textarea name="DetalleAnulacion" id="DetalleAnulacion" class="form textarea form-control" rows="5"></textarea>
+                                </div>
+                            </div>
+                            <div class="row form-group" id="AreaBotonAnulacion">
+                                <div class="col-sm-12 col-md-12">
+                                    <button type="button" class="btn btn-grd-success btn-block" onclick="AnularReservaAccion();">ANULAR</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalCierreReserva" role="dialog" aria-labelledby="myModalLabelLarge" aria-hidden="true" style="z-index:10001 !important;">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="card-block">
+                    <div class="row form-group">
+                        <h5 class="col-md-12 sub-title">Cierre de Reserva</h5>
+                        <input type="hidden" id="idReservaCierre" name="idReservaCierre">
+                        <div class="col-sm-12 col-md-12">
+                            <div class="row" id="AreaFechaCierre" style="display:none;">
+                                <div class="col-md-6">
+                                    <p class="text-muted m-b-5">Fecha de Cierre:</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p id="FechaCierreReserva" class="m-b-5 f-w-400"></p>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-sm-12 col-md-12">
+                                    <label class="col-form-label">Motivo de Cierre:</label>
+                                    <textarea name="DetalleCierre" id="DetalleCierre" class="form textarea form-control" rows="5"></textarea>
+                                </div>
+                            </div>
+                            <div class="row form-group" id="AreaBotonCierre">
+                                <div class="col-sm-12 col-md-12">
+                                    <button type="button" class="btn btn-grd-success btn-block" onclick="CierreReservaAccion();">CERRAR</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

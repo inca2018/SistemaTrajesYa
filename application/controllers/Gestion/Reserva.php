@@ -41,6 +41,19 @@ class Reserva extends CI_Controller
 
     }
 
+    public function Codigolocal($reg){
+        if($reg->idLocalAsignado==0){
+            return $reg->NombreLocalAsignado;
+        }else{
+            $num=($reg->idLocalAsignado);
+            $len=strlen($num);
+            $numCeros=5-$len;
+            $ceros=str_repeat("0",$numCeros);
+            $re="LTY-".$ceros.$num;
+            return $re." - ".$reg->NombreLocalAsignado;
+        }
+
+    }
     public function CalcularTotal($reg){
         $totalAlquiler=$reg->totalAlquiler;
         $totalVenta=$reg->totalVenta;
@@ -66,7 +79,7 @@ class Reserva extends CI_Controller
         }
     }
 
-    public function CalcularBaseDetalleReserva($reg,$tipoReserva){
+     public function CalcularBaseDetalleReserva($reg,$tipoReserva){
          if($tipoReserva="1" || $tipoReserva=1){
             return "S/ ".number_format($reg->PrecioAlquiler,2);
         }else{
@@ -91,8 +104,6 @@ class Reserva extends CI_Controller
         }
     }
 
-
-
      public function BuscarEstado($reg)
     {
         if ($reg->Estado_idEstado == '3' || $reg->Estado_idEstado == 3) {
@@ -108,44 +119,71 @@ class Reserva extends CI_Controller
 
     public function Acciones($reg)
     {
+         $idPerfil=$this->session->userdata('idPerfil');
+         $idUsuario=$this->session->userdata('idUsuario');
         //NUEVO
         if ($reg->Estado_idEstado == '3' || $reg->Estado_idEstado == 3) {
             return
-            '<button type="button" title="Ver Detalle Reserva" class="btn btn-grd-warning btn-mini btn-round" onclick="DetalleReserva('.$reg->idReserva.',1,0)"><i class="fa fa-wpforms"></i></button>
+            '<button type="button" title="Ver Detalle Reserva" class="btn btn-grd-warning btn-mini btn-round" onclick="DetalleReserva('.$reg->idReserva.',1,0,'.$reg->idUsuarioAsignado.')"><i class="fa fa-wpforms"></i></button>
             <button type="button"  title="Asignar Reserva" class="btn btn-grd-primary btn-mini btn-round" onclick="AsignarReserva('.$reg->idReserva.')"><i class="fa fa-check"></i></button>';
         //Atendido
         } elseif ($reg->Estado_idEstado == '4' || $reg->Estado_idEstado == 4) {
 
-             return
-            '<button type="button" title="Ver Detalle Reserva" class="btn btn-grd-warning btn-mini btn-round" onclick="DetalleReserva('.$reg->idReserva.',1,1)"><i class="fa fa-wpforms"></i></button>
-            <button type="button"  title="Asignar Reserva" class="btn btn-grd-primary btn-mini btn-round" onclick="AsignarReserva('.$reg->idReserva.')"><i class="fa fa-check"></i></button>';
+             if($idPerfil==1  || $idPerfil==4 ){
+                  return
+                    '<button type="button" title="Ver Detalle Reserva" class="btn btn-grd-warning btn-mini btn-round" onclick="DetalleReserva('.$reg->idReserva.',1,1,'.$reg->idUsuarioAsignado.')"><i class="fa fa-wpforms"></i></button>
+                    <button type="button"  title="Asignar Reserva" class="btn btn-grd-primary btn-mini btn-round" onclick="AsignarReserva('.$reg->idReserva.')"><i class="fa fa-check"></i></button>
+                    <button type="button"  title="Anular Reserva" class="btn btn-grd-danger btn-mini btn-round" onclick="AnularReserva('.$reg->idReserva.')"><i class="fa fa-times"></i></button>
+                    <button type="button"  title="Cerrar Reserva" class="btn btn-grd-success btn-mini btn-round" onclick="CerrarReserva('.$reg->idReserva.')"><i class="fa fa-money"></i></button>';
+             }elseif($idPerfil==3){
+
+                 if($idUsuario===$reg->idUsuarioAsignado){
+                      return
+                    '<button type="button" title="Ver Detalle Reserva" class="btn btn-grd-warning btn-mini btn-round" onclick="DetalleReserva('.$reg->idReserva.',1,1,'.$reg->idUsuarioAsignado.')"><i class="fa fa-wpforms"></i></button>
+                    <button type="button"  title="Anular Reserva" class="btn btn-grd-danger btn-mini btn-round" onclick="AnularReserva('.$reg->idReserva.')"><i class="fa fa-times"></i></button>
+                    <button type="button"  title="Cerrar Reserva" class="btn btn-grd-success btn-mini btn-round" onclick="CerrarReserva('.$reg->idReserva.')"><i class="fa fa-money"></i></button>';
+                 }else{
+                       return
+                    '<button type="button" title="Ver Detalle Reserva" class="btn btn-grd-warning btn-mini btn-round" onclick="DetalleReserva('.$reg->idReserva.',1,0,'.$reg->idUsuarioAsignado.')"><i class="fa fa-wpforms"></i></button>';
+                  }
+             }
 
         //Cerrado
         } elseif ($reg->Estado_idEstado == '6' || $reg->Estado_idEstado == 6) {
              return
-            '<button type="button" title="Ver Detalle Reserva" class="btn btn-grd-warning btn-mini btn-round" onclick="DetalleReserva('.$reg->idReserva.',1,0)"><i class="fa fa-wpforms"></i></button>
-            <button type="button"  title="Asignar Reserva" class="btn btn-grd-primary btn-mini btn-round" onclick="AsignarReserva('.$reg->idReserva.')"><i class="fa fa-check"></i></button>
-            <button type="button"  title="Anular Reserva" class="btn btn-grd-danger btn-mini btn-round" onclick="AnularReserva('.$reg->idReserva.')"><i class="fa fa-times"></i></button>
-            <button type="button"  title="Cerrar Reserva" class="btn btn-grd-danger btn-mini btn-round" onclick="CerrarReserva('.$reg->idReserva.')"><i class="fa fa-money"></i></button>';
+            '<button type="button" title="Ver Detalle Reserva" class="btn btn-grd-warning btn-mini btn-round" onclick="DetalleReserva('.$reg->idReserva.',1,0,'.$reg->idUsuarioAsignado.')"><i class="fa fa-wpforms"></i></button>
+            <button type="button"  title="Detalle de Cierre" class="btn btn-grd-danger btn-mini btn-round" onclick="DetalleCierre('.$reg->idReserva.')"><i class="fa fa-question-circle-o"></i></button>';
         //Anulado
         } elseif ($reg->Estado_idEstado == '7' || $reg->Estado_idEstado == 7) {
             return
-            '<button type="button" title="Ver Detalle Reserva" class="btn btn-grd-warning btn-mini btn-round" onclick="DetalleReserva('.$reg->idReserva.',1,0)"><i class="fa fa-wpforms"></i></button>
+            '<button type="button" title="Ver Detalle Reserva" class="btn btn-grd-warning btn-mini btn-round" onclick="DetalleReserva('.$reg->idReserva.',1,0,'.$reg->idUsuarioAsignado.')"><i class="fa fa-wpforms"></i></button>
             <button type="button"  title="Detalle Anulación" class="btn btn-grd-danger btn-mini btn-round" onclick="DetalleAnulacion('.$reg->idReserva.')"><i class="fa fa-question-circle-o"></i></button>
-            <button type="button"  title="Cerrar Reserva" class="btn btn-grd-danger btn-mini btn-round" onclick="CerrarReserva('.$reg->idReserva.')"><i class="fa fa-money"></i></button>';
+             ';
         }
     }
 
-    public function AccionesDetalleReserva($reg,$EstadoReserva){
-
+    public function AccionesDetalleReserva($reg,$EstadoReserva,$idUsuarioAsignado){
+            $idPerfil=$this->session->userdata('idPerfil');
+            $idUsuario=$this->session->userdata('idUsuario');
          switch ($EstadoReserva){
              case 3:
-                 return 'No Disponible';
+                return 'No Disponible';
                  break;
              case 4:
-                  return
-            '<button type="button" title="Editar Item" class="btn btn-grd-warning btn-mini btn-round" onclick="EditarItem('.$reg->idReservaItem.')"><i class="fa fa-edit"></i></button>
-            <button type="button"  title="Eliminar Item" class="btn btn-grd-danger btn-mini btn-round" onclick="EliminarItem('.$reg->idReservaItem.')"><i class="fa fa-trash"></i></button>';
+
+                 if($idPerfil==3){
+                     if($idUsuario==$idUsuarioAsignado){
+                     return
+                    '<button type="button" title="Editar Item" class="btn btn-grd-warning btn-mini btn-round" onclick="EditarItem('.$reg->idReservaItem.')"><i class="fa fa-edit"></i></button>
+                    <button type="button"  title="Eliminar Item" class="btn btn-grd-danger btn-mini btn-round" onclick="EliminarItem('.$reg->idReservaItem.')"><i class="fa fa-trash"></i></button>';
+                     }else{
+                         return 'No Disponible';
+                     }
+                 }elseif($idPerfil==1 || $idPerfil==4){
+                       return
+                    '<button type="button" title="Editar Item" class="btn btn-grd-warning btn-mini btn-round" onclick="EditarItem('.$reg->idReservaItem.')"><i class="fa fa-edit"></i></button>
+                    <button type="button"  title="Eliminar Item" class="btn btn-grd-danger btn-mini btn-round" onclick="EliminarItem('.$reg->idReservaItem.')"><i class="fa fa-trash"></i></button>';
+                 }
                  break;
              case 6:
                  return 'No Disponible';
@@ -166,17 +204,16 @@ class Reserva extends CI_Controller
         foreach ($rspta->result() as $reg) {
             $data[] = array(
                 "0" => $this->CorrelativoReserva($reg),
-                "1" => $this->Acciones($reg),
+                "1" => $this->BuscarEstado($reg),
                 "2" => $reg->fechaReserva.' '.$reg->tiempo,
                 "3" => $this->TipoReserva($reg),
                 "4" => $reg->UsuarioReserva,
                 "5" => $this->CalcularTotal($reg),
-                "6" => $this->BuscarEstado($reg),
+                "6" => $this->Acciones($reg),
                 "7" => $reg->fechaAsignacion,
                 "8" => $reg->UsuarioAsignado,
-                "9" => $reg->fechaRegistro
-
-
+                "9" => $this->Codigolocal($reg),
+                "10" => $reg->fechaRegistro
             );
         }
 
@@ -206,7 +243,7 @@ class Reserva extends CI_Controller
             $data[] = array(
                 "0" => "",
                 "1" => $this->CorrelativoProducto($reg),
-                "2" => $this->AccionesDetalleReserva($reg,$_POST["EstadoReserva"]),
+                "2" => $this->AccionesDetalleReserva($reg,$_POST["EstadoReserva"],$_POST["idUsuarioAsignado"]),
                 "3" => $reg->NombreProducto,
                 "4" => $reg->Cantidad." Trajes",
                 "5" => number_format($reg->PrecioDescuento,0)." %",
@@ -359,11 +396,93 @@ class Reserva extends CI_Controller
         echo json_encode($data);
     }
 
+
+         public function AnularProductoReserva()
+    {
+        $data = array(
+            'Error' => false,
+            'Mensaje' => '',
+            'Tipo' => 'success'
+        );
+
+        $delete = $this->MReserva->AnularProductoReserva();
+        if ($delete['Delete']) {
+            $data['Mensaje'] .= 'Reserva Anulada con exito!';
+        } else {
+            $data = array(
+                'Error' => true,
+                'Tipo' => 'danger',
+                'Mensaje' => 'Error al Eliminar en base de datos Error:' . $delete["errDB"]["code"] . ':' . $delete["errDB"]["message"] . ', Comuniquese con el area de sistemas.'
+            );
+        }
+
+        echo json_encode($data);
+    }
+
+     public function CerrarProductoReserva()
+    {
+        $data = array(
+            'Error' => false,
+            'Mensaje' => '',
+            'Tipo' => 'success'
+        );
+
+        $delete = $this->MReserva->CerrarProductoReserva();
+        if ($delete['Delete']) {
+            $data['Mensaje'] .= 'Reserva Anulada con exito!';
+        } else {
+            $data = array(
+                'Error' => true,
+                'Tipo' => 'danger',
+                'Mensaje' => 'Error al Eliminar en base de datos Error:' . $delete["errDB"]["code"] . ':' . $delete["errDB"]["message"] . ', Comuniquese con el area de sistemas.'
+            );
+        }
+
+        echo json_encode($data);
+    }
+
+    public function ActualizarObservaciones(){
+          $data = array(
+            'Error' => false,
+            'Mensaje' => '',
+            'Tipo' => 'success'
+        );
+
+        $delete = $this->MReserva->ActualizarObservaciones();
+        if ($delete['Delete']) {
+            $data['Mensaje'] .= 'Observaciones Actualizadas con exito.';
+        } else {
+            $data = array(
+                'Error' => true,
+                'Tipo' => 'danger',
+                'Mensaje' => 'Error al Eliminar en base de datos Error:' . $delete["errDB"]["code"] . ':' . $delete["errDB"]["message"] . ', Comuniquese con el area de sistemas.'
+            );
+        }
+
+        echo json_encode($data);
+    }
+
         public function ObtenerReservaItem()
     {
         $data = $this->MReserva->ObtenerReservaItem();
         echo json_encode($data);
     }
+
+    public function RecuperarDatosCierre(){
+       $data = $this->MReserva->RecuperarDatosCierre();
+        echo json_encode($data);
+    }
+    public function RecuperarIndicadores(){
+        $data = $this->MReserva->RecuperarIndicadores();
+        echo json_encode($data);
+    }
+
+     public function RecuperarDatosAnulacion(){
+       $data = $this->MReserva->RecuperarDatosAnulacion();
+        echo json_encode($data);
+    }
+
+
 
       public function ListarUsuarioOpe(){
          echo '<option value="0"> --- SELECCIONE --- </option>';
@@ -373,7 +492,12 @@ class Reserva extends CI_Controller
             }
     }
 
-
-
+    public function ListarLocalesDisponibles(){
+         echo '<option value="0"> --- SELECCIONE --- </option>';
+      		 $rspta = $this->MReserva->ListarLocalesDisponibles();
+            foreach ($rspta->result() as $reg) {
+             	echo '<option   value=' . $reg->idLocal . '>' . $reg->NombreLocal . '</option>';
+            }
+    }
 
 }

@@ -38,7 +38,11 @@ class MReserva extends CI_Model
         r.condiciones,
         dis.distrito as DistritoReserva,
         e.DescripcionEstado,
+        IFNULL((SELECT l.NombreLocal FROM local l WHERE l.idLocal=r.LocalAsignado),"Sin Local Asignado") as NombreLocalAsignado,
+        r.LocalAsignado as idLocalAsignado,
+        IFNULL(r.Observaciones,"") as Observaciones,
         r.Distrito_idDistrito,
+        IFNULL(r.UsuarioAsignado,0) as idUsuarioAsignado,
         (SELECT u.usuario FROM usuario u WHERE u.idUsuario=r.UsuarioAsignado) as UsuarioAsignado,
         DATE_FORMAT(r.fechaAsignacion,"%d/%m/%Y") as fechaAsignacion,
         r.Estado_idEstado,
@@ -85,7 +89,11 @@ class MReserva extends CI_Model
         r.condiciones,
         dis.distrito as DistritoReserva,
         e.DescripcionEstado,
+        IFNULL((SELECT l.NombreLocal FROM local l WHERE l.idLocal=r.LocalAsignado),"Sin Local Asignado") as NombreLocalAsignado,
+        r.LocalAsignado as idLocalAsignado,
+        IFNULL(r.Observaciones,"") as Observaciones,
         r.Distrito_idDistrito,
+        IFNULL(r.UsuarioAsignado,0) as idUsuarioAsignado,
         (SELECT u.usuario FROM usuario u WHERE u.idUsuario=r.UsuarioAsignado) as UsuarioAsignado,
         DATE_FORMAT(r.fechaAsignacion,"%d/%m/%Y") as fechaAsignacion,
         r.Estado_idEstado,
@@ -212,7 +220,62 @@ class MReserva extends CI_Model
         return $delete_data;
 
     }
+    public function ActualizarObservaciones(){
 
+         /** Registro de Historial **/
+        $Mensaje="Se Actualizo Observaciones Msg:".$_POST["Observaciones"]." a la Reserva Cod:".$_POST["idReserva"] ;
+        $this->db->select("FU_REGISTRO_HISTORIAL(5,".$this->glob['idUsuario'].",'".$Mensaje."','".$this->glob['FechaAhora']."') AS Respuesta");
+        $func["Historial"] = $this->db->get();
+
+        $data= array(
+            'Observaciones' =>$_POST["Observaciones"],
+            'LocalAsignado'=>$_POST["idLocal"]
+        );
+        $this->db->where('idReserva', $_POST['idReserva']);
+        $delete_data["Delete"] = $this->db->update('reserva',$data);
+        $delete_data["errDB"]  = $this->db->error();
+
+        return $delete_data;
+    }
+
+
+        public function AnularProductoReserva(){
+
+         /** Registro de Historial **/
+        $Mensaje="Se Anulo la Reserva Cod:".$_POST["idReserva"] ;
+        $this->db->select("FU_REGISTRO_HISTORIAL(5,".$this->glob['idUsuario'].",'".$Mensaje."','".$this->glob['FechaAhora']."') AS Respuesta");
+        $func["Historial"] = $this->db->get();
+
+        $data= array(
+            'Estado_idEstado' =>7,
+            'DetalleAnulacion' =>$_POST["DetalleAnulacion"],
+            'fechaAnulacion' => $this->glob['FechaAhora']
+        );
+        $this->db->where('idReserva', $_POST['idReserva']);
+        $delete_data["Delete"] = $this->db->update('reserva',$data);
+        $delete_data["errDB"]  = $this->db->error();
+
+        return $delete_data;
+    }
+
+     public function CerrarProductoReserva(){
+
+         /** Registro de Historial **/
+        $Mensaje="Se Cerro la Reserva Cod:".$_POST["idReserva"] ;
+        $this->db->select("FU_REGISTRO_HISTORIAL(5,".$this->glob['idUsuario'].",'".$Mensaje."','".$this->glob['FechaAhora']."') AS Respuesta");
+        $func["Historial"] = $this->db->get();
+
+        $data= array(
+            'Estado_idEstado' =>6,
+            'DetalleCierre' =>$_POST["DetalleCierre"],
+            'fechaCierre' => $this->glob['FechaAhora']
+        );
+        $this->db->where('idReserva', $_POST['idReserva']);
+        $delete_data["Delete"] = $this->db->update('reserva',$data);
+        $delete_data["errDB"]  = $this->db->error();
+
+        return $delete_data;
+    }
 
 
     public function ObtenerReservaItem()
@@ -222,6 +285,21 @@ class MReserva extends CI_Model
         $this->db->join('producto pro', 'pro.idProducto=ri.Producto_idProducto','inner');
         $this->db->join('medida me', 'me.idMedida=ri.Medida_idMedida','inner');
         $this->db->where('ri.idReservaItem', $_POST['idRerservaItem']);
+        $query = $this->db->get();
+        return $query->row();
+    }
+
+    public function RecuperarDatosCierre(){
+          $this->db->select("r.DetalleCierre,DATE_FORMAT(r.fechaCierre,'%d/%m/%Y') as fechaCierre");
+        $this->db->from('reserva r');
+        $this->db->where('r.idReserva', $_POST['idReserva']);
+        $query = $this->db->get();
+        return $query->row();
+    }
+    public function RecuperarDatosAnulacion(){
+          $this->db->select("r.DetalleAnulacion,DATE_FORMAT(r.fechaAnulacion,'%d/%m/%Y') as fechaAnulacion");
+        $this->db->from('reserva r');
+        $this->db->where('r.idReserva', $_POST['idReserva']);
         $query = $this->db->get();
         return $query->row();
     }
@@ -259,6 +337,19 @@ class MReserva extends CI_Model
              return $this->db->get();
         }
 
+    }
+
+    public function ListarLocalesDisponibles(){
+         $this->db->select("l.idLocal,l.NombreLocal");
+            $this->db->from('local l');
+            $this->db->where('l.Estado_idEstado',1);
+            return $this->db->get();
+    }
+
+    public function RecuperarIndicadores(){
+
+        $query = $this->db->query("CALL SP_INDICADORES_GESTION()");
+        return $query->result();
     }
 
 }
