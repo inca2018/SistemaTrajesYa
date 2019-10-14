@@ -42,6 +42,7 @@ $this->load->view('Layout/Nav');
                                         <thead class="thead-light text-center">
                                             <tr>
                                                 <th>Titulo de Medida</th>
+                                                <th>Simbolo de Medida</th>
                                                 <th>Acciones</th>
                                                 <th>Fecha de Reg.</th>
                                                 <th>Ultima Act.</th>
@@ -82,6 +83,12 @@ $this->load->view('Layout/Nav');
                         <div class="col-sm-12 col-md-12">
                             <label class="col-form-label">Titulo del Medida:</label>
                             <input type="text" class="form-control validarPanel" name="MedidaTitulo" id="MedidaTitulo" value=""  maxlength="60">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-sm-3 col-md-3">
+                            <label class="col-form-label">Medida del Medida:</label>
+                            <input type="text" class="form-control validarPanel" name="MedidaSimbolo" id="MedidaSimbolo" value=""  maxlength="3">
                         </div>
                     </div>
                     <div class="row">

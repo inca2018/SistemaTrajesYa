@@ -71,34 +71,45 @@
                         <div class="pcoded-navigatio-lavel">Menú Principal</div>
                         <ul class="pcoded-item pcoded-left-item">
                             <li class="Menu1 pcoded-hasmenu">
-                                <a href="javascript:void(0)">
+                                <a href="javascript:void(0)" id="Gestion">
                                     <span class="pcoded-micon"><i class="feather icon-check-circle"></i></span>
                                     <span class="pcoded-mtext">Gestión</span>
                                 </a>
                                 <ul class="pcoded-submenu">
                                     <li class="Option">
-                                        <a href="/Gestion/Pedido">
-                                            <span class="pcoded-mtext">Pedidos</span>
+                                        <a href="/Gestion/Reserva" id="Reserva">
+                                            <span class="pcoded-mtext">Reservas</span>
                                         </a>
                                     </li>
                                 </ul>
                             </li>
+                            <?php
+                                if($_SESSION['idPerfil']==2 || $_SESSION['idPerfil']==3){
+
+                                }else{ ?>
                             <li class="Menu1 pcoded-hasmenu">
                                 <a href="javascript:void(0)" id="Mantenimiento">
                                     <span class="pcoded-micon"><i class="feather icon-sliders"></i></span>
                                     <span class="pcoded-mtext">Mantenimientos</span>
                                 </a>
                                 <ul class="pcoded-submenu">
-                                    <li class="Option">
-                                        <a href="/Mantenimiento/Usuario" id="Usuario">
-                                            <span class="pcoded-mtext">Usuarios</span>
-                                        </a>
-                                    </li>
+
+                                     <?php
+                                        if($_SESSION['idPerfil']==1){
+
+                                        }else{ ?>
                                     <li class="Option">
                                         <a href="/Mantenimiento/Perfil" id="Perfil">
                                             <span class="pcoded-mtext">Perfiles</span>
                                         </a>
                                     </li>
+                                     <li class="Option">
+                                        <a href="/Mantenimiento/Usuario" id="Usuario">
+                                            <span class="pcoded-mtext">Usuarios</span>
+                                        </a>
+                                    </li>
+
+                                    <?php  };?>
                                     <li class="Option">
                                         <a href="/Mantenimiento/Medida" id="Medida">
                                             <span class="pcoded-mtext">Medidas</span>
@@ -139,8 +150,15 @@
                                             <span class="pcoded-mtext">Precio de Delivery</span>
                                         </a>
                                     </li>
+                                    <li class="Option">
+                                        <a href="/Mantenimiento/TipoTarjeta" id="TipoTarjeta">
+                                            <span class="pcoded-mtext">Tipo de Tarjeta</span>
+                                        </a>
+                                    </li>
+
                                 </ul>
                             </li>
+                             <?php  };?>
                         </ul>
                     </div>
                 </nav>

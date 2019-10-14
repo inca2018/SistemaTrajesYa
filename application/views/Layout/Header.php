@@ -65,6 +65,7 @@
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>\files\assets\css\jquery.mCustomScrollbar.css">
       <!-- Base.css -->
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>\assets\css\base.css">
+
     
 
     <!-- jquery file upload Frame work -->
