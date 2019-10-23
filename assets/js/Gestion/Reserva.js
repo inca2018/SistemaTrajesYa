@@ -5,6 +5,7 @@ var selectCategoria = $("#ReservaDetalleCategoria");
 var selectSubCategoria = $("#ReservaDetalleSubCategoria");
 var selectProducto = $("#ReservaDetalleProducto");
 var selectMedida = $("#ReservaDetalleMedida");
+var selectGenero = $("#ReservaDetalleGenero");
 var campoCantidad = $("#ReservaDetalleCantidad");
 var selectUsuarios = $("#AsignacionUsuarios");
 
@@ -151,6 +152,15 @@ function ListarProductosSelect(idSubCategoria) {
             selectMedida.append("<option>-- SELECCIONE ---</option>");
         }
         ListarMedidasSelect(idProducto);
+    });
+}
+
+function ListarGenerosSelect(idProducto) {
+    $.post("/Mantenimiento/Producto/ListarGenerosSelect", {
+        idProducto: idProducto
+    }, function (ts) {
+        selectGenero.empty();
+        selectGenero.append(ts);
     });
 }
 
@@ -654,7 +664,17 @@ function RecuperarInformacionItem(idRerservaItem) {
                         selectMedida.empty();
                         selectMedida.append(ts);
                         selectMedida.val(data.idMedida);
-                        campoCantidad.val(data.Cantidad);
+
+                         $.post("/Mantenimiento/Producto/ListarGenerosSelect", {
+                            idProducto: data.idProducto
+                            }, function (ts) {
+                                selectGenero.empty();
+                                selectGenero.append(ts);
+                                selectGenero.val(data.Genero_idGenero);
+
+                                campoCantidad.val(data.Cantidad);
+                            });
+
                     });
                 });
             });

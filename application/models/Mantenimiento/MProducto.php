@@ -215,6 +215,17 @@ class MProducto extends CI_Model
           $this->db->where('SubCategoria_idSubCategoria', $_POST['idSubCategoria']);
           return $this->db->get();
     }
+
+       public function ListarGenerosSelect()
+    {
+
+          $query=$this->db->select("mg.idGenero,ge.NombreGenero");
+          $this->db->from('producto_genero pg');
+          $this->db->join('genero ge', 'ge.idGenero=pg.Genero_idGenero','inner');
+          $this->db->where('pg.Producto_idProducto', $_POST['idProducto']);
+          return $this->db->get();
+    }
+
        public function ListarMedidasSelect()
     {
 

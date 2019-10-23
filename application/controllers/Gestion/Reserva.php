@@ -250,7 +250,8 @@ class Reserva extends CI_Controller
                 "6" => $this->CalcularBaseDetalleReserva($reg,$_POST["TipoReserva"]),
                 "7" => $this->CalcularTotalDetalleReserva($reg,$_POST["TipoReserva"]),
                 "8" => $reg->NombreMedida,
-                "9" => $reg->DetalleProducto
+                "9" => $reg->NombreGenero,
+                "10" => $reg->DetalleProducto
             );
         }
 
@@ -280,6 +281,11 @@ class Reserva extends CI_Controller
       return $post_string == '0' ? FALSE : TRUE;
     }
 
+    function check_default5($post_string)
+    {
+      return $post_string == '0' ? FALSE : TRUE;
+    }
+
      public function InsertUpdateProductoReserva()
     {
 
@@ -298,6 +304,9 @@ class Reserva extends CI_Controller
         $this->form_validation->set_message('check_default3', 'El campo Producto  es Obligatorio');
         $this->form_validation->set_rules('ReservaDetalleMedida', 'SubCategoria del Producto', 'required|callback_check_default4');
         $this->form_validation->set_message('check_default4', 'El campo Medida del Producto es Obligatorio');
+
+        $this->form_validation->set_rules('ReservaDetalleGenero', 'Genero del Producto', 'required|callback_check_default4');
+        $this->form_validation->set_message('check_default5', 'El campo Genero del Producto es Obligatorio');
 
         if ($this->form_validation->run() == true) {
             /* Registras Producto */

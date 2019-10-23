@@ -129,12 +129,13 @@ class MReserva extends CI_Model
         pro.NombreProducto,
         IFNULL((SELECT ta.precioAlquiler FROM tarifa ta WHERE ta.Producto_idProducto=pro.idProducto),0.00)as PrecioAlquiler,
         IFNULL((SELECT ta.precioVenta FROM tarifa ta WHERE ta.Producto_idProducto=pro.idProducto),0.00)as Precioventa,
-        IFNULL((SELECT pp.Descuento FROM producto_promocion pp WHERE pp.Producto_idProducto=pro.idProducto),0.00) as PrecioDescuento,me.NombreMedida,
+        IFNULL((SELECT pp.Descuento FROM producto_promocion pp WHERE pp.Producto_idProducto=pro.idProducto),0.00) as PrecioDescuento,me.NombreMedida,ge.NombreGenero,
         (SELECt CONCAT(g.Descripcion,"<BR>",ca.NombreCategoria,"<BR>",sub.NombreSubCategoria) FROM grupo g INNER JOIN categoria ca ON ca.Grupo_idGrupo=g.idGrupo INNER JOIN subcategoria sub ON sub.Categoria_idCategoria=ca.idCategoria INNER JOIN producto prod ON prod.SubCategoria_idSubCategoria=sub.idSubCategoria WHERE prod.idProducto=pro.idProducto) as DetalleProducto ');
 
         $this->db->from('reserva_item rei');
         $this->db->join('producto pro', 'pro.idProducto=rei.Producto_idProducto','inner');
-        $this->db->join('medida me', 'me.idMedida=rei.Medida_idMedida','inner');
+        $this->db->join('genero ge', 'ge.idGenero=rei.Genero_idGenero','left');
+        $this->db->join('medida me', 'me.idMedida=rei.Medida_idMedida','left');
         $this->db->where('rei.Reserva_idReserva', $_POST['idReserva']);
         return $this->db->get();
     }
@@ -148,6 +149,7 @@ class MReserva extends CI_Model
             'Reserva_idReserva' =>$this->input->post('idReservaOculta'),
             'Producto_idProducto' =>$this->input->post('ReservaDetalleProducto'),
             'Cantidad' =>$this->input->post('ReservaDetalleCantidad'),
+            'Genero_idGenero' =>$this->input->post('ReservaDetalleGenero'),
             'Medida_idMedida' =>$this->input->post('ReservaDetalleMedida'),
             'fechaRegistro' => $this->glob['FechaAhora']
         );
@@ -169,6 +171,7 @@ class MReserva extends CI_Model
         $data= array(
             'Producto_idProducto' =>$this->input->post('ReservaDetalleProducto'),
             'Cantidad' =>$this->input->post('ReservaDetalleCantidad'),
+            'Genero_idGenero' =>$this->input->post('ReservaDetalleGenero'),
             'Medida_idMedida' =>$this->input->post('ReservaDetalleMedida'),
         );
         $this->db->where('idReservaItem', $_POST['idReservaProductoItem']);
@@ -280,7 +283,7 @@ class MReserva extends CI_Model
 
     public function ObtenerReservaItem()
     {
-        $this->db->select("pro.idProducto,pro.Categoria_idCategoria as idCategoria,pro.SubCategoria_idSubCategoria as idSubCategoria,me.idMedida,ri.Cantidad");
+        $this->db->select("pro.idProducto,pro.Categoria_idCategoria as idCategoria,pro.SubCategoria_idSubCategoria as idSubCategoria,me.idMedida,ri.Cantidad,ri.Genero_idGenero");
         $this->db->from('reserva_item ri');
         $this->db->join('producto pro', 'pro.idProducto=ri.Producto_idProducto','inner');
         $this->db->join('medida me', 'me.idMedida=ri.Medida_idMedida','inner');

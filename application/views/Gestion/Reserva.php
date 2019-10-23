@@ -326,6 +326,7 @@ $this->load->view('Layout/Nav');
                                         <th>Precio Unitario</th>
                                         <th>Precio Total</th>
                                         <th>Medida</th>
+                                        <th>Genero</th>
                                         <th>Grupo/Categoria/SubCategoria</th>
                                     </tr>
                                 </thead>
@@ -358,6 +359,12 @@ $this->load->view('Layout/Nav');
                                             <div class="col-sm-12 col-md-12">
                                                 <label class="col-form-label">Producto:</label>
                                                 <select class="form-control" id="ReservaDetalleProducto" name="ReservaDetalleProducto">
+                                                    <option value="0">--- SELECCIONE ---</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-12 col-md-12">
+                                                <label class="col-form-label">Genero:</label>
+                                                <select class="form-control" id="ReservaDetalleGenero" name="ReservaDetalleGenero">
                                                     <option value="0">--- SELECCIONE ---</option>
                                                 </select>
                                             </div>

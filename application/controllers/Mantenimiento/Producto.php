@@ -363,6 +363,13 @@ class Producto extends CI_Controller
              	echo '<option   value=' . $reg->idProducto . '>' . $reg->NombreProducto . '</option>';
             }
     }
+     public function ListarGenerosSelect(){
+         echo '<option value="0"> --- SELECCIONE --- </option>';
+      		 $rspta = $this->MProducto->ListarGenerosSelect();
+            foreach ($rspta->result() as $reg) {
+             	echo '<option   value=' . $reg->idGenero . '>' . $reg->NombreGenero . '</option>';
+            }
+    }
      public function ListarMedidasSelect(){
          echo '<option value="0"> --- SELECCIONE --- </option>';
       		 $rspta = $this->MProducto->ListarMedidasSelect();
