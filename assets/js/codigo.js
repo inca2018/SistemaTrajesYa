@@ -69,12 +69,18 @@ $.fn.datepicker.dates['es'] = {
 };
 
 function MenuNuevo() {
+
     var Arrpath = location.pathname.split('/');
     if (Arrpath.length == 3) {
         $("#"+Arrpath[1]).parent().addClass("pcoded-trigger");
         $("#"+Arrpath[1]).parent().addClass("active");
-        $("#"+Arrpath[2]).parent().addClass("pcoded-trigger");
-        $("#"+Arrpath[2]).parent().addClass("active");
+        if(Arrpath[2]=='AsignacionMedida' || Arrpath[2]=='AsignacionGenero'){
+                $("#Producto").parent().addClass("pcoded-trigger");
+                $("#Producto").parent().addClass("active");
+           }else{
+                $("#"+Arrpath[2]).parent().addClass("pcoded-trigger");
+                $("#"+Arrpath[2]).parent().addClass("active");
+           }
     }
 }
 

@@ -131,6 +131,11 @@
                                         </a>
                                     </li>
                                     <li class="Option">
+                                        <a href="/Mantenimiento/Genero" id="Genero">
+                                            <span class="pcoded-mtext">Genero</span>
+                                        </a>
+                                    </li>
+                                    <li class="Option">
                                         <a href="/Mantenimiento/Local" id="Local">
                                             <span class="pcoded-mtext">Locales(Proveedores)</span>
                                         </a>

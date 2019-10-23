@@ -108,9 +108,10 @@ class Producto extends CI_Controller
                 "8" => ' <button type="button" title="Ver Galeria de Fotos" class="btn btn-grd-inverse  btn-mini btn-round" onclick="Galeria(' . $reg->idProducto . ')">Ver Galeria de Fotos</button>',
                 "9" =>  ' <button type="button" title="Ver Tarifa Disponibles" class="btn btn-grd-primary btn-mini btn-round" onclick="Tarifa(' . $reg->idProducto . ')">Ver Tarifas Disponibles </button>',
                 "10" =>  ' <button type="button" title="Ver Medidas Disponibles" class="btn btn-grd-info btn-mini btn-round" onclick="AsignacionMedida(' . $reg->idProducto . ')">Ver Medidas Disponibles</button>',
-                "11" => $reg->fechaRegistro,
-                "12" => $reg->fechaUpdate,
-                "13" => $this->BuscarEstado($reg)
+                 "11" =>  ' <button type="button" title="Ver Generos Disponibles" class="btn btn-grd-info btn-mini btn-round" onclick="AsignacionGenero(' . $reg->idProducto . ')">Ver Generos Disponibles</button>',
+                "12" => $reg->fechaRegistro,
+                "13" => $reg->fechaUpdate,
+                "14" => $this->BuscarEstado($reg)
             );
         }
 

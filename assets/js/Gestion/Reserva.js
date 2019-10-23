@@ -23,19 +23,19 @@ function init() {
     RecuperarIndicadores();
 }
 
-function RecuperarIndicadores(){
-     $.post("/Gestion/Reserva/RecuperarIndicadores", function (data, status) {
+function RecuperarIndicadores() {
+    $.post("/Gestion/Reserva/RecuperarIndicadores", function (data, status) {
         data = JSON.parse(data);
         console.log(data);
-         $("#Indicador1").empty();
-         $("#Indicador2").empty();
-         $("#Indicador3").empty();
-         $("#Indicador4").empty();
+        $("#Indicador1").empty();
+        $("#Indicador2").empty();
+        $("#Indicador3").empty();
+        $("#Indicador4").empty();
 
-         $("#Indicador1").html(data[0].totalUsuariosRegistrados);
-         $("#Indicador2").html("S/ "+Formato_Moneda(data[0].totalMontoAlquilerReservas,2));
-         $("#Indicador3").html(data[0].totalNumReservasNuevas);
-         $("#Indicador4").html(data[0].totalNumReservasCerradas);
+        $("#Indicador1").html(data[0].totalUsuariosRegistrados);
+        $("#Indicador2").html("S/ " + Formato_Moneda(data[0].totalMontoAlquilerReservas, 2));
+        $("#Indicador3").html(data[0].totalNumReservasNuevas);
+        $("#Indicador4").html(data[0].totalNumReservasCerradas);
 
     });
 }
@@ -226,12 +226,12 @@ function GuardarObservaciones() {
     var idReserva = $("#idReservaBase").val();
     var Obs = Observaciones.val();
     if (idLocal == 0) {
-            mensaje_warning("Debe Seleccionar Local de Atención para continuar.");
+        mensaje_warning("Debe Seleccionar Local de Atención para continuar.");
     } else {
         $.post("/Gestion/Reserva/ActualizarObservaciones", {
             'idReserva': idReserva,
             'Observaciones': Obs,
-            'idLocal':idLocal
+            'idLocal': idLocal
         }, function (data, e) {
             data = JSON.parse(data);
             if (data.Error) {

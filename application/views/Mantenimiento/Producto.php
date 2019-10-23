@@ -53,6 +53,7 @@ $this->load->view('Layout/Nav');
                                                 <th>Galeria</th>
                                                 <th>Tarifa</th>
                                                 <th>Medidas</th>
+                                                <th>Generos</th>
                                                 <th>Fecha de Reg.</th>
                                                 <th>Ultima Act.</th>
                                                 <th>Estado</th>

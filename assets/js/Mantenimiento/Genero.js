@@ -1,22 +1,22 @@
-var tablaMedida;
+var tablaGenero;
 
 function init() {
     Iniciar_Componentes();
-    Listar_Medida();
+    Listar_Genero();
 
 }
 
 function Iniciar_Componentes() {
-    $("#FormularioMedida").on("submit", function (e) {
-        RegistroMedida(e);
+    $("#FormularioGenero").on("submit", function (e) {
+        RegistroGenero(e);
     });
 }
-function RegistroMedida(event) {
+function RegistroGenero(event) {
     event.preventDefault();
-    var formData = new FormData($("#FormularioMedida")[0]);
+    var formData = new FormData($("#FormularioGenero")[0]);
     console.log(formData);
     $.ajax({
-        url: "/Mantenimiento/Medida/InsertUpdateMedida",
+        url: "/Mantenimiento/Genero/InsertUpdateGenero",
         type: "POST",
         data: formData,
         contentType: false,
@@ -29,10 +29,10 @@ function RegistroMedida(event) {
             if (Error) {
                 mensaje_warning(Mensaje);
             } else {
-                $('#ModalMedida').modal('hide');
+                $('#ModalGenero').modal('hide');
                 mensaje_success(Mensaje)
-                LimpiarMedida();
-                tablaMedida.ajax.reload();
+                LimpiarGenero();
+                tablaGenero.ajax.reload();
             }
         },
         error: function (e) {
@@ -41,8 +41,8 @@ function RegistroMedida(event) {
         complete: function () {}
     });
 }
-function Listar_Medida() {
-    tablaMedida = $('#tablaMedida').dataTable({
+function Listar_Genero() {
+    tablaGenero = $('#tablaGenero').dataTable({
         "aProcessing": true,
         "aServerSide": true,
         "processing": true,
@@ -70,7 +70,7 @@ function Listar_Medida() {
             }
          , ],
         "ajax": { //Solicitud Ajax Servidor
-            url: '/Mantenimiento/Medida/ListarMedida',
+            url: '/Mantenimiento/Genero/ListarGenero',
             type: "POST",
             dataType: "JSON",
             error: function (e) {
@@ -80,8 +80,8 @@ function Listar_Medida() {
         oLanguage: español,
     }).DataTable();
     //Aplicar ordenamiento y autonumeracion , index
-    /*tablaMedida.on('order.dt search.dt', function () {
-        tablaMedida.column(0, {
+    /*tablaGenero.on('order.dt search.dt', function () {
+        tablaGenero.column(0, {
             search: 'applied',
             order: 'applied'
         }).nodes().each(function (cell, i) {
@@ -89,116 +89,116 @@ function Listar_Medida() {
         });
     }).draw();*/
 }
-function NuevoMedida() {
-    $("#ModalMedida").modal({
+function NuevoGenero() {
+    $("#ModalGenero").modal({
         backdrop: 'static',
         keyboard: false
     });
-    $("#ModalMedida").modal("show");
-    $("#tituloModalMedida").empty();
-    $("#tituloModalMedida").append("Registro de Medida");
+    $("#ModalGenero").modal("show");
+    $("#tituloModalGenero").empty();
+    $("#tituloModalGenero").append("Registro de Genero");
 
 }
-function EditarMedida(idMedida) {
-    $("#ModalMedida").modal({
+function EditarGenero(idGenero) {
+    $("#ModalGenero").modal({
         backdrop: 'static',
         keyboard: false
     });
-    $("#ModalMedida").modal("show");
-    $("#tituloModalMedida").empty();
-    $("#tituloModalMedida").append("Edición de Medida");
+    $("#ModalGenero").modal("show");
+    $("#tituloModalGenero").empty();
+    $("#tituloModalGenero").append("Edición de Genero");
 
-    RecuperarMedida(idMedida);
+    RecuperarGenero(idGenero);
 }
-function RecuperarMedida(idMedida) {
+function RecuperarGenero(idGenero) {
     //solicitud de recuperar Proveedor
-    $.post("/Mantenimiento/Medida/ObtenerMedida", {
-        "idMedida": idMedida
+    $.post("/Mantenimiento/Genero/ObtenerGenero", {
+        "idGenero": idGenero
     }, function (data, status) {
         data = JSON.parse(data);
         console.log(data);
-        $("#MedidaidMedida").val(data.idMedida);
-        $("#MedidaTitulo").val(data.NombreMedida);
-        $("#MedidaSimbolo").val(data.simbolo);
+        $("#GeneroidGenero").val(data.idGenero);
+        $("#GeneroTitulo").val(data.NombreGenero);
+        $("#GeneroSimbolo").val(data.simbolo);
 
     });
 }
-function EliminarMedida(idMedida, Medida) {
+function EliminarGenero(idGenero, Genero) {
     swal({
-        title: "Eliminar Medida?",
-        text: "Esta seguro de eliminar al Medida: " + Medida,
+        title: "Eliminar Genero?",
+        text: "Esta seguro de eliminar al Genero: " + Genero,
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#DD6B55",
         confirmButtonText: "Eliminar!",
         closeOnConfirm: false
     }, function () {
-        $.post("/Mantenimiento/Medida/EliminarMedida", {
-            'idMedida': idMedida
+        $.post("/Mantenimiento/Genero/EliminarGenero", {
+            'idGenero': idGenero
         }, function (data, e) {
             data = JSON.parse(data);
             if (data.Error) {
                 swal("Error", data.Mensaje, "error");
             } else {
                 swal("Eliminado!", data.Mensaje, "success");
-                tablaMedida.ajax.reload();
+                tablaGenero.ajax.reload();
             }
         });
     });
 }
-function HabilitarMedida(idMedida, Medida) {
+function HabilitarGenero(idGenero, Genero) {
     swal({
-        title: "Habilitar Medida?",
-        text: "Esta seguro de habilitar al Medida: " + Medida,
+        title: "Habilitar Genero?",
+        text: "Esta seguro de habilitar al Genero: " + Genero,
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#DD6B55",
         confirmButtonText: "Habilitar!",
         closeOnConfirm: false
     }, function () {
-        $.post("/Mantenimiento/Medida/HabilitarMedida", {
-            'idMedida': idMedida
+        $.post("/Mantenimiento/Genero/HabilitarGenero", {
+            'idGenero': idGenero
         }, function (data, e) {
             data = JSON.parse(data);
             if (data.Error) {
                 swal("Error", data.Mensaje, "error");
             } else {
                 swal("Habilitado!", data.Mensaje, "success");
-                tablaMedida.ajax.reload();
+                tablaGenero.ajax.reload();
             }
         });
     });
 }
-function InabilitarMedida(idMedida, Medida) {
+function InabilitarGenero(idGenero, Genero) {
     swal({
-        title: "Inhabilitar Medida?",
-        text: "Esta seguro de inhabilitar al Medida: " + Medida,
+        title: "Inhabilitar Genero?",
+        text: "Esta seguro de inhabilitar al Genero: " + Genero,
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#DD6B55",
         confirmButtonText: "Inhabilitar!",
         closeOnConfirm: false
     }, function () {
-        $.post("/Mantenimiento/Medida/InhabilitarMedida", {
-            'idMedida': idMedida
+        $.post("/Mantenimiento/Genero/InhabilitarGenero", {
+            'idGenero': idGenero
         }, function (data, e) {
             data = JSON.parse(data);
             if (data.Error) {
                 swal("Error", data.Mensaje, "error");
             } else {
                 swal("Inhabilitado!", data.Mensaje, "success");
-                tablaMedida.ajax.reload();
+                tablaGenero.ajax.reload();
             }
         });
     });
 }
-function LimpiarMedida() {
-    $('#FormularioMedida')[0].reset();
-    $("#MedidaidMedida").val("");
+function LimpiarGenero() {
+    $('#FormularioGenero')[0].reset();
+    $("#GeneroidGenero").val("");
 }
 function Cancelar() {
-    LimpiarMedida();
-    $("#ModalMedida").modal("hide");
+    LimpiarGenero();
+    $("#ModalGenero").modal("hide");
 }
 
 init();

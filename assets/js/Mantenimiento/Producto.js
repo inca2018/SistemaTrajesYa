@@ -419,7 +419,13 @@ function Galeria(idProducto){
 }
 
 function AsignacionMedida(idProducto){
-     $.redirect('/Mantenimiento/AsignacionMedida/', {
+     $.redirect('/Mantenimiento/AsignacionMedida', {
+        'idProducto': idProducto
+    });
+}
+
+function AsignacionGenero(idProducto){
+     $.redirect('/Mantenimiento/AsignacionGenero', {
         'idProducto': idProducto
     });
 }
